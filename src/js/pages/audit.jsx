@@ -45,6 +45,8 @@ function Audit() {
   };
 
   const fetchUrls = () => {
+    setUrlFetching(true);
+
     fetch(falcon_seo_obj.api_url + "/get-audit-urls/", {
       headers: {
         "X-WP-Nonce": falcon_seo_obj.nonce,
@@ -54,7 +56,13 @@ function Audit() {
       body: JSON.stringify({ urlTopics: selectedTopics }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setUrlFetching(false);
+        setAuditUrls(data.urls);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -96,15 +104,50 @@ function Audit() {
                   </div>
                 </div>
               </div>
-              <div className="pt-8 pb-2 flex justify-center">
+              <div className="pt-8 pb-2 flex justify-center gap-4">
                 <button
                   onClick={() => fetchUrls()}
                   disabled={selectedTopics.length === 0}
-                  className="px-6 py-2.5 cursor-pointer border border-solid border-gray-700 rounded text-white text-base  no-underline font-semibold bg-gray-700 hover:text-white hover:bg-gray-800 transition-colors duration-300 after:text-white active:text-white focus-within:text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+                  className="px-8 py-2.5 cursor-pointer border-2 border-solid border-gray-700 rounded-full text-base no-underline font-semibold text-gray-700 bg-white hover:text-white hover:bg-gray-800 transition-colors duration-300 after:text-white active:text-white focus-within:text-white disabled:cursor-not-allowed disabled:bg-gray-400"
                 >
-                  Fetch URls
+                  {auditUrls.length > 0 ? "Refetch URLs" : "Fetch URLs"}
                 </button>
+                {auditUrls.length > 0 && (
+                  <button className="px-8 py-2.5 inline-flex gap-2 items-center cursor-pointer border border-solid border-gray-700 rounded-full text-white text-base no-underline font-semibold bg-gray-700 hover:text-white hover:bg-gray-800 transition-colors duration-300 after:text-white active:text-white focus-within:text-white">
+                    <img
+                      className="size-5"
+                      src={falcon_seo_obj.asset_url + "falcon-icon.svg"}
+                      alt="Falcon icon"
+                    />
+                    Run Audit
+                  </button>
+                )}
               </div>
+
+              {auditUrls.length > 0 && (
+                <div className="pt-6">
+                  <p className="m-0 mb-2">URLs to audit:</p>
+                  <div className="columns-2 gap-x-8">
+                    {auditUrls.map((url) => (
+                      <div className="border border-solid border-gray-200 rounded mb-8">
+                        <h3 className="m-0 bg-gray-200 py-2 px-4">
+                          {url.label}:
+                        </h3>
+                        <ul className="m-0">
+                          {url.links.map((link) => (
+                            <li className="px-4 py-3 m-0 border-0 border-b border-dashed border-gray-200">
+                              <a href={link.url} target="_blank">
+                                {link.url}
+                              </a>
+                              &#10138;
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </Card>

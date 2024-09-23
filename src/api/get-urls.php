@@ -17,39 +17,50 @@ function falcon_seo_audit_get_audit_urls(WP_REST_Request $request)
     $urls = [];
 
     foreach ($url_topics as $topic) {
-        if ($topic->type === 'post_type') {
-            $posts = get_posts(['post_type' => $topic->type, 'numberposts' => -1]);
-            array_push($data, $posts);
+        $links = [];
+
+        // Check if the topic is a post type
+        if ($topic['type'] === 'post_type') {
+            $query = new WP_Query([
+                'post_type' => $topic['name'],
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+            ]);
+            while ($query->have_posts()) {
+                $query->the_post();
+                array_push($links, ['id' => get_the_ID(), 'url' => get_permalink()]);
+            }
+            wp_reset_postdata();
         }
+
+        // Check if the topic is a taxonomy and fetch only term links
+        elseif ($topic['type'] === 'taxonomy') {
+            $terms = get_terms(['taxonomy' => $topic['name'], 'hide_empty' => false]);
+            foreach ($terms as $term) {
+                array_push($links, ['id' => $term->term_id, 'url' => get_term_link($term)]);
+            }
+        }
+
+        // Push the URL object to the final list
+        $url_obj = [
+            'type' => $topic['type'],
+            'label' => $topic['label'],
+            'name' => $topic['name'],
+            'links' => $links,
+        ];
+
+        array_push($urls, $url_obj);
     }
+
 
     // Your logic for processing the data
     $response_data = [
         'status' => 'success',
-        'received_data' => $urls
+        'urls' => $urls
     ];
 
     return new WP_REST_Response($response_data, 200);
 }
-
-// $urls = [];
-// // Get posts and pages
-// $query = new WP_Query(['post_type' => 'any', 'post_status' => 'publish', 'posts_per_page' => -1]);
-// while ($query->have_posts()) {
-//     $query->the_post();
-//     $urls[] = get_permalink();
-// }
-// wp_reset_postdata();
-
-// // Get category URLs
-// foreach (get_categories() as $category) {
-//     $urls[] = get_category_link($category->term_id);
-// }
-
-// // Get tag URLs
-// foreach (get_tags() as $tag) {
-//     $urls[] = get_tag_link($tag->term_id);
-// }
 
 function falcon_seo_audit_permission_callback(WP_REST_Request $request)
 {
