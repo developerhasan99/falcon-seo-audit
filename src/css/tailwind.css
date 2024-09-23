@@ -1,0 +1,4 @@
+/* src/css/tailwind.css */
+/* @tailwind base; Disabled because it is resetting wp-admin css */
+@tailwind components;
+@tailwind utilities;
