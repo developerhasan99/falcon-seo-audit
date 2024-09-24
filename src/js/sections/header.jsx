@@ -22,7 +22,7 @@ function Header() {
         <div className="flex gap-4 items-end md:flex-col-reverse">
           <div className="flex gap-4">
             <a
-              className="px-4 py-2 border-2 border-solid border-gray-700 rounded text-gray-700 no-underline hover:text-white hover:bg-gray-700 transition-colors duration-300"
+              className="px-4 py-2 border-2 border-solid border-gray-700 rounded text-gray-700 no-underline font-semibold hover:text-white hover:bg-gray-700 transition-colors duration-300"
               href="#"
             >
               Give A Feedback
