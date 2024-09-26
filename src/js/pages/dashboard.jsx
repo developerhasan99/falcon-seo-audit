@@ -74,13 +74,13 @@ function Dashboard() {
                     </thead>
 
                     <tbody>
-                      {recentAudits.map((audit) => (
+                      {recentAudits.map((audit, idx) => (
                         <tr className="border-0 border-b border-solid border-gray-200">
                           <th
                             scope="row"
                             className="px-6 py-2 font-bold text-gray-900 whitespace-nowrap"
                           >
-                            {audit.id}
+                            {idx + 1}
                           </th>
                           <td className="px-6 py-2">{audit.initiated_at}</td>
                           <td className="px-6 py-2">
