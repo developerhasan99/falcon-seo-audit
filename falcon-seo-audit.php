@@ -22,6 +22,3 @@ require_once plugin_dir_path(__FILE__) . 'src/classes/FalconSEOAudit.php';
 require_once plugin_dir_path(__FILE__) . 'src/inline-css.php';
 require_once plugin_dir_path(__FILE__) . 'src/admin-page.php';
 require_once plugin_dir_path(__FILE__) . 'src/api/routes.php';
-
-// Initialize the audit class
-new FalconSEOAudit();

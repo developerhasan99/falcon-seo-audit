@@ -16,7 +16,7 @@ class FalconSEOAudit
         $this->single_content_report_table = $wpdb->prefix . "falcon_seo_single_content_report";
 
         // Hook into the action for background tasks
-        add_action('falcon_seo_audit_background_task', [$this, 'runBackgroundTask']);
+        // add_action('falcon_seo_audit_background_task', [$this, 'runBackgroundTask']);
     }
 
     public function runBackgroundTask($new_report_id)
@@ -26,7 +26,7 @@ class FalconSEOAudit
 
         $this->wpdb->update($this->audit_report_table, ['status' => 'running'], ['id' => $this->report_id]);
 
-        $home_page_url = home_url();
+        $home_page_url = home_url('/');
         $this->auditUrl($home_page_url);
 
         $this->wpdb->update($this->audit_report_table, ['status' => 'completed'], ['id' => $this->report_id]);
@@ -41,6 +41,7 @@ class FalconSEOAudit
         $this->audited_urls[] = $url;
 
         $response = wp_remote_get($url);
+
         if (is_array($response) && !is_wp_error($response)) {
             $status_code = wp_remote_retrieve_response_code($response);
             $body = $response['body'];

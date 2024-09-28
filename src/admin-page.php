@@ -35,11 +35,14 @@ function get_running_audit_id()
     // Fetch the latest row based on the 'id' column
     $last_audit = $wpdb->get_row("SELECT id, status FROM $audit_report_table_name ORDER BY id DESC LIMIT 1");
 
-    if (isset($last_audit->id)) {
+    // if Cron job is failed the status will be remaining pending
+    if ($last_audit) {
         if ($last_audit->status === 'running') {
             return $last_audit->id;
         }
     }
+
+    return null;
 }
 
 

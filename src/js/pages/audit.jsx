@@ -32,34 +32,48 @@ function Audit() {
     }, 2000);
   };
 
+  const runAudit = async () => {
+    setInitiatingAudit(true);
+
+    try {
+      const responser = await fetch(
+        falcon_seo_obj.api_url + "/initiate-audit/",
+        {
+          headers: {
+            "X-WP-Nonce": falcon_seo_obj.nonce,
+          },
+          method: "GET",
+        }
+      );
+
+      const data = await responser.json();
+      if (data.status === "success") {
+        setInitiatingAudit(false);
+        setAuditRunning(true);
+        updateStatus();
+
+        fetch(falcon_seo_obj.api_url + "/run-audit/", {
+          headers: {
+            "X-WP-Nonce": falcon_seo_obj.nonce,
+            "content-type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({
+            audit_id: data.audit_id,
+          }),
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (falcon_seo_obj.running_audit_id) {
       setAuditRunning(true);
       updateStatus();
     }
   }, []);
-
-  const runAudit = () => {
-    setInitiatingAudit(true);
-
-    fetch(falcon_seo_obj.api_url + "/audit/", {
-      headers: {
-        "X-WP-Nonce": falcon_seo_obj.nonce,
-      },
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === "success") {
-          setInitiatingAudit(false);
-          setAuditRunning(true);
-          updateStatus();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <div className="pr-2.5">
