@@ -53,7 +53,7 @@ function Dashboard() {
                     <thead>
                       <tr className="bg-gray-200">
                         <th scope="col" className="px-6 py-3">
-                          ID
+                          S/L
                         </th>
                         <th scope="col" className="px-6 py-3">
                           Initiated at

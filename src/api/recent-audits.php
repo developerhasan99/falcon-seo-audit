@@ -4,24 +4,21 @@ function falcon_seo_audit_get_recent_audits(WP_REST_Request $request)
 {
 
     global $wpdb;
-    $table_name = $wpdb->prefix . 'falcon_seo_audit_report';
+    $audit_report_table = $wpdb->prefix . 'falcon_seo_audit_report';
+    $single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-    $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY id DESC LIMIT 10");
+    $results = $wpdb->get_results("SELECT * FROM $audit_report_table ORDER BY id DESC LIMIT 10");
 
     $reports = [];
 
     foreach ($results as $result) {
 
-        $all_urls = [];
-
-        $urls = json_decode($result->urls);
-        foreach ($urls as $url) {
-            $all_urls = array_merge($all_urls, $url->links);
-        }
+        $report_id = $result->id;
+        $urls_count = $wpdb->get_var("SELECT COUNT(*) FROM $single_content_report_table WHERE report_id = $report_id");
 
         array_push($reports, [
-            'id' => $result->id,
-            'urls_count' => count($all_urls),
+            'id' => $report_id,
+            'urls_count' => $urls_count,
             'status' => $result->status,
             'initiated_at' => $result->initiated_at
         ]);

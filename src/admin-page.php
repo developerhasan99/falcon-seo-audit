@@ -27,31 +27,21 @@ function falcon_seo_audit_add_admin_menu()
 }
 add_action('admin_menu', 'falcon_seo_audit_add_admin_menu');
 
-function falcon_seo_get_post_types()
+function get_running_audit_id()
 {
-    $post_types = [];
-    $result = get_post_types(['public' => true, 'exclude_from_search' => false], 'objects'); // Use 'objects' here
+    global $wpdb;
+    $audit_report_table_name = $wpdb->prefix . 'falcon_seo_audit_report';
 
-    foreach ($result as $post_type) {
-        if ($post_type->name !== 'attachment' && $post_type->name !== 'e-landing-page') {
-            array_push($post_types, ['name' => $post_type->name, 'label' => $post_type->label, 'type' => 'post_type']);
+    // Fetch the latest row based on the 'id' column
+    $last_audit = $wpdb->get_row("SELECT id, status FROM $audit_report_table_name ORDER BY id DESC LIMIT 1");
+
+    if (isset($last_audit->id)) {
+        if ($last_audit->status === 'running') {
+            return $last_audit->id;
         }
     }
-
-    return $post_types;
 }
 
-function falcon_seo_get_taxonomies()
-{
-    $taxonomies = [];
-    $result = get_taxonomies(['public' => true, 'show_ui' => true], 'objects'); // Use 'objects' here
-
-    foreach ($result as $taxonomy) {
-        array_push($taxonomies, ['name' => $taxonomy->name, 'label' => $taxonomy->label, 'type' => 'taxonomy']);
-    }
-
-    return $taxonomies;
-}
 
 // Enqueue the React assets for falcon-seo-audit pages
 function falcon_seo_audit_enqueue_scripts()
@@ -69,9 +59,7 @@ function falcon_seo_audit_enqueue_scripts()
         'asset_url' => PLUGIN_DIR_URL . 'assets/',
         'api_url' => rest_url('falcon-seo-audit/v1'),
         'nonce' => wp_create_nonce('wp_rest'),
-        'post_types' => falcon_seo_get_post_types(),
-        'taxonomies' => falcon_seo_get_taxonomies(),
-        'test' => get_taxonomies(['public' => true], 'object'),
+        'running_audit_id' => get_running_audit_id(),
     ));
 
     wp_enqueue_style(

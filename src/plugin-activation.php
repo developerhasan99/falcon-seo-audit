@@ -10,24 +10,27 @@ function falcon_seo_audit_activate_plugin()
     $audit_report_table = $wpdb->prefix . "falcon_seo_audit_report";
     $single_content_report_table = $wpdb->prefix . "falcon_seo_single_content_report";
 
+    // First table creation
     $sql = "CREATE TABLE IF NOT EXISTS $audit_report_table (
-		id int(20) NOT NULL AUTO_INCREMENT,
-		urls LONGTEXT NOT NULL,
+        id int(20) NOT NULL AUTO_INCREMENT,
         status ENUM('pending', 'running', 'completed', 'failed') NOT NULL DEFAULT 'pending',
         initiated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		PRIMARY KEY  (id)
-	) $charset_collate;";
+        PRIMARY KEY  (id)
+    ) $charset_collate;";
 
+    // Second table creation (fixed)
     $sql2 = "CREATE TABLE IF NOT EXISTS $single_content_report_table (
         id int(20) NOT NULL AUTO_INCREMENT,
-        report_id int(20) NOT NULL
+        report_id int(20) NOT NULL,
         url TEXT NOT NULL,
-        title TEXT NOT NULL,
-        description TEXT NOT NULL,
-        links TEXT NOT NULL,
+        status_code int(3) NOT NULL,
+        title TEXT NULL,
+        meta_description TEXT NULL,
+        internal_links LONGTEXT NOT NULL,
+        external_links LONGTEXT NOT NULL,
         PRIMARY KEY  (id),
         INDEX (report_id)
-    );";
+    ) $charset_collate;";
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);

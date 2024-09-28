@@ -16,6 +16,12 @@ define('PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 register_activation_hook(__FILE__, 'falcon_seo_audit_activate_plugin');
 require_once plugin_dir_path(__FILE__) . 'src/plugin-activation.php';
 
+// Load classes
+require_once plugin_dir_path(__FILE__) . 'src/classes/FalconSEOAudit.php';
+
 require_once plugin_dir_path(__FILE__) . 'src/inline-css.php';
 require_once plugin_dir_path(__FILE__) . 'src/admin-page.php';
 require_once plugin_dir_path(__FILE__) . 'src/api/routes.php';
+
+// Initialize the audit class
+new FalconSEOAudit();

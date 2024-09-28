@@ -1,18 +1,18 @@
 <?php
 
-require_once plugin_dir_path(__FILE__) . 'get-urls.php';
 require_once plugin_dir_path(__FILE__) . 'run-audit.php';
+require_once plugin_dir_path(__FILE__) . 'get-audit-status.php';
 require_once plugin_dir_path(__FILE__) . 'recent-audits.php';
 
 add_action('rest_api_init', function () {
-    register_rest_route('falcon-seo-audit/v1', '/get-audit-urls/', [
-        'methods' => 'POST',
-        'callback' => 'falcon_seo_audit_get_audit_urls',
+    register_rest_route('falcon-seo-audit/v1', '/audit/', [
+        'methods' => 'GET',
+        'callback' => 'falcon_seo_audit_run_audit',
         'permission_callback' => 'falcon_seo_audit_permission_callback',
     ]);
-    register_rest_route('falcon-seo-audit/v1', '/audit/', [
-        'methods' => 'POST',
-        'callback' => 'falcon_seo_audit_run_audit',
+    register_rest_route('falcon-seo-audit/v1', '/get-audit-status/', [
+        'methods' => 'GET',
+        'callback' => 'falcon_seo_audit_get_audit_status',
         'permission_callback' => 'falcon_seo_audit_permission_callback',
     ]);
     register_rest_route('falcon-seo-audit/v1', '/recent-audits/', [
