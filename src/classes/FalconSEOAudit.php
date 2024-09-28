@@ -41,9 +41,9 @@ class FalconSEOAudit
         $this->audited_urls[] = $url;
 
         $response = wp_remote_get($url);
+        $status_code = wp_remote_retrieve_response_code($response);
 
-        if (is_array($response) && !is_wp_error($response)) {
-            $status_code = wp_remote_retrieve_response_code($response);
+        if ($status_code === 200) {
             $body = $response['body'];
 
             $doc = new DOMDocument();
@@ -51,8 +51,9 @@ class FalconSEOAudit
 
             $page_info = $this->extractInformation($doc);
 
-            $links = $this->analyzeAndCrawlLinks($doc);
+            $links = $this->analyzeLinks($doc);
 
+            // Insert data to report table
             $this->wpdb->insert($this->single_content_report_table, [
                 'report_id' => $this->report_id,
                 'url' => $url,
@@ -62,10 +63,15 @@ class FalconSEOAudit
                 'internal_links' => json_encode($links['internal']),
                 'external_links' => json_encode($links['external']),
             ]);
+
+            // Crawl the links for this page
+            foreach ($links['internal'] as $internal_link) {
+                $this->auditUrl($internal_link['href']);
+            }
         }
     }
 
-    protected function analyzeAndCrawlLinks($doc)
+    protected function analyzeLinks($doc)
     {
         $internal_links = [];
         $external_links = [];
@@ -82,10 +88,6 @@ class FalconSEOAudit
                 if (!isset($parsed_url['host']) || $parsed_url['host'] === $parsed_home_url['host']) {
                     $href = isset($parsed_url['host']) ? $href : home_url() . $href;
                     $internal_links[] = ['anchor' => $anchorText, 'href' => $href];
-
-                    if (!in_array($href, $this->audited_urls)) {
-                        $this->auditUrl($href);
-                    }
                 } else {
                     $external_links[] = ['anchor' => $anchorText, 'href' => $href];
                 }

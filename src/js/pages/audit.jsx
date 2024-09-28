@@ -9,17 +9,15 @@ function Audit() {
   const [isAuditRunning, setAuditRunning] = useState(false);
   const [justCompletedURLs, setJustCompletedURLs] = useState([]);
 
-  const updateStatus = () => {
+  const updateStatus = (audit_id) => {
     const intervalId = setInterval(() => {
-      console.log("Audit running");
-      console.log(isAuditRunning);
-
       fetch(falcon_seo_obj.api_url + "/get-audit-status/", {
         headers: {
           "X-WP-Nonce": falcon_seo_obj.nonce,
           "Content-Type": "application/json",
         },
-        method: "GET",
+        method: "POST",
+        body: JSON.stringify({ audit_id }),
       })
         .then((response) => response.json())
         .then((data) => {
@@ -47,10 +45,13 @@ function Audit() {
       );
 
       const data = await responser.json();
-      if (data.status === "success") {
+
+      const audit_id = data.audit_id;
+
+      if (audit_id) {
         setInitiatingAudit(false);
         setAuditRunning(true);
-        updateStatus();
+        updateStatus(audit_id);
 
         fetch(falcon_seo_obj.api_url + "/run-audit/", {
           headers: {
@@ -59,7 +60,7 @@ function Audit() {
           },
           method: "POST",
           body: JSON.stringify({
-            audit_id: data.audit_id,
+            audit_id: audit_id,
           }),
         });
       }
@@ -69,9 +70,13 @@ function Audit() {
   };
 
   useEffect(() => {
-    if (falcon_seo_obj.running_audit_id) {
+    const audit_id = falcon_seo_obj.running_audit_id
+      ? falcon_seo_obj.running_audit_id
+      : null;
+
+    if (audit_id) {
       setAuditRunning(true);
-      updateStatus();
+      updateStatus(audit_id);
     }
   }, []);
 

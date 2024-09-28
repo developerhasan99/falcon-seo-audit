@@ -17,7 +17,7 @@ add_action('rest_api_init', function () {
         'permission_callback' => 'falcon_seo_audit_permission_callback',
     ]);
     register_rest_route('falcon-seo-audit/v1', '/get-audit-status/', [
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'falcon_seo_audit_get_audit_status',
         'permission_callback' => 'falcon_seo_audit_permission_callback',
     ]);
