@@ -24,6 +24,36 @@ function falcon_seo_audit_add_admin_menu()
         'falcon-seo-audit-run-audit',
         'falcon_seo_audit_run_audit_render_page'
     );
+
+    // Add submenu page
+    add_submenu_page(
+        'falcon-seo-audit',
+        'Link explorer',
+        'Link explorer',
+        'manage_options',
+        'falcon-seo-audit-run-audit',
+        'falcon_seo_audit_run_audit_render_page'
+    );
+
+    // Add submenu page
+    add_submenu_page(
+        'falcon-seo-audit',
+        'All issues',
+        'All issues',
+        'manage_options',
+        'falcon-seo-audit-run-audit',
+        'falcon_seo_audit_run_audit_render_page'
+    );
+
+    // Add submenu page
+    add_submenu_page(
+        'falcon-seo-audit',
+        'Settings',
+        'Settings',
+        'manage_options',
+        'falcon-seo-audit-run-audit',
+        'falcon_seo_audit_run_audit_render_page'
+    );
 }
 add_action('admin_menu', 'falcon_seo_audit_add_admin_menu');
 
