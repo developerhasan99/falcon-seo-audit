@@ -26,6 +26,11 @@ add_action('rest_api_init', function () {
         'callback' => 'falcon_seo_audit_get_recent_audits',
         'permission_callback' => 'falcon_seo_audit_permission_callback',
     ]);
+    register_rest_route('falcon-seo-audit/v1', '/get-single-audit/', [
+        'methods' => 'GET',
+        'callback' => 'falcon_seo_audit_get_single_audit',
+        'permission_callback' => 'falcon_seo_audit_permission_callback',
+    ]);
 });
 
 

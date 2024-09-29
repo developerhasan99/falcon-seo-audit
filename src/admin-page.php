@@ -61,6 +61,7 @@ function falcon_seo_audit_enqueue_scripts()
         'version' => VERSION,
         'asset_url' => PLUGIN_DIR_URL . 'assets/',
         'api_url' => rest_url('falcon-seo-audit/v1'),
+        'api_base' => rest_url('falcon-seo-audit/v1/'),
         'nonce' => wp_create_nonce('wp_rest'),
         'running_audit_id' => get_running_audit_id(),
     ));

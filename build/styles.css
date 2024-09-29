@@ -1,3 +1,6 @@
+/*!******************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/css/tailwind.css ***!
+  \******************************************************************************************************************/
 /* src/css/tailwind.css */
 /* @tailwind base; Disabled because it is resetting wp-admin css */
 .absolute {
@@ -137,6 +140,9 @@
 .gap-4 {
     gap: 1rem
 }
+.gap-6 {
+    gap: 1.5rem
+}
 .whitespace-nowrap {
     white-space: nowrap
 }
@@ -201,9 +207,17 @@
     --tw-border-opacity: 1;
     border-top-color: rgb(252 163 38 / var(--tw-border-opacity))
 }
+.bg-gray-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity))
+}
 .bg-gray-200 {
     --tw-bg-opacity: 1;
     background-color: rgb(229 231 235 / var(--tw-bg-opacity))
+}
+.bg-gray-600 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity))
 }
 .bg-gray-700 {
     --tw-bg-opacity: 1;
