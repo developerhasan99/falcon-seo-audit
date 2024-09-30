@@ -1,14 +1,8 @@
-import React from "react";
 import Card from "../../components/card";
 import FalconLoader from "../../components/falcon-loader";
 import RunFirstAudit from "../../components/run-first-audit";
 
-function RecentReports({ recentAudits, setSingleAuditId, setPage, isLoading }) {
-  const showSingleReport = (id) => {
-    setSingleAuditId(id);
-    setPage("single");
-  };
-
+function RecentReports({ isLoading, recentAudits, showAudit }) {
   return (
     <Card>
       <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold">
@@ -89,7 +83,7 @@ function RecentReports({ recentAudits, setSingleAuditId, setPage, isLoading }) {
                       <td className="px-6 py-2">5</td>
                       <td className="px-6 py-2">
                         <button
-                          onClick={() => showSingleReport(audit.id)}
+                          onClick={() => showAudit(audit.id)}
                           className="px-6 py-2 border-0 rounded-full font-semibold text-white no-underline bg-gray-600 hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
                         >
                           View

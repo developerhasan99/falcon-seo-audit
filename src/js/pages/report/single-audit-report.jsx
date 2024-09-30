@@ -1,41 +1,21 @@
-import { useEffect, useState } from "react";
-import axios from "../../utils/axios";
 import FalconLoader from "../../components/falcon-loader";
 import RadialProgress from "../../components/radial-progress";
 import { motion } from "framer-motion";
 import Card from "../../components/card";
 import BackButton from "../../components/back-button";
 
-function SingleAuditReport({ singleAuditId, clearSingleAuditId, showDetails }) {
-  const [audit, setAudit] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [lastFetchId, setLastFetchId] = useState(null);
-
-  useEffect(() => {
-    if (!lastFetchId || lastFetchId !== singleAuditId) {
-      // Fetch the single audit data
-      (async () => {
-        setIsLoading(true);
-        try {
-          const response = await axios.post("/get-single-audit/", {
-            audit_id: singleAuditId,
-          });
-
-          setAudit(response.data);
-          setLastFetchId(singleAuditId);
-        } catch (error) {
-          console.error(error);
-        }
-        setIsLoading(false);
-      })();
-    }
-  }, []);
-
+function SingleAuditReport({
+  auditId,
+  isLoading,
+  audit,
+  backToRecentReports,
+  showDetails,
+}) {
   return (
     <Card>
-      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold flex items-center gap-1">
-        <BackButton onClick={clearSingleAuditId} />
-        <span>Viewing audit report for: #{singleAuditId}</span>
+      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold flex items-center gap-2">
+        <BackButton onClick={backToRecentReports} />
+        <span>Viewing audit report for: #{auditId}</span>
       </h2>
       <motion.div
         initial={{ opacity: 0 }}
@@ -160,7 +140,7 @@ function SingleAuditReport({ singleAuditId, clearSingleAuditId, showDetails }) {
                       <td className="px-4 py-2  border border-solid border-gray-200"></td>
                       <td className="px-4 py-2  border border-solid border-gray-200">
                         <button
-                          onClick={() => showDetails(item.id)}
+                          onClick={() => showDetails(item.id, item.url)}
                           className="px-6 py-2 border-0 rounded-full font-semibold text-white no-underline bg-gray-600 hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
                         >
                           View

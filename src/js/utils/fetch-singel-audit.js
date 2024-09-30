@@ -1,15 +1,18 @@
 import axios from "./axios.js";
 
-const fetchSingleAudit = async (setLoading, setRecentAudits) => {
-  try {
-    const response = await axios.get("/recent-audits");
+const fetchSingleAudit = async (setLoading, auditId, setAudit) => {
+  if (auditId) {
+    setLoading(true);
+    try {
+      const response = await axios.post("/get-single-audit/", {
+        audit_id: auditId,
+      });
 
-    if (response.data.status === "success") {
-      setRecentAudits(response.data.reports);
-      setLoading(false);
+      setAudit(response.data);
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.log(error);
+    setLoading(false);
   }
 };
 
