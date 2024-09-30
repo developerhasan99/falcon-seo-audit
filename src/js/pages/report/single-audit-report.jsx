@@ -83,71 +83,73 @@ function SingleAuditReport({
                 </thead>
 
                 <tbody>
-                  {audit.map((item, idx) => (
-                    <tr
-                      key={item.id}
-                      className="border-0 border-b border-solid border-gray-200"
-                    >
-                      <th
-                        scope="row"
-                        className="px-4 py-2 font-bold text-gray-900 whitespace-nowrap"
-                      >
-                        {idx + 1}
-                      </th>
-                      <td className="px-4 py-2 border border-solid border-gray-200">
-                        <RadialProgress progress={89} />
-                      </td>
-                      <td className="px-4 py-2  border border-solid border-gray-200">
-                        <p className="text-base">{item.title}</p>
-                        <a
-                          href={item.url}
-                          target="_blank"
-                          className="text-blue-700"
-                        >
-                          {item.url}
-                        </a>
-                        &#10138;
-                      </td>
-                      <td className="px-4 py-2  border border-solid border-gray-200">
-                        {item.status_code}
-                      </td>
-                      <td className="px-4 py-2  border border-solid border-gray-200">
-                        Yes
-                      </td>
-                      <td className="px-4 py-2  border border-solid border-gray-200">
-                        <button className="border-0 bg-transparent text-blue-600 cursor-pointer inline-flex gap-1 items-center">
-                          {
-                            item.internal_links.concat(item.external_links)
-                              .length
-                          }
+                  {audit.map((item, idx) => {
+                    const internalLinks = JSON.parse(item.internal_links);
+                    const externalLinks = JSON.parse(item.external_links);
 
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="m21 21-4.3-4.3" />
-                          </svg>
-                        </button>
-                      </td>
-                      <td className="px-4 py-2  border border-solid border-gray-200"></td>
-                      <td className="px-4 py-2  border border-solid border-gray-200">
-                        <button
-                          onClick={() => showDetails(item.id, item.url)}
-                          className="px-6 py-2 border-0 rounded-full font-semibold text-white no-underline bg-gray-600 hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
+                    return (
+                      <tr
+                        key={item.id}
+                        className="border-0 border-b border-solid border-gray-200"
+                      >
+                        <th
+                          scope="row"
+                          className="px-4 py-2 font-bold text-gray-900 whitespace-nowrap"
                         >
-                          View
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                          {idx + 1}
+                        </th>
+                        <td className="px-4 py-2 border border-solid border-gray-200">
+                          <RadialProgress progress={89} />
+                        </td>
+                        <td className="px-4 py-2  border border-solid border-gray-200">
+                          <p className="text-base">{item.title}</p>
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            className="text-blue-700"
+                          >
+                            {item.url}
+                          </a>
+                          &#10138;
+                        </td>
+                        <td className="px-4 py-2  border border-solid border-gray-200">
+                          {item.status_code}
+                        </td>
+                        <td className="px-4 py-2  border border-solid border-gray-200">
+                          Yes
+                        </td>
+                        <td className="px-4 py-2  border border-solid border-gray-200">
+                          <button className="border-0 bg-transparent text-blue-600 cursor-pointer inline-flex gap-1 items-center">
+                            {externalLinks.length + internalLinks.length}
+
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <circle cx="11" cy="11" r="8" />
+                              <path d="m21 21-4.3-4.3" />
+                            </svg>
+                          </button>
+                        </td>
+                        <td className="px-4 py-2  border border-solid border-gray-200"></td>
+                        <td className="px-4 py-2  border border-solid border-gray-200">
+                          <button
+                            onClick={() => showDetails(item.id, item.url)}
+                            className="px-6 py-2 border-0 rounded-full font-semibold text-white no-underline bg-gray-600 hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             ) : (

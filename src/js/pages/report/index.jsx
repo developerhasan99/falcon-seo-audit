@@ -24,6 +24,8 @@ function Report() {
   const [link, setLink] = useState("");
   const [details, setDetails] = useState([]);
 
+  const [pageLinks, setPageLinks] = useState([]);
+
   const showAudit = (id) => {
     setAuditId(id);
     setPage("single");
@@ -87,6 +89,9 @@ function Report() {
           />
         )}
       </div>
+      {false && (
+        <div className="modal flex w-[calc(100%-160px)] h-[calc(100vh-32px)] overflow-x-hidden overflow-y-auto select-auto flex-col items-center fixed z-10 top-8 left-40 py-[30px] px-0 bg-[rgba(51,51,51,0.95)]"></div>
+      )}
     </div>
   );
 }
