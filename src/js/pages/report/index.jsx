@@ -27,6 +27,8 @@ function Report() {
   const showAudit = (id) => {
     setAuditId(id);
     setPage("single");
+
+    console.log(id);
   };
 
   const backToRecentReports = () => {
@@ -53,7 +55,7 @@ function Report() {
   }, [auditId]);
 
   useEffect(() => {
-    fetchLinkDetails(setLoading, auditId, singleLinkId, setDetails);
+    fetchLinkDetails(setLoading, singleLinkId, setDetails);
   }, [singleLinkId]);
 
   return (

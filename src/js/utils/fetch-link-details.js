@@ -1,16 +1,10 @@
 import axios from "./axios.js";
 
-const fetchLinkDetails = async (
-  setLoading,
-  auditId,
-  singleLinkId,
-  setDetails
-) => {
-  if (auditId) {
+const fetchLinkDetails = async (setLoading, singleLinkId, setDetails) => {
+  if (singleLinkId) {
     setLoading(true);
     try {
       const response = await axios.post("/get-single-details/", {
-        audit_id: auditId,
         link_id: singleLinkId,
       });
 

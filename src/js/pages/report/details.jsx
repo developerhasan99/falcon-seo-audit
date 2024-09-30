@@ -1,5 +1,6 @@
 import Card from "../../components/card";
 import BackButton from "../../components/back-button";
+import FalconLoader from "../../components/falcon-loader";
 
 function Details({ isLoading, link, details, backToSingleAudit }) {
   return (
@@ -8,6 +9,11 @@ function Details({ isLoading, link, details, backToSingleAudit }) {
         <BackButton onClick={backToSingleAudit} />
         <span>Audit Result for: {link}</span>
       </h2>
+      {isLoading ? (
+        <FalconLoader loadingText="Loading audit details..." />
+      ) : (
+        <div>{details.title}</div>
+      )}
     </Card>
   );
 }

@@ -13,7 +13,7 @@ function falcon_seo_audit_get_single_audit(WP_REST_Request $request)
 
         $audit_id = $data['audit_id'];
 
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $single_content_report_table WHERE $audit_id = %s", $audit_id));
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $single_content_report_table WHERE report_id = %s", $audit_id));
 
         return new WP_REST_Response($results, 200);
     }
