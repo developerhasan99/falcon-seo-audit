@@ -10,50 +10,61 @@ function falcon_seo_audit_add_admin_menu()
         'Falcon SEO Audit',
         'manage_options',
         'falcon-seo-audit',
-        'falcon_seo_audit_render_admin_page',
+        'fsa_render_page_cb',
         $icon_url,
         36
     );
 
-    // Add submenu page
     add_submenu_page(
         'falcon-seo-audit',
-        'Run Falcon Audit',
-        'Run Falcon Audit',
+        'Run Audit',
+        'Run Audit',
         'manage_options',
-        'falcon-seo-audit-run-audit',
-        'falcon_seo_audit_run_audit_render_page'
+        'run-audit',
+        'fsa_render_run_audit_page'
     );
 
-    // Add submenu page
     add_submenu_page(
         'falcon-seo-audit',
-        'Link explorer',
-        'Link explorer',
+        'Audit Report',
+        'Audit Report',
         'manage_options',
-        'falcon-seo-audit-run-audit',
-        'falcon_seo_audit_run_audit_render_page'
+        'audit-report',
+        'fsa_render_audit_report_page'
     );
 
-    // Add submenu page
-    add_submenu_page(
-        'falcon-seo-audit',
-        'All issues',
-        'All issues',
-        'manage_options',
-        'falcon-seo-audit-run-audit',
-        'falcon_seo_audit_run_audit_render_page'
-    );
+    remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
 
-    // Add submenu page
-    add_submenu_page(
-        'falcon-seo-audit',
-        'Settings',
-        'Settings',
-        'manage_options',
-        'falcon-seo-audit-run-audit',
-        'falcon_seo_audit_run_audit_render_page'
-    );
+
+    // // Add submenu page
+    // add_submenu_page(
+    //     'falcon-seo-audit',
+    //     'Link explorer',
+    //     'Link explorer',
+    //     'manage_options',
+    //     'falcon-seo-audit-run-audit',
+    //     'falcon_seo_audit_run_audit_render_page'
+    // );
+
+    // // Add submenu page
+    // add_submenu_page(
+    //     'falcon-seo-audit',
+    //     'All issues',
+    //     'All issues',
+    //     'manage_options',
+    //     'falcon-seo-audit-run-audit',
+    //     'falcon_seo_audit_run_audit_render_page'
+    // );
+
+    // // Add submenu page
+    // add_submenu_page(
+    //     'falcon-seo-audit',
+    //     'Settings',
+    //     'Settings',
+    //     'manage_options',
+    //     'falcon-seo-audit-run-audit',
+    //     'falcon_seo_audit_run_audit_render_page'
+    // );
 }
 add_action('admin_menu', 'falcon_seo_audit_add_admin_menu');
 
@@ -105,16 +116,23 @@ function falcon_seo_audit_enqueue_scripts()
 }
 
 
-// Render the admin page
-function falcon_seo_audit_render_admin_page()
+// Render admin pages
+function fsa_render_run_audit_page()
 {
     falcon_seo_audit_enqueue_scripts();
-    echo '<div id="falcon-seo-audit-admin"></div>';
+    echo '<div id="fsa-run-audit-page" class="falcon-seo-audit"></div>';
 }
 
-// Render the Run Falcon Audit submenu page 
-function falcon_seo_audit_run_audit_render_page()
+// // Render the admin page
+function fsa_render_audit_report_page()
 {
     falcon_seo_audit_enqueue_scripts();
-    echo '<div id="falcon-seo-audit-run-audit"></div>';
+    echo '<div id="fsa-audit-report-page" class="falcon-seo-audit"></div>';
 }
+
+// // Render the Run Falcon Audit submenu page 
+// function falcon_seo_audit_run_audit_render_page()
+// {
+//     falcon_seo_audit_enqueue_scripts();
+//     echo '<div id="falcon-seo-audit-run-audit" class="falcon-seo-audit"></div>';
+// }

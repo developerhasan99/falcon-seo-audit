@@ -1,6 +1,6 @@
 function Header() {
   return (
-    <div className="bg-white p-6 rounded">
+    <div className="bg-white p-6 rounded border border-solid border-gray-200">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="flex items-center gap-4">
           <div className="flex-shrink-0 p-2 bg-gray-700 rounded-xl flex items-center justify-center">
@@ -11,11 +11,11 @@ function Header() {
             />
           </div>
           <div>
-            <h2 className="m-0 mb-2 text-2xl">Falcon Seo Audit</h2>
-            <p className="text-sm m-0 text-gray-600">
-              Falcon SEO Audit provides an advanced SEO audit from the user's
-              perspective, helping you improve your website&apos;s performance
-              and search engine visibility.
+            <h2 className="font-bold mb-2 text-2xl">Falcon Seo Audit</h2>
+            <p className="text-gray-600 text-base">
+              A user-focused SEO audit designed to enhance search engine
+              visibility, drive more traffic, and ultimately increase your
+              revenue.
             </p>
           </div>
         </div>

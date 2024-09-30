@@ -1,8 +1,7 @@
-/* src/css/tailwind.css */
-/* @tailwind base; Disabled because it is resetting wp-admin css */
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap");
 
-p {
-  font-size: 16px;
+.falcon-seo-audit {
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 }
