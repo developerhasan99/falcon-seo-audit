@@ -51,7 +51,9 @@ class FalconSEOAudit
 
             $page_info = $this->extractInformation($doc);
 
-            $links = $this->analyzeLinks($doc);
+            error_log(print_r($page_info, true));
+
+            $links = $this->extractPageLinks($doc);
 
             // Insert data to report table
             $this->wpdb->insert($this->single_content_report_table, [
@@ -71,7 +73,7 @@ class FalconSEOAudit
         }
     }
 
-    protected function analyzeLinks($doc)
+    protected function extractPageLinks($doc)
     {
         $internal_links = [];
         $external_links = [];
@@ -101,17 +103,75 @@ class FalconSEOAudit
     {
         $title = $doc->getElementsByTagName('title')->item(0)->nodeValue;
         $description = "";
+        $keywords = "";
+        $contentType = "";
+        $robots = "";
+        $lang = "";
+        $canonicalUrl = "";
+        $openGraph = [];
+        $twitterData = [];
+        $jsonLd = [];
+
+        // Get meta tags
         $metas = $doc->getElementsByTagName('meta');
 
         foreach ($metas as $meta) {
+            // Meta description and keywords
             if ($meta->getAttribute('name') == 'description') {
                 $description = $meta->getAttribute('content');
             }
+            if ($meta->getAttribute('name') == 'keywords') {
+                $keywords = $meta->getAttribute('content');
+            }
+            // Content type
+            if ($meta->getAttribute('http-equiv') == 'Content-Type') {
+                $contentType = $meta->getAttribute('content');
+            }
+            // Robots tag
+            if ($meta->getAttribute('name') == 'robots') {
+                $robots = $meta->getAttribute('content');
+            }
+            // Open Graph data
+            if (strpos($meta->getAttribute('property'), 'og:') === 0) {
+                $openGraph[$meta->getAttribute('property')] = $meta->getAttribute('content');
+            }
+            // Twitter data
+            if (strpos($meta->getAttribute('name'), 'twitter:') === 0) {
+                $twitterData[$meta->getAttribute('name')] = $meta->getAttribute('content');
+            }
         }
 
+        // Get canonical URL
+        $links = $doc->getElementsByTagName('link');
+        foreach ($links as $link) {
+            if ($link->getAttribute('rel') == 'canonical') {
+                $canonicalUrl = $link->getAttribute('href');
+            }
+        }
+
+        // Get HTML lang attribute
+        $lang = $doc->documentElement->getAttribute('lang');
+
+        // Get JSON-LD structured data
+        $scriptTags = $doc->getElementsByTagName('script');
+        foreach ($scriptTags as $script) {
+            if ($script->getAttribute('type') == 'application/ld+json') {
+                $jsonLd[] = json_decode($script->nodeValue, true);
+            }
+        }
+
+        // Return all metadata
         return [
             'title' => $title,
             'meta_description' => $description,
+            'keywords' => $keywords,
+            'content_type' => $contentType,
+            'robots' => $robots,
+            'lang' => $lang,
+            'canonical_url' => $canonicalUrl,
+            'open_graph' => $openGraph,
+            'twitter_data' => $twitterData,
+            'json_ld' => $jsonLd,
         ];
     }
 

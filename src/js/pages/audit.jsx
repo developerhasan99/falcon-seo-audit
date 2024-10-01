@@ -85,7 +85,7 @@ function Audit() {
       <div className="pt-8 max-w-screen-xl mx-auto">
         <Header />
         <Card>
-          <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold">
+          <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-base font-bold">
             Run Falcon SEO audit
           </h2>
           {isAuditRunning ? (
