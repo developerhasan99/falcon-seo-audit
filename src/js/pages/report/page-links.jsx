@@ -11,7 +11,7 @@ function PageLinks({ link, pageLinks, closeLinksModal }) {
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="bg-white flex flex-col border-l border-solid border-gray-200 padding p-6 fixed top-8 h-[calc(100vh-32px)] right-0 w-full max-w-screen-md z-20"
     >
-      <h2 className="mb-4 text-lg font-bold flex items-center gap-2">
+      <h2 className="mb-4 text-base font-bold flex items-center gap-2">
         <BackButton onClick={closeLinksModal} />
         <span>Links presents in: {link}</span>
       </h2>
@@ -21,7 +21,7 @@ function PageLinks({ link, pageLinks, closeLinksModal }) {
           <tbody>
             {pageLinks.map((link, index) => (
               <tr key={index}>
-                <td className="px-4 py-3 border border-solid border-t-0 border-gray-300">
+                <td className="px-4 py-3 border border-solid border-t-0 border-gray-300 font-bold">
                   {index + 1}
                 </td>
                 <td className="px-4 py-3 border border-l-0 border-t-0 border-solid border-gray-300">
