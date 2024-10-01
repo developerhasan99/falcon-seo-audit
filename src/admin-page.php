@@ -35,7 +35,6 @@ function falcon_seo_audit_add_admin_menu()
 
     remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
 
-
     // // Add submenu page
     // add_submenu_page(
     //     'falcon-seo-audit',

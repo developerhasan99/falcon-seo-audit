@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { AnimatePresence, motion } from "framer-motion";
 // Import utils
 import fetchRecentAudits from "../../utils/fetch-recent-audits";
 
@@ -10,6 +10,7 @@ import SingleAuditReport from "./single-audit-report";
 import fetchSingleAudit from "../../utils/fetch-singel-audit";
 import Details from "./details";
 import fetchLinkDetails from "../../utils/fetch-link-details";
+import PageLinks from "./page-links";
 
 function Report() {
   const [page, setPage] = useState("recent");
@@ -48,6 +49,16 @@ function Report() {
     setSingleLinkId(null);
   };
 
+  const showLinks = (url, links) => {
+    setLink(url);
+    setPageLinks(links);
+    console.log(links);
+  };
+
+  const closeLinksModal = () => {
+    setPageLinks([]);
+  };
+
   useEffect(() => {
     fetchRecentAudits(setLoading, setRecentAudits);
   }, []);
@@ -78,6 +89,7 @@ function Report() {
             audit={audit}
             backToRecentReports={backToRecentReports}
             showDetails={showDetails}
+            showLinks={showLinks}
           />
         )}
         {page === "details" && (
@@ -89,9 +101,28 @@ function Report() {
           />
         )}
       </div>
-      {false && (
-        <div className="modal flex w-[calc(100%-160px)] h-[calc(100vh-32px)] overflow-x-hidden overflow-y-auto select-auto flex-col items-center fixed z-10 top-8 left-40 py-[30px] px-0 bg-[rgba(51,51,51,0.95)]"></div>
-      )}
+      <AnimatePresence>
+        {pageLinks.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            onClick={() => closeLinksModal()}
+            className="w-[calc(100%-160px)] h-[calc(100vh-32px)] cursor-pointer fixed z-10 top-8 left-40 bg-[rgba(51,51,51,0.95)]"
+          ></motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {pageLinks.length > 0 && (
+          <PageLinks
+            link={link}
+            pageLinks={pageLinks}
+            closeLinksModal={closeLinksModal}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

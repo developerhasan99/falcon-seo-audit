@@ -3,6 +3,7 @@ import RadialProgress from "../../components/radial-progress";
 import { motion } from "framer-motion";
 import Card from "../../components/card";
 import BackButton from "../../components/back-button";
+import TableHead from "../../components/table-head";
 
 function SingleAuditReport({
   auditId,
@@ -10,6 +11,7 @@ function SingleAuditReport({
   audit,
   backToRecentReports,
   showDetails,
+  showLinks,
 }) {
   return (
     <Card>
@@ -28,80 +30,48 @@ function SingleAuditReport({
         ) : (
           <div>
             {audit.length > 0 ? (
-              <table className="border border-solid border-gray-200 rounded w-full border-collapse text-left">
-                <thead>
-                  <tr className="bg-gray-200">
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      S/L
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      Score
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      URL
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      HTTP Status
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      Is indexable
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      Links present
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      Total errors
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 border border-solid border-gray-300"
-                    >
-                      Action
-                    </th>
-                  </tr>
-                </thead>
+              <table className="rounded w-full border-spacing-0 border-separate text-left">
+                <TableHead
+                  headings={[
+                    "S/L",
+                    "Score",
+                    "URL",
+                    "HTTP Status Code",
+                    "Indexable",
+                    "Links Present",
+                    "Total Errors",
+                    "Action",
+                  ]}
+                  top="32px"
+                />
 
                 <tbody>
                   {audit.map((item, idx) => {
                     const internalLinks = JSON.parse(item.internal_links);
                     const externalLinks = JSON.parse(item.external_links);
 
+                    const allLinks = [];
+
+                    internalLinks.forEach((link) => {
+                      allLinks.push({ ...link, type: "Internal" });
+                    });
+
+                    externalLinks.forEach((link) => {
+                      allLinks.push({ ...link, type: "External" });
+                    });
+
                     return (
-                      <tr
-                        key={item.id}
-                        className="border-0 border-b border-solid border-gray-200"
-                      >
+                      <tr key={item.id}>
                         <th
                           scope="row"
-                          className="px-4 py-2 font-bold text-gray-900 whitespace-nowrap"
+                          className="px-4 py-2 font-bold text-gray-900 whitespace-nowrap border-0 border-b border-l border-r border-gray-200"
                         >
                           {idx + 1}
                         </th>
-                        <td className="px-4 py-2 border border-solid border-gray-200">
+                        <td className="px-4 py-2 border-0 border-r border-b border-solid border-gray-200">
                           <RadialProgress progress={89} />
                         </td>
-                        <td className="px-4 py-2  border border-solid border-gray-200">
+                        <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200">
                           <p className="text-base">{item.title}</p>
                           <a
                             href={item.url}
@@ -112,15 +82,18 @@ function SingleAuditReport({
                           </a>
                           &#10138;
                         </td>
-                        <td className="px-4 py-2  border border-solid border-gray-200">
+                        <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200">
                           {item.status_code}
                         </td>
-                        <td className="px-4 py-2  border border-solid border-gray-200">
+                        <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200">
                           Yes
                         </td>
-                        <td className="px-4 py-2  border border-solid border-gray-200">
-                          <button className="border-0 bg-transparent text-blue-600 cursor-pointer inline-flex gap-1 items-center">
-                            {externalLinks.length + internalLinks.length}
+                        <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200">
+                          <button
+                            onClick={() => showLinks(item.url, allLinks)}
+                            className="border-0 bg-transparent text-blue-600 cursor-pointer inline-flex gap-1 items-center"
+                          >
+                            {allLinks.length}
 
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -138,8 +111,8 @@ function SingleAuditReport({
                             </svg>
                           </button>
                         </td>
-                        <td className="px-4 py-2  border border-solid border-gray-200"></td>
-                        <td className="px-4 py-2  border border-solid border-gray-200">
+                        <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200"></td>
+                        <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200">
                           <button
                             onClick={() => showDetails(item.id, item.url)}
                             className="px-6 py-2 border-0 rounded-full font-semibold text-white no-underline bg-gray-600 hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
