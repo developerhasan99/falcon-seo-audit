@@ -1,7 +1,12 @@
 <?php
 
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-headings.php';
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-images.php';
 require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-page-info.php';
 require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-page-links.php';
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-page-metrics.php';
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/guess-keywords.php';
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/get-keywords-consistency.php';
 
 class FalconSEOAudit
 {
@@ -50,18 +55,25 @@ class FalconSEOAudit
 
         // Check for Content-Security-Policy header
         $cspHeader = $headers['content-security-policy'] ?? null;
+        $encoding = $headers['content-encoding'] ?? null;
+        $uncompressedSize = $headers['content-length'] ?? null;
 
         if ($status_code === 200) {
             $body = $response['body'];
+
+            // Compressed page size
+            $compressedSize = strlen($body);
 
             $doc = new DOMDocument();
             @$doc->loadHTML(mb_convert_encoding($body, 'HTML-ENTITIES', 'UTF-8'));
 
             $page_info = extractInformation($doc);
             $links = extractPageLinks($doc);
-
-            error_log(print_r($page_info, true));
-
+            $contentMetrics = analyzeContentMetrics($doc);
+            $headings = extractHeadings($doc);
+            $images = extractImages($doc);
+            $guessedKeywords = guessKeywords($doc);
+            $keywordConsistency = extractKeywordConsistency($doc, array_keys($guessedKeywords));
 
             // Insert data to report table
             $this->wpdb->insert($this->single_content_report_table, [
@@ -86,6 +98,21 @@ class FalconSEOAudit
                 'javascript_links' => wp_json_encode($page_info['javascript_links']),
                 'internal_links' => wp_json_encode($links['internal']),
                 'external_links' => wp_json_encode($links['external']),
+                'compressed_size' => $compressedSize,
+                'uncompressed_size' => $uncompressedSize,
+                'encoding' => $encoding,
+                'word_count' => $contentMetrics['word_count'],
+                'paragraph_count' => $contentMetrics['paragraph_count'],
+                'average_words_per_paragraph' => $contentMetrics['average_words_per_paragraph'],
+                'sentence_count' => $contentMetrics['sentence_count'],
+                'average_words_per_sentence' => $contentMetrics['average_words_per_sentence'],
+                'readability_score' => $contentMetrics['readability_score'],
+                'node_count' => $contentMetrics['node_count'],
+                'headings' => wp_json_encode($headings),
+                'images' => wp_json_encode($images),
+                'guessed_keywords' => wp_json_encode($guessedKeywords),
+                'keyword_consistency' => wp_json_encode($keywordConsistency),
+
             ]);
 
             // Crawl the links for this page
