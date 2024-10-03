@@ -4,9 +4,9 @@ require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-headings.php';
 require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-images.php';
 require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-page-info.php';
 require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-page-links.php';
-require_once dirname(plugin_dir_path(__FILE__)) . '/utils/extract-page-metrics.php';
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/get-page-metrics.php';
 require_once dirname(plugin_dir_path(__FILE__)) . '/utils/guess-keywords.php';
-require_once dirname(plugin_dir_path(__FILE__)) . '/utils/get-keywords-consistency.php';
+require_once dirname(plugin_dir_path(__FILE__)) . '/utils/get-keyword-consistency.php';
 
 class FalconSEOAudit
 {
