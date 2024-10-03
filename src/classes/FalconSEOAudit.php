@@ -22,9 +22,6 @@ class FalconSEOAudit
         $this->wpdb = $wpdb;
         $this->audit_report_table = $wpdb->prefix . "falcon_seo_audit_report";
         $this->single_content_report_table = $wpdb->prefix . "falcon_seo_single_content_report";
-
-        // Hook into the action for background tasks
-        // add_action('falcon_seo_audit_background_task', [$this, 'runBackgroundTask']);
     }
 
     public function runBackgroundTask($new_report_id)
@@ -32,12 +29,21 @@ class FalconSEOAudit
 
         $this->report_id = $new_report_id;
 
-        $this->wpdb->update($this->audit_report_table, ['status' => 'running'], ['id' => $this->report_id]);
+        try {
+            // Mark status as running
+            $this->wpdb->update($this->audit_report_table, ['status' => 'running'], ['id' => $this->report_id]);
 
-        $home_page_url = home_url('/');
-        $this->auditUrl($home_page_url);
+            // Perform the audit
+            $home_page_url = home_url('/');
+            $this->auditUrl($home_page_url);
 
-        $this->wpdb->update($this->audit_report_table, ['status' => 'completed'], ['id' => $this->report_id]);
+            // Mark status as completed if no exceptions occur
+            $this->wpdb->update($this->audit_report_table, ['status' => 'completed'], ['id' => $this->report_id]);
+        } catch (Exception $e) {
+            // Log the exception message and update the status to 'failed'
+            error_log('Audit failed: ' . $e->getMessage());
+            $this->wpdb->update($this->audit_report_table, ['status' => 'failed'], ['id' => $this->report_id]);
+        }
     }
 
     public function auditUrl($url)
@@ -50,7 +56,6 @@ class FalconSEOAudit
 
         $response = wp_remote_get($url);
         $status_code = wp_remote_retrieve_response_code($response);
-
         $headers = wp_remote_retrieve_headers($response);
 
         // Check for Content-Security-Policy header

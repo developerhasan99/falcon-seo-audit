@@ -4,12 +4,6 @@ function extractKeywordConsistency($doc, $keywords)
 {
     $keywordData = [];
 
-    // Function to count keyword occurrences in text
-    function countKeywordOccurrences($text, $keyword)
-    {
-        return substr_count(strtolower($text), strtolower($keyword));
-    }
-
     // Extract text from title, meta description, and headings
     $title = $doc->getElementsByTagName('title')->item(0)->nodeValue ?? '';
 
@@ -67,4 +61,10 @@ function extractKeywordConsistency($doc, $keywords)
     }
 
     return $keywordData;
+}
+
+// Function to count keyword occurrences in text
+function countKeywordOccurrences($text, $keyword)
+{
+    return substr_count(strtolower($text), strtolower($keyword));
 }

@@ -2,15 +2,24 @@
 
 function isWebpageLink($link)
 {
+    // Parse the URL and get the path
     $path = parse_url($link, PHP_URL_PATH);
 
+    // If the path is null, treat it as a webpage link (or handle it as you wish)
+    if ($path === null) {
+        return true;
+    }
+
+    // Skip wp-content/uploads links
     if (strpos($path, 'wp-content/uploads') !== false) {
         return false;
     }
 
+    // Check for file extension
     $extension = pathinfo($path, PATHINFO_EXTENSION);
     $file_extensions = ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx', 'zip', 'mp4', 'mp3'];
 
+    // Return false if it's one of the file types, true otherwise
     return !in_array(strtolower($extension), $file_extensions);
 }
 
