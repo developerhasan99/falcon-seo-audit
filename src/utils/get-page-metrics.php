@@ -43,15 +43,6 @@ function analyzeContentMetrics($doc)
         $averageWordsPerSentence = $wordCount / $sentenceCount;
     }
 
-    // Syllable counter helper function
-    function countSyllables($word)
-    {
-        $word = strtolower($word);
-        // Match vowel groups in the word
-        preg_match_all('/[aeiouy]+/', $word, $matches);
-        return count($matches[0]);
-    }
-
     // Count total syllables in the text
     $words = str_word_count($textContent, 1);
     foreach ($words as $word) {
@@ -73,4 +64,13 @@ function analyzeContentMetrics($doc)
         'readability_score' => round($readabilityScore, 2),
         'node_count' => $nodeCount
     ];
+}
+
+// Syllable counter helper function
+function countSyllables($word)
+{
+    $word = strtolower($word);
+    // Match vowel groups in the word
+    preg_match_all('/[aeiouy]+/', $word, $matches);
+    return count($matches[0]);
 }
