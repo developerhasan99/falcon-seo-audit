@@ -55,7 +55,7 @@ function falcon_seo_audit_activate_plugin()
         headings LONGTEXT NULL,
         images LONGTEXT NULL,
         guessed_keywords LONGTEXT NULL,
-        guessed_keywords_consistency LONGTEXT NULL,
+        keyword_consistency LONGTEXT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY  (id),
         INDEX (report_id)
