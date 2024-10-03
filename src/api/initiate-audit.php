@@ -26,6 +26,7 @@ function get_all_links()
         'post_type' => array('post', 'page'),
         'posts_per_page' => -1
     );
+
     $posts = get_posts($args);
 
     $links = array();

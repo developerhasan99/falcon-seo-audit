@@ -129,5 +129,4 @@ class FalconSEOAudit
 }
 
 
-// TODO: Fix trailing slashes issue duplication
 // TODO: Improve the run audit page

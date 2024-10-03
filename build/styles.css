@@ -668,6 +668,16 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   height: 1.25rem;
 }
 
+.falcon-seo-audit .size-36{
+  width: 9rem;
+  height: 9rem;
+}
+
+.falcon-seo-audit .size-24{
+  width: 6rem;
+  height: 6rem;
+}
+
 .falcon-seo-audit .h-12{
   height: 3rem;
 }
@@ -704,16 +714,24 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   max-width: 1280px;
 }
 
+.falcon-seo-audit .max-w-screen-sm{
+  max-width: 640px;
+}
+
+.falcon-seo-audit .max-w-\[300px\]{
+  max-width: 300px;
+}
+
+.falcon-seo-audit .max-w-\[400px\]{
+  max-width: 400px;
+}
+
 .falcon-seo-audit .flex-shrink-0{
   flex-shrink: 0;
 }
 
 .falcon-seo-audit .flex-grow{
   flex-grow: 1;
-}
-
-.falcon-seo-audit .border-collapse{
-  border-collapse: collapse;
 }
 
 .falcon-seo-audit .border-separate{
@@ -865,6 +883,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   border-color: rgb(56 189 248 / var(--tw-border-opacity));
 }
 
+.falcon-seo-audit .border-green-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
+}
+
 .falcon-seo-audit .border-t-\[\#e24329\]{
   --tw-border-opacity: 1;
   border-top-color: rgb(226 67 41 / var(--tw-border-opacity));
@@ -926,6 +949,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.falcon-seo-audit .fill-green-500{
+  fill: #22c55e;
 }
 
 .falcon-seo-audit .stroke-current{
