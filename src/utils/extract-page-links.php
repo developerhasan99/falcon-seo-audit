@@ -37,8 +37,16 @@ function extractPageLinks($doc)
             $parsed_url = parse_url($href);
             $parsed_home_url = parse_url(home_url());
 
+            // Check if it's an internal link
             if (!isset($parsed_url['host']) || $parsed_url['host'] === $parsed_home_url['host']) {
+                // Ensure it has a trailing slash
+                if (substr($href, -1) !== '/') {
+                    $href = rtrim($href, '/') . '/';
+                }
+
+                // Append home_url() if it's a relative path
                 $href = isset($parsed_url['host']) ? $href : home_url() . $href;
+
                 $internal_links[] = ['anchor' => $anchorText, 'href' => $href];
             } else {
                 $external_links[] = ['anchor' => $anchorText, 'href' => $href];
