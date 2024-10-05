@@ -1,5 +1,3 @@
-import React from "react";
-
 function FalconLoader({ loadingText }) {
   return (
     <div className="mb-6 flex flex-col items-center">

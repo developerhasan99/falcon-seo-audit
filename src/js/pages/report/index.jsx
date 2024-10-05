@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 // Import utils
-import fetchRecentAudits from "../../utils/fetch-recent-audits";
+import fetchRecentAudits from "../../axios/fetch-recent-audits";
 
 // import Components
 import Header from "../../components/header";
 import RecentReports from "./recent-reports";
 import SingleAuditReport from "./single-audit-report";
-import fetchSingleAudit from "../../utils/fetch-singel-audit";
+import fetchSingleAudit from "../../axios/fetch-single-audit";
 import Details from "./details";
-import fetchLinkDetails from "../../utils/fetch-link-details";
+import fetchLinkDetails from "../../axios/fetch-link-details";
 import PageLinks from "./page-links";
 
 function Report() {

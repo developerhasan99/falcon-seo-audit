@@ -1,4 +1,4 @@
-import axios from "./axios.js";
+import axios from "./instance.js";
 
 const fetchSingleAudit = async (setLoading, auditId, setAudit) => {
   if (auditId) {
