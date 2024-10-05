@@ -30,8 +30,6 @@ function Report() {
   const showAudit = (id) => {
     setAuditId(id);
     setPage("single");
-
-    console.log(id);
   };
 
   const backToRecentReports = () => {
@@ -42,6 +40,14 @@ function Report() {
     setPage("details");
     setSingleLinkId(linkId);
     setLink(link);
+  };
+
+  const deleteAudit = (id) => {
+    confirm("Are you sure you want to delete this audit?");
+    console.log(id);
+
+    const newAudits = recentAudits.filter((audit) => audit.id !== id);
+    setRecentAudits(newAudits);
   };
 
   const backToSingleAudit = () => {
@@ -79,6 +85,7 @@ function Report() {
           <RecentReports
             isLoading={isLoading}
             recentAudits={recentAudits}
+            deleteAudit={deleteAudit}
             showAudit={showAudit}
           />
         )}

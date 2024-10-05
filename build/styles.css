@@ -522,6 +522,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       padding-right: 1em;
     }
 
+.falcon-seo-audit table.fixed-actions-width td:last-child,
+    .falcon-seo-audit table.fixed-actions-width th:last-child {
+      width: 210px; /* Set your fixed width */
+    }
+
 .falcon-seo-audit .fixed{
   position: fixed;
 }
@@ -619,8 +624,16 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-bottom: 2rem;
 }
 
+.falcon-seo-audit .mr-2{
+  margin-right: 0.5rem;
+}
+
 .falcon-seo-audit .mt-8{
   margin-top: 2rem;
+}
+
+.falcon-seo-audit .mt-4{
+  margin-top: 1rem;
 }
 
 .falcon-seo-audit .inline-block{
@@ -915,6 +928,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 
+.falcon-seo-audit .bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .falcon-seo-audit .bg-sky-100{
   --tw-bg-opacity: 1;
   background-color: rgb(224 242 254 / var(--tw-bg-opacity));
@@ -1139,6 +1157,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   text-decoration-line: none;
 }
 
+.falcon-seo-audit .filter{
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .falcon-seo-audit .transition{
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -1194,6 +1216,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-red-600:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
 .hover\:text-white:hover{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1201,6 +1228,16 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .hover\:underline:hover{
   text-decoration-line: underline;
+}
+
+.focus\:text-gray-700:focus{
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.focus\:hover\:text-white:hover:focus{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .active\:text-white:active{

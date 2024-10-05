@@ -7,7 +7,7 @@ function falcon_seo_audit_get_recent_audits(WP_REST_Request $request)
     $audit_report_table = $wpdb->prefix . 'falcon_seo_audit_report';
     $single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-    $results = $wpdb->get_results("SELECT * FROM $audit_report_table ORDER BY id DESC LIMIT 10");
+    $results = $wpdb->get_results("SELECT * FROM $audit_report_table ORDER BY id DESC");
 
     $reports = [];
 
