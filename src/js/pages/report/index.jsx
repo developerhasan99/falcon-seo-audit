@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "../../axios/instance";
 // Import utils
 import fetchRecentAudits from "../../axios/fetch-recent-audits";
 
@@ -20,6 +21,7 @@ function Report() {
 
   const [auditId, setAuditId] = useState(null);
   const [audit, setAudit] = useState([]);
+  const [willBeDeleted, setWillBeDeleted] = useState("");
 
   const [singleLinkId, setSingleLinkId] = useState(null);
   const [link, setLink] = useState("");
@@ -42,12 +44,17 @@ function Report() {
     setLink(link);
   };
 
-  const deleteAudit = (id) => {
-    confirm("Are you sure you want to delete this audit?");
-    console.log(id);
+  const deleteAudit = async (id) => {
+    if (confirm("Are you sure you want to delete this audit?")) {
+      setWillBeDeleted(id);
 
-    const newAudits = recentAudits.filter((audit) => audit.id !== id);
-    setRecentAudits(newAudits);
+      const response = await axios.post("/delete-audit/", { id });
+
+      if (response.status === 200) {
+        const newAudits = recentAudits.filter((audit) => audit.id !== id);
+        setRecentAudits(newAudits);
+      }
+    }
   };
 
   const backToSingleAudit = () => {
@@ -87,6 +94,7 @@ function Report() {
             recentAudits={recentAudits}
             deleteAudit={deleteAudit}
             showAudit={showAudit}
+            willBeDeleted={willBeDeleted}
           />
         )}
         {page === "single" && (

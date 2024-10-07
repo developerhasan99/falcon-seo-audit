@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable, usePagination } from "react-table";
 
-const DataTable = ({ columns, data }) => {
+const DataTable = ({ columns, data, willBeDeleted }) => {
   const {
     headerGroups,
     page,
@@ -43,9 +43,16 @@ const DataTable = ({ columns, data }) => {
         </thead>
         <tbody>
           {page.map((row) => {
+            console.log(row);
+
             prepareRow(row);
             return (
-              <tr key={row.id}>
+              <tr
+                key={row.id}
+                className={`hover:bg-gray-100 ${
+                  willBeDeleted === row.original.id ? "bg-red-100" : ""
+                }`}
+              >
                 {row.cells.map((cell, index) => (
                   <td
                     key={index}

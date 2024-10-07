@@ -5,7 +5,7 @@ import FalconLoader from "../../components/falcon-loader";
 function Details({ isLoading, link, details, backToSingleAudit }) {
   return (
     <Card>
-      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold flex items-center gap-2">
+      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold flex items-center gap-4">
         <BackButton onClick={backToSingleAudit} />
         <span>Audit Result for: {link}</span>
       </h2>

@@ -16,7 +16,7 @@
 
     table.fixed-actions-width td:last-child,
     table.fixed-actions-width th:last-child {
-      width: 210px; /* Set your fixed width */
+      width: 180px;
     }
   }
 }

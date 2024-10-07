@@ -6,65 +6,67 @@ import FalconLoader from "../../components/falcon-loader";
 import RunFirstAudit from "../../components/run-first-audit";
 import DataTable from "./datatable";
 
-function RecentReports({ isLoading, recentAudits, deleteAudit, showAudit }) {
-  const columns = useMemo(
-    () => [
-      {
-        Header: "S/L",
-        accessor: (_, index) => index + 1, // For row numbering
-        Cell: ({ value }) => <strong>{value}</strong>,
-      },
-      {
-        Header: "Initiated at",
-        accessor: "initiated_at",
-        Cell: ({ value }) =>
-          moment(value).format("dddd, MMMM Do YYYY, h:mm:ss A"),
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-        Cell: ({ value }) => (
-          <span
-            className={`inline-block px-4 py-1 rounded-full font-medium ${
-              value === "pending"
-                ? "bg-gray-200 text-gray-700"
-                : value === "running"
-                ? "bg-sky-200 text-sky-700"
-                : value === "completed"
-                ? "bg-green-200 text-green-700"
-                : "bg-red-200 text-red-700"
-            }`}
+function RecentReports({
+  isLoading,
+  recentAudits,
+  deleteAudit,
+  showAudit,
+  willBeDeleted,
+}) {
+  const columns = [
+    {
+      Header: "S/L",
+      accessor: (_, index) => index + 1, // For row numbering
+      Cell: ({ value }) => <strong>{value}</strong>,
+    },
+    {
+      Header: "Initiated at",
+      accessor: "initiated_at",
+      Cell: ({ value }) => moment(value).format("DD MMM, h:mm A"),
+    },
+    {
+      Header: "Status",
+      accessor: "status",
+      Cell: ({ value }) => (
+        <span
+          className={`inline-block px-4 py-1 rounded-full font-medium ${
+            value === "pending"
+              ? "bg-gray-200 text-gray-700"
+              : value === "running"
+              ? "bg-sky-200 text-sky-700"
+              : value === "completed"
+              ? "bg-green-200 text-green-700"
+              : "bg-red-200 text-red-700"
+          }`}
+        >
+          {value}
+        </span>
+      ),
+    },
+    {
+      Header: "Total URLs",
+      accessor: "urls_count",
+    },
+    {
+      Header: "Actions",
+      Cell: ({ row }) => (
+        <>
+          <button
+            onClick={() => deleteAudit(row.original.id)}
+            className="text-red-500 mr-4 px-3 font-semibold hover:underline"
           >
-            {value}
-          </span>
-        ),
-      },
-      {
-        Header: "Total URLs",
-        accessor: "urls_count",
-      },
-      {
-        Header: "Actions",
-        Cell: ({ row }) => (
-          <>
-            <button
-              onClick={() => deleteAudit(row.original.id)}
-              className="px-6 py-2 mr-2 border-0 rounded-full font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors duration-300"
-            >
-              Delete
-            </button>
-            <button
-              onClick={() => showAudit(row.original.id)}
-              className="px-6 py-2 border-0 rounded-full font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
-            >
-              View
-            </button>
-          </>
-        ),
-      },
-    ],
-    []
-  );
+            Delete
+          </button>
+          <button
+            onClick={() => showAudit(row.original.id)}
+            className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
+          >
+            View
+          </button>
+        </>
+      ),
+    },
+  ];
 
   return (
     <Card>
@@ -82,7 +84,11 @@ function RecentReports({ isLoading, recentAudits, deleteAudit, showAudit }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <DataTable data={recentAudits} columns={columns} />
+              <DataTable
+                data={recentAudits}
+                columns={columns}
+                willBeDeleted={willBeDeleted}
+              />
             </motion.div>
           ) : (
             <RunFirstAudit />

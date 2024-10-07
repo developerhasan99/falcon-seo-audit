@@ -15,7 +15,7 @@ function SingleAuditReport({
 }) {
   return (
     <Card>
-      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-base font-bold flex items-center gap-2">
+      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-base font-bold flex items-center gap-4">
         <BackButton onClick={backToRecentReports} />
         <span>Viewing audit report for: #{auditId}</span>
       </h2>
@@ -114,7 +114,7 @@ function SingleAuditReport({
                         <td className="px-4 py-2  border-0 border-r border-b border-solid border-gray-200">
                           <button
                             onClick={() => showDetails(item.id, item.url)}
-                            className="px-6 py-2 border-0 rounded-full font-semibold text-white no-underline bg-gray-600 hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
+                            className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
                           >
                             View
                           </button>
