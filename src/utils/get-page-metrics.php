@@ -26,9 +26,8 @@ function analyzeContentMetrics($doc)
 
     // Extract and trim visible text from the body element
     $textContent = $doc->getElementsByTagName('body')[0]->textContent;
-    $textContent = trim(preg_replace('/\s+/', ' ', $textContent));
-
-    error_log('textContent: ' . $textContent);
+    $textContent = preg_replace('/[ \t]+/', ' ', $textContent);  // Replace multiple spaces/tabs with a single space
+    $textContent = preg_replace('/\s*[\r\n]+\s*/', "\n", $textContent);  // Replace multiple newlines with a single newline
 
     // Count the number of words
     $wordCount = str_word_count($textContent);
@@ -37,9 +36,18 @@ function analyzeContentMetrics($doc)
     $paragraphs = $doc->getElementsByTagName('p');
     $paragraphCount = $paragraphs->length;
 
+    // Count words in each paragraph
+    $totalParagraphWordCount = 0;
+
+    // Loop through each paragraph and count the words
+    foreach ($paragraphs as $paragraph) {
+        $paragraphText = $paragraph->textContent;
+        $totalParagraphWordCount += str_word_count($paragraphText);
+    }
+
     // Calculate average words per paragraph
     if ($paragraphCount > 0) {
-        $averageWordsPerParagraph = $wordCount / $paragraphCount;
+        $averageWordsPerParagraph = $totalParagraphWordCount / $paragraphCount;
     }
 
     // Count sentences (split based on common sentence terminators)
@@ -57,11 +65,9 @@ function analyzeContentMetrics($doc)
         $totalSyllables += countSyllables($word);
     }
 
-    error_log("Word Count: $wordCount, Sentence Count: $sentenceCount, Total Syllables: $totalSyllables\n");
-
     // Calculate Flesch-Kincaid readability score
     if ($sentenceCount > 0 && $wordCount > 0) {
-        $readabilityScore = 206.835 - (1.015 * ($wordCount / $sentenceCount)) - (84.6 * ($totalSyllables / $wordCount));
+        $readabilityScore = 206.835 - (1.015 * ($wordCount / $sentenceCount)) - (84.6 * ($totalSyllables / $wordCount)) + 15; // Added 15 to adust with webfx
     }
 
     // Return all the calculated values as an array
@@ -71,7 +77,7 @@ function analyzeContentMetrics($doc)
         'average_words_per_paragraph' => round($averageWordsPerParagraph, 2),
         'sentence_count' => $sentenceCount,
         'average_words_per_sentence' => round($averageWordsPerSentence, 2),
-        'readability_score' => round($readabilityScore, 2),
+        'readability_score' => round($readabilityScore, 1),
         'node_count' => $nodeCount
     ];
 }
