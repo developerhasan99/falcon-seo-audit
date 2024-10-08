@@ -129,9 +129,10 @@ function fsa_render_audit_report_page()
     echo '<div id="fsa-audit-report-page" class="falcon-seo-audit"></div>';
 }
 
-// // Render the Run Falcon Audit submenu page 
+// // Render the Run Falcon Audit submenu page
 // function falcon_seo_audit_run_audit_render_page()
 // {
 //     falcon_seo_audit_enqueue_scripts();
 //     echo '<div id="falcon-seo-audit-run-audit" class="falcon-seo-audit"></div>';
 // }
+
