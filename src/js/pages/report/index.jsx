@@ -12,6 +12,8 @@ import fetchSingleAudit from "../../axios/fetch-single-audit";
 import Details from "./details";
 import fetchLinkDetails from "../../axios/fetch-link-details";
 import PageLinks from "./page-links";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
 
 function Report() {
   const [page, setPage] = useState("recent");
@@ -51,6 +53,7 @@ function Report() {
       const response = await axios.post("/delete-audit/", { id });
 
       if (response.status === 200) {
+        toast.success("Audit deleted successfully");
         const newAudits = recentAudits.filter((audit) => audit.id !== id);
         setRecentAudits(newAudits);
       }
@@ -138,6 +141,8 @@ function Report() {
           />
         )}
       </AnimatePresence>
+
+      <ToastContainer position="bottom-right" />
     </div>
   );
 }

@@ -43,8 +43,6 @@ const DataTable = ({ columns, data, willBeDeleted }) => {
         </thead>
         <tbody>
           {page.map((row) => {
-            console.log(row);
-
             prepareRow(row);
             return (
               <tr

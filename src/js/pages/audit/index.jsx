@@ -6,6 +6,7 @@ import initiateAndRun from "../../axios/initiate-and-run";
 import Progress from "./progress";
 import DefaultStatus from "./default-status";
 import CompletedStatus from "./completed-status";
+import fetchAuditStatus from "../../axios/fetch-audit-status";
 
 function Audit() {
   const [status, setStatus] = useState("default");

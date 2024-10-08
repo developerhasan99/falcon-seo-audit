@@ -11,16 +11,24 @@ function analyzeContentMetrics($doc)
     $readabilityScore = 0;
     $totalSyllables = 0;
 
-    // Extract visible text from the document
-    $textContent = '';
+    // Total node count
     $xpath = new DOMXPath($doc);
-    $textNodes = $xpath->query('//text()');
-    foreach ($textNodes as $textNode) {
-        $textContent .= trim($textNode->nodeValue) . ' ';
+    $nodeCount = $xpath->query('//*')->length;
+
+    // Remove <style> and <script> tags to avoid counting them in content
+    $tagsToRemove = ['style', 'script'];
+    foreach ($tagsToRemove as $tag) {
+        $elements = $doc->getElementsByTagName($tag);
+        while ($elements->length > 0) {
+            $elements->item(0)->parentNode->removeChild($elements->item(0));
+        }
     }
 
-    // Total node count
-    $nodeCount = $xpath->query('//*')->length;
+    // Extract and trim visible text from the body element
+    $textContent = $doc->getElementsByTagName('body')[0]->textContent;
+    $textContent = trim(preg_replace('/\s+/', ' ', $textContent));
+
+    error_log('textContent: ' . $textContent);
 
     // Count the number of words
     $wordCount = str_word_count($textContent);
@@ -48,6 +56,8 @@ function analyzeContentMetrics($doc)
     foreach ($words as $word) {
         $totalSyllables += countSyllables($word);
     }
+
+    error_log("Word Count: $wordCount, Sentence Count: $sentenceCount, Total Syllables: $totalSyllables\n");
 
     // Calculate Flesch-Kincaid readability score
     if ($sentenceCount > 0 && $wordCount > 0) {

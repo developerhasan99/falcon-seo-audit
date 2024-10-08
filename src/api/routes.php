@@ -6,6 +6,7 @@ require_once plugin_dir_path(__FILE__) . 'get-audit-status.php';
 require_once plugin_dir_path(__FILE__) . 'recent-audits.php';
 require_once plugin_dir_path(__FILE__) . 'get-single-audit.php';
 require_once plugin_dir_path(__FILE__) . 'get-single-details.php';
+require_once plugin_dir_path(__FILE__) . 'delete-audit.php';
 
 add_action('rest_api_init', function () {
     register_rest_route('falcon-seo-audit/v1', '/initiate-audit/', [
@@ -38,8 +39,12 @@ add_action('rest_api_init', function () {
         'callback' => 'falcon_seo_audit_get_single_details',
         'permission_callback' => 'falcon_seo_audit_permission_callback',
     ]);
+    register_rest_route('falcon-seo-audit/v1', '/delete-audit/', [
+        'methods' => 'POST',
+        'callback' => 'falcon_seo_audit_delete_audit',
+        'permission_callback' => 'falcon_seo_audit_permission_callback',
+    ]);
 });
-
 
 function falcon_seo_audit_permission_callback(WP_REST_Request $request)
 {
