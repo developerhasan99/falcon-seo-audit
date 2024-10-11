@@ -19,6 +19,7 @@ const fetchAuditStatus = async (audit_id, setStatus, setJustCompleted) => {
     }
   } catch (error) {
     console.log(error);
+    fetchAuditStatus(audit_id, setStatus, setJustCompleted);
   }
 };
 

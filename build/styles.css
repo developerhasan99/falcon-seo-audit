@@ -628,10 +628,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-top: 2rem;
 }
 
-.falcon-seo-audit .mb-1{
-  margin-bottom: 0.25rem;
-}
-
 .falcon-seo-audit .inline-block{
   display: inline-block;
 }
@@ -993,11 +989,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .py-3{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.falcon-seo-audit .py-6{
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
 }
 
 .falcon-seo-audit .py-8{
