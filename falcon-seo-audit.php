@@ -18,15 +18,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'VERSION', '1.0.0' );
+define( 'PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
 
-// Activation hook for the plugin.
-register_activation_hook( __FILE__, 'falcon_seo_audit_activate_plugin' );
-require_once plugin_dir_path( __FILE__ ) . 'src/plugin-activation.php';
-
 // Load classes.
-require_once plugin_dir_path( __FILE__ ) . 'src/classes/FalconSEOAudit.php';
+require_once PLUGIN_DIR_PATH . 'includes/classes/class-plugin.php';
+require_once PLUGIN_DIR_PATH . 'includes/classes/class-adminpages.php';
+require_once PLUGIN_DIR_PATH . 'includes/classes/class-crawler.php';
 
-require_once plugin_dir_path( __FILE__ ) . 'src/inline-css.php';
-require_once plugin_dir_path( __FILE__ ) . 'src/admin-page.php';
-require_once plugin_dir_path( __FILE__ ) . 'src/api/routes.php';
+// Load API related files.
+require_once PLUGIN_DIR_PATH . 'includes/api/routes.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/initiate-audit.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/run-audit.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/get-audit-status.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/recent-audits.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/get-single-audit.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/get-single-details.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/delete-audit.php';
+
+// Load utility files.
+require_once PLUGIN_DIR_PATH . 'includes/utils/extract-headings.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/extract-images.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/extract-page-info.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/extract-page-links.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/get-page-metrics.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/guess-keywords.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/get-keyword-consistency.php';

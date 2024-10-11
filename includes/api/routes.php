@@ -1,12 +1,10 @@
 <?php
-
-require_once plugin_dir_path( __FILE__ ) . 'initiate-audit.php';
-require_once plugin_dir_path( __FILE__ ) . 'run-audit.php';
-require_once plugin_dir_path( __FILE__ ) . 'get-audit-status.php';
-require_once plugin_dir_path( __FILE__ ) . 'recent-audits.php';
-require_once plugin_dir_path( __FILE__ ) . 'get-single-audit.php';
-require_once plugin_dir_path( __FILE__ ) . 'get-single-details.php';
-require_once plugin_dir_path( __FILE__ ) . 'delete-audit.php';
+/**
+ * File: routes.php
+ *
+ * @package Falcon_SEO_Audit
+ * @since 1.0.0
+ */
 
 add_action( 'rest_api_init', 'fsa_register_rest_api_routes' );
 

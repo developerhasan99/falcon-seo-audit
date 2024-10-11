@@ -1,21 +1,61 @@
 <?php
+/**
+ * File: class-crawler.php
+ *
+ * @package Falcon_SEO_Audit
+ * @since 1.0.0
+ */
 
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/extract-headings.php';
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/extract-images.php';
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/extract-page-info.php';
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/extract-page-links.php';
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/get-page-metrics.php';
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/guess-keywords.php';
-require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/get-keyword-consistency.php';
+namespace Falcon_Seo_Audit;
 
-class FalconSEOAudit {
+/**
+ * Class Crawler
+ *
+ * @package Falcon_Seo_Audit
+ * @since 1.0.0
+ */
+class Crawler {
 
+	/**
+	 * WordPress database object.
+	 *
+	 * @var \wpdb
+	 */
 	protected $wpdb;
+
+	/**
+	 * Table name for report table.
+	 *
+	 * @var string
+	 */
 	protected $audit_report_table;
+
+	/**
+	 * Table name for single content report table.
+	 *
+	 * @var string
+	 */
 	protected $single_content_report_table;
+
+	/**
+	 * The ID of the report to create.
+	 *
+	 * @var int
+	 */
 	protected $report_id;
+
+	/**
+	 * An array of audited URLs.
+	 *
+	 * @var array
+	 */
 	protected $audited_urls = array();
 
+	/**
+	 * Construct the crawler with database references.
+	 *
+	 * @return void
+	 */
 	public function __construct() {
 		global $wpdb;
 		$this->wpdb                        = $wpdb;
@@ -23,27 +63,44 @@ class FalconSEOAudit {
 		$this->single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 	}
 
+	/**
+	 * Starts the audit crawler.
+	 *
+	 * The crawler will traverse the links from the home page and audit them.
+	 * The audit status will be marked as 'running' and then 'completed' if no errors occur.
+	 * If an error occurs, the status will be marked as 'failed'.
+	 *
+	 * @param int $new_report_id The ID of the report to create.
+	 *
+	 * @return void
+	 */
 	public function start_the_crawler( $new_report_id ) {
 
 		$this->report_id = $new_report_id;
 
 		try {
-			// Mark status as running
+			// Mark status as running.
 			$this->wpdb->update( $this->audit_report_table, array( 'status' => 'running' ), array( 'id' => $this->report_id ) );
 
-			// Perform the audit
+			// Perform the audit.
 			$home_page_url = home_url( '/' );
 			$this->audit_url( $home_page_url );
 
-			// Mark status as completed if no exceptions occur
+			// Mark status as completed if no exceptions occur.
 			$this->wpdb->update( $this->audit_report_table, array( 'status' => 'completed' ), array( 'id' => $this->report_id ) );
-		} catch ( Exception $e ) {
-			// Log the exception message and update the status to 'failed'
-			error_log( 'Audit failed: ' . $e->getMessage() );
+
+		} catch ( \Exception $e ) {
 			$this->wpdb->update( $this->audit_report_table, array( 'status' => 'failed' ), array( 'id' => $this->report_id ) );
 		}
 	}
 
+	/**
+	 * Performs a single audit on a given URL.
+	 *
+	 * @param string $url The URL to audit.
+	 *
+	 * @return void
+	 */
 	public function audit_url( $url ) {
 		if ( in_array( $url, $this->audited_urls, true ) ) {
 			return;
@@ -55,7 +112,7 @@ class FalconSEOAudit {
 		$status_code = wp_remote_retrieve_response_code( $response );
 		$headers     = wp_remote_retrieve_headers( $response );
 
-		// Check for Content-Security-Policy header
+		// Getting header data.
 		$csp_header        = $headers['content-security-policy'] ?? null;
 		$encoding          = $headers['content-encoding'] ?? null;
 		$uncompressed_size = $headers['content-length'] ?? null;
@@ -63,13 +120,12 @@ class FalconSEOAudit {
 		if ( 200 === $status_code ) {
 			$body = $response['body'];
 
-			// Compressed page size
 			$compressed_size = strlen( $body );
 
-			$doc = new DOMDocument();
+			$doc = new \DOMDocument();
 			@$doc->loadHTML( mb_convert_encoding( $body, 'HTML-ENTITIES', 'UTF-8' ) );
 
-			$page_info           = extractInformation( $doc );
+			$page_info           = extract_information( $doc );
 			$links               = extractPageLinks( $doc );
 			$content_metrics     = analyzeContentMetrics( $doc );
 			$headings            = extractHeadings( $doc );
@@ -77,7 +133,7 @@ class FalconSEOAudit {
 			$guessed_keywords    = guessKeywords( $doc );
 			$keyword_consistency = extractKeywordConsistency( $doc, array_keys( $guessed_keywords ) );
 
-			// Insert data to report table
+			// Insert data to report table.
 			$this->wpdb->insert(
 				$this->single_content_report_table,
 				array(
@@ -120,7 +176,7 @@ class FalconSEOAudit {
 				)
 			);
 
-			// Crawl the links for this page
+			// Crawl the links for this page.
 			foreach ( $links['internal'] as $internal_link ) {
 				$this->audit_url( $internal_link['href'] );
 			}

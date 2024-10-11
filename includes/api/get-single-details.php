@@ -5,7 +5,7 @@ function falcon_seo_audit_get_single_details( WP_REST_Request $request ) {
 	global $wpdb;
 	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-	// Get JSON payload from the request
+	// Get JSON payload from the request.
 	$data = $request->get_json_params();
 
 	if ( isset( $data['link_id'] ) ) {

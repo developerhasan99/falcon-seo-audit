@@ -1,9 +1,10 @@
 <?php
 
-require_once dirname( __DIR__, 1 ) . '/classes/FalconSEOAudit.php';
+
+use Falcon_Seo_Audit\Crawler;
 
 function falcon_seo_audit_run_audit( WP_REST_Request $request ) {
-	$falcon_seo_audit = new FalconSEOAudit();
+	$falcon_seo_audit = new Crawler();
 
 	// Get JSON payload from the request
 	$data = $request->get_json_params();
