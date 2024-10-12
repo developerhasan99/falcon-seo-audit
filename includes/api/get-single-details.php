@@ -1,5 +1,20 @@
 <?php
+/**
+ * File: get-single-details.php
+ *
+ * @package Falcon_SEO_Audit
+ * @since 1.0.0
+ */
 
+/**
+ * Gets the details of a single audit report link.
+ *
+ * Returns the details of a single link in an audit report.
+ *
+ * @param WP_REST_Request $request The request object.
+ *
+ * @return WP_REST_Response The response object.
+ */
 function falcon_seo_audit_get_single_details( WP_REST_Request $request ) {
 
 	global $wpdb;
@@ -12,6 +27,7 @@ function falcon_seo_audit_get_single_details( WP_REST_Request $request ) {
 
 		$link_id = $data['link_id'];
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$results = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . esc_sql( $single_content_report_table ) . ' WHERE id = %s', $link_id ) );
 
 		return new WP_REST_Response( $results, 200 );

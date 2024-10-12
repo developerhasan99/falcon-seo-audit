@@ -129,7 +129,7 @@ class Crawler {
 			$links               = extract_page_links( $doc );
 			$content_metrics     = analyze_content_metrics( $doc );
 			$headings            = extract_headings( $doc );
-			$images              = extractImages( $doc );
+			$images              = extract_images( $doc );
 			$guessed_keywords    = guess_keywords( $doc );
 			$keyword_consistency = get_keyword_consistency( $doc, array_keys( $guessed_keywords ) );
 

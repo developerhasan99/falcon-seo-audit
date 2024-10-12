@@ -1,5 +1,20 @@
 <?php
+/**
+ * File: delete-audit.php
+ *
+ * @package Falcon_SEO_Audit
+ * @since 1.0.0
+ */
 
+/**
+ * Deletes a Falcon SEO Audit report.
+ *
+ * This endpoint deletes a single audit report and its related single content report based on the provided audit ID.
+ *
+ * @param WP_REST_Request $request The request object.
+ *
+ * @return WP_REST_Response The response object.
+ */
 function falcon_seo_audit_delete_audit( WP_REST_Request $request ) {
 	global $wpdb;
 	$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
@@ -13,7 +28,7 @@ function falcon_seo_audit_delete_audit( WP_REST_Request $request ) {
 
 		$audit_id = sanitize_text_field( $data['id'] );
 
-		// Check if the audit ID exists before attempting to delete.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$report_exists = $wpdb->get_var(
 			$wpdb->prepare(
 				'SELECT COUNT(*) FROM ' . esc_sql( $audit_report_table_name ) . ' WHERE id = %s',
@@ -21,9 +36,11 @@ function falcon_seo_audit_delete_audit( WP_REST_Request $request ) {
 			)
 		);
 
+		// Delete the audit report and related single content report.
 		if ( $report_exists ) {
-			// Delete the audit report and related single content report.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->delete( $audit_report_table_name, array( 'id' => $audit_id ), array( '%s' ) );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->delete( $single_content_report_table, array( 'report_id' => $audit_id ), array( '%s' ) );
 
 			// Return a success response.
