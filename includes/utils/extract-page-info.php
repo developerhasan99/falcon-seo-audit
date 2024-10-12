@@ -1,4 +1,10 @@
 <?php
+/**
+ * File: extract-page-info.php
+ *
+ * @package Falcon_SEO_Audit
+ * @since 1.0.0
+ */
 
 /**
  * Extract metadata from an HTML document.
@@ -45,25 +51,29 @@ function extract_information( $doc ) {
 	$javascript_links = array();
 
 	// Get meta tags.
-	$metas = $doc->getElementsByTagName( 'meta' );
+	$meta_tags = $doc->getElementsByTagName( 'meta' );
 
-	foreach ( $metas as $meta ) {
+	foreach ( $meta_tags as $meta ) {
+
+		if ( ! $meta instanceof DOMElement ) {
+			continue;
+		}
 
 		// Meta description and keywords.
-		if ( $meta->getAttribute( 'name' ) == 'description' ) {
+		if ( $meta->getAttribute( 'name' ) === 'description' ) {
 			$description = $meta->getAttribute( 'content' );
 		}
-		if ( $meta->getAttribute( 'name' ) == 'keywords' ) {
+		if ( $meta->getAttribute( 'name' ) === 'keywords' ) {
 			$keywords = $meta->getAttribute( 'content' );
 		}
 		// Content type or charset.
-		if ( $meta->hasAttribute( 'http-equiv' ) && $meta->getAttribute( 'http-equiv' ) == 'Content-Type' ) {
+		if ( $meta->hasAttribute( 'http-equiv' ) && $meta->getAttribute( 'http-equiv' ) === 'Content-Type' ) {
 			$content_type = $meta->getAttribute( 'content' );
 		} elseif ( $meta->hasAttribute( 'charset' ) ) {
 			$content_type = 'text/html; charset=' . $meta->getAttribute( 'charset' );
 		}
 		// Robots tag.
-		if ( $meta->getAttribute( 'name' ) == 'robots' ) {
+		if ( $meta->getAttribute( 'name' ) === 'robots' ) {
 			$robots = $meta->getAttribute( 'content' );
 		}
 		// Open Graph data.
@@ -75,11 +85,11 @@ function extract_information( $doc ) {
 			$twitter_data[ $meta->getAttribute( 'name' ) ] = $meta->getAttribute( 'content' );
 		}
 		// Viewport meta tag.
-		if ( $meta->getAttribute( 'name' ) == 'viewport' ) {
+		if ( $meta->getAttribute( 'name' ) === 'viewport' ) {
 			$viewport = $meta->getAttribute( 'content' );
 		}
 		// CSP meta tag.
-		if ( $meta->getAttribute( 'http-equiv' ) == 'Content-Security-Policy' ) {
+		if ( $meta->getAttribute( 'http-equiv' ) === 'Content-Security-Policy' ) {
 			$csp = $meta->getAttribute( 'content' );
 		}
 	}
@@ -87,16 +97,21 @@ function extract_information( $doc ) {
 	// Get canonical URL.
 	$links = $doc->getElementsByTagName( 'link' );
 	foreach ( $links as $link ) {
-		if ( $link->getAttribute( 'rel' ) == 'canonical' ) {
+
+		if ( ! $link instanceof DOMElement ) {
+			continue;
+		}
+
+		if ( $link->getAttribute( 'rel' ) === 'canonical' ) {
 			$canonical_url = $link->getAttribute( 'href' );
 		}
-		if ( $link->getAttribute( 'rel' ) == 'icon' || $link->getAttribute( 'rel' ) == 'shortcut icon' ) {
+		if ( $link->getAttribute( 'rel' ) === 'icon' || $link->getAttribute( 'rel' ) === 'shortcut icon' ) {
 			$favicon = $link->getAttribute( 'href' );
 		}
-		if ( $link->getAttribute( 'rel' ) == 'stylesheet' ) {
+		if ( $link->getAttribute( 'rel' ) === 'stylesheet' ) {
 			$stylesheets[] = $link->getAttribute( 'href' );
 		}
-		if ( $link->getAttribute( 'rel' ) == 'alternate' ) {
+		if ( $link->getAttribute( 'rel' ) === 'alternate' ) {
 			$alternate_links[] = array(
 				'href'     => $link->getAttribute( 'href' ),
 				'hreflang' => $link->getAttribute( 'hreflang' ),
@@ -105,13 +120,19 @@ function extract_information( $doc ) {
 	}
 
 	// Get HTML lang attribute.
+	// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 	$lang = $doc->documentElement->getAttribute( 'lang' );
 
 	// Get JSON-LD structured data and JavaScript links.
-	$scriptTags = $doc->getElementsByTagName( 'script' );
-	foreach ( $scriptTags as $script ) {
-		// Extract JSON-LD structured data.
+	$script_tags = $doc->getElementsByTagName( 'script' );
+	foreach ( $script_tags as $script ) {
+
+		if ( ! $script instanceof DOMElement ) {
+			continue;
+		}
+
 		if ( $script->getAttribute( 'type' ) === 'application/ld+json' ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$json_ld[] = json_decode( $script->nodeValue, true );
 		}
 

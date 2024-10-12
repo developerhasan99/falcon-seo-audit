@@ -126,12 +126,12 @@ class Crawler {
 			@$doc->loadHTML( mb_convert_encoding( $body, 'HTML-ENTITIES', 'UTF-8' ) );
 
 			$page_info           = extract_information( $doc );
-			$links               = extractPageLinks( $doc );
-			$content_metrics     = analyzeContentMetrics( $doc );
-			$headings            = extractHeadings( $doc );
+			$links               = extract_page_links( $doc );
+			$content_metrics     = analyze_content_metrics( $doc );
+			$headings            = extract_headings( $doc );
 			$images              = extractImages( $doc );
-			$guessed_keywords    = guessKeywords( $doc );
-			$keyword_consistency = extractKeywordConsistency( $doc, array_keys( $guessed_keywords ) );
+			$guessed_keywords    = guess_keywords( $doc );
+			$keyword_consistency = get_keyword_consistency( $doc, array_keys( $guessed_keywords ) );
 
 			// Insert data to report table.
 			$this->wpdb->insert(

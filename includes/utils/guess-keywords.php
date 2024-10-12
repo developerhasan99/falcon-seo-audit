@@ -1,80 +1,103 @@
 <?php
+/**
+ * File: guess-keywords.php
+ *
+ * @package Falcon_SEO_Audit
+ * @since 1.0.0
+ */
 
-function guessKeywords($doc)
-{
-    // Initialize variables
-    $textContent = '';
+/**
+ * Guesses potential keywords from a page by analyzing the text content.
+ *
+ * The function combines the page title, headings, and paragraph text, removes
+ * HTML entities and punctuation, removes common stop words, and then counts the
+ * frequency of words. The top 10 most frequent words are returned as the
+ * potential keywords.
+ *
+ * @param DOMDocument $doc The page document to analyze.
+ *
+ * @return array The top 10 most frequent words.
+ */
+function guess_keywords( $doc ) {
+	$text_content = '';
 
-    // Extract text from title, headings, and paragraphs
-    $title = $doc->getElementsByTagName('title')->item(0)->nodeValue ?? '';
-    $headingsText = '';
-    for ($i = 1; $i <= 6; $i++) {
-        $headingTags = $doc->getElementsByTagName('h' . $i);
-        foreach ($headingTags as $heading) {
-            $headingsText .= ' ' . $heading->nodeValue;
-        }
-    }
-    $paragraphsText = '';
-    $paragraphs = $doc->getElementsByTagName('p');
-    foreach ($paragraphs as $paragraph) {
-        $paragraphsText .= ' ' . $paragraph->nodeValue;
-    }
+	// Extract text from title, headings, and paragraphs.
+	$title        = $doc->getElementsByTagName( 'title' )->item( 0 )->nodeValue ?? '';
+	$heading_text = '';
+	for ( $i = 1; $i <= 6; $i++ ) {
+		$heading_tags = $doc->getElementsByTagName( 'h' . $i );
+		foreach ( $heading_tags as $heading ) {
+            //phpcs:ignore WordPress.NamingConventions.ValidVariableName
+			$heading_text .= ' ' . $heading->nodeValue;
+		}
+	}
 
-    // Combine all the text content
-    $textContent = $title . ' ' . $headingsText . ' ' . $paragraphsText;
+	$paragraphs_text = '';
+	$paragraphs      = $doc->getElementsByTagName( 'p' );
+	foreach ( $paragraphs as $paragraph ) {
 
-    // Convert to lowercase for consistency
-    $textContent = strtolower($textContent);
+        //phpcs:ignore WordPress.NamingConventions.ValidVariableName
+		$paragraphs_text .= ' ' . $paragraph->nodeValue;
+	}
 
-    // Remove HTML entities and punctuation
-    $textContent = html_entity_decode($textContent);
-    $textContent = preg_replace('/[^\w\s]/', '', $textContent);
+	// Combine all the text content.
+	$text_content = $title . ' ' . $heading_text . ' ' . $paragraphs_text;
 
-    // Split text into words
-    $words = explode(' ', $textContent);
+	// Convert to lowercase for consistency.
+	$text_content = strtolower( $text_content );
 
-    // Remove common stop words
-    $stopWords = [
-        'the',
-        'and',
-        'is',
-        'in',
-        'to',
-        'of',
-        'it',
-        'for',
-        'with',
-        'on',
-        'this',
-        'that',
-        'by',
-        'from',
-        'at',
-        'or',
-        'as',
-        'be',
-        'an',
-        'are',
-        'a',
-        'was',
-        'were',
-        'can',
-        'which',
-        'if'
-        // You can expand this list with more stop words
-    ];
-    $filteredWords = array_filter($words, function ($word) use ($stopWords) {
-        return strlen($word) > 2 && !in_array($word, $stopWords);
-    });
+	// Remove HTML entities and punctuation.
+	$text_content = html_entity_decode( $text_content );
+	$text_content = preg_replace( '/[^\w\s]/', '', $text_content );
 
-    // Count word frequencies
-    $wordFrequencies = array_count_values($filteredWords);
+	// Split text into words.
+	$words = explode( ' ', $text_content );
 
-    // Sort words by frequency in descending order
-    arsort($wordFrequencies);
+	// Remove common stop words.
+	$stop_words = array(
+		'the',
+		'and',
+		'is',
+		'in',
+		'to',
+		'of',
+		'it',
+		'for',
+		'with',
+		'on',
+		'this',
+		'that',
+		'by',
+		'from',
+		'at',
+		'or',
+		'as',
+		'be',
+		'an',
+		'are',
+		'a',
+		'was',
+		'were',
+		'can',
+		'which',
+		'if',
+		// More words will be added letter.
+	);
+	$filtered_words = array_filter(
+		$words,
+		function ( $word ) use ( $stop_words ) {
+			return strlen( $word ) > 2 && ! in_array( $word, $stop_words, true );
+		}
+	);
 
-    // Get the top 10 most frequent words (potential keywords)
-    $topKeywords = array_slice($wordFrequencies, 0, 10);
+	// Count word frequencies.
+	$word_frequencies = array_count_values( $filtered_words );
 
-    return $topKeywords;
+	// Sort words by frequency in descending order.
+	arsort( $word_frequencies );
+
+	// Get the top 10 most frequent words (potential keywords).
+	$top_keywords = array_slice( $word_frequencies, 0, 10 );
+
+	return $top_keywords;
 }

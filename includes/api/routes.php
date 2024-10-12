@@ -109,7 +109,7 @@ function falcon_seo_audit_permission_callback( WP_REST_Request $request ) {
 
 	return new WP_Error(
 		'rest_forbidden',
-		esc_html__( 'You do not have permission to access this endpoint.' ),
+		esc_html__( 'You do not have permission to access this endpoint.', 'falcon-seo-audit' ),
 		array( 'status' => 403 )
 	);
 }
