@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+use Falcon_Seo_Audit\Utils;
+
 /**
  * Initiates a new Falcon SEO audit.
  *
@@ -28,7 +30,7 @@ function falcon_seo_audit_initiate_audit() {
 			'status'            => 'success',
 			'Message'           => 'Initiated falcon audit',
 			'audit_id'          => $new_report_id,
-			'approx_link_count' => count( get_all_links() ),
+			'approx_link_count' => count( Utils\get_all_links() ),
 		);
 		return new WP_REST_Response( $response_data, 200 );
 	}

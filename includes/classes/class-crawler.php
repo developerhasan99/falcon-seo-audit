@@ -8,6 +8,8 @@
 
 namespace Falcon_Seo_Audit;
 
+use Falcon_Seo_Audit\Utils;
+
 /**
  * Class Crawler
  *
@@ -127,7 +129,7 @@ class Crawler {
 
 			$page_info           = extract_information( $doc );
 			$links               = extract_page_links( $doc );
-			$content_metrics     = analyze_content_metrics( $doc );
+			$content_metrics     = Utils\analyze_content_metrics( $doc );
 			$headings            = extract_headings( $doc );
 			$images              = extract_images( $doc );
 			$guessed_keywords    = guess_keywords( $doc );

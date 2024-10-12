@@ -38,6 +38,7 @@ require_once PLUGIN_DIR_PATH . 'includes/api/delete-audit.php';
 
 // Load utility files.
 require_once PLUGIN_DIR_PATH . 'includes/utils/is-webpage-link.php';
+require_once PLUGIN_DIR_PATH . 'includes/utils/get-all-site-links.php';
 require_once PLUGIN_DIR_PATH . 'includes/utils/extract-headings.php';
 require_once PLUGIN_DIR_PATH . 'includes/utils/extract-images.php';
 require_once PLUGIN_DIR_PATH . 'includes/utils/extract-page-info.php';

@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\Utils;
+
 /**
  * Analyze content metrics from a given HTML document.
  *
@@ -32,7 +34,7 @@ function analyze_content_metrics( $doc ) {
 	$total_syllables             = 0;
 
 	// Total node count.
-	$xpath      = new DOMXPath( $doc );
+	$xpath      = new \DOMXPath( $doc );
 	$node_count = $xpath->query( '//*' )->length;
 
 	// Remove <style> and <script> tags to avoid counting them in content.
@@ -62,7 +64,7 @@ function analyze_content_metrics( $doc ) {
 	// Loop through each paragraph and count the words.
 	foreach ( $paragraphs as $paragraph ) {
 
-		if ( ! $paragraph instanceof DOMElement ) {
+		if ( ! $paragraph instanceof \DOMElement ) {
 			continue;
 		}
 

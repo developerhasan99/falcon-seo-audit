@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_SEO_Audit\Utils;
+
 /**
  * Gets all the links of a WordPress site.
  *
