@@ -20,7 +20,7 @@ use WP_REST_Request;
  *
  * @return WP_REST_Response The response object.
  */
-function falcon_seo_audit_run_audit( WP_REST_Request $request ) {
+function run_audit( WP_REST_Request $request ) {
 	$falcon_seo_audit = new Crawler();
 
 	// Get JSON payload from the request.
