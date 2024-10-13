@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\Utils;
+
 /**
  * Analyze keyword consistency in a given HTML document.
  *
@@ -37,7 +39,7 @@ function get_keyword_consistency( $doc, $keywords ) {
 	$meta_description = '';
 	$meta_tags        = $doc->getElementsByTagName( 'meta' );
 	foreach ( $meta_tags as $meta ) {
-		if ( ! $meta instanceof DOMElement ) {
+		if ( ! $meta instanceof \DOMElement ) {
 			continue;
 		}
 

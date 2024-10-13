@@ -24,6 +24,11 @@ namespace Falcon_Seo_Audit\Utils;
  * @return array The content metrics as an associative array.
  */
 function analyze_content_metrics( $doc ) {
+
+	if ( ! $doc instanceof \DOMDocument ) {
+		return;
+	}
+
 	// Initialize variables.
 	$word_count                  = 0;
 	$paragraph_count             = 0;
@@ -33,7 +38,7 @@ function analyze_content_metrics( $doc ) {
 	$readability_score           = 0;
 	$total_syllables             = 0;
 
-	// Total node count.
+	// Count the number of nodes.
 	$xpath      = new \DOMXPath( $doc );
 	$node_count = $xpath->query( '//*' )->length;
 

@@ -6,7 +6,10 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
 use Falcon_Seo_Audit\Crawler;
+use WP_REST_Request;
 
 /**
  * Runs a Falcon SEO Audit.
@@ -34,5 +37,5 @@ function falcon_seo_audit_run_audit( WP_REST_Request $request ) {
 		'status' => 'success',
 	);
 
-	return new WP_REST_Response( $response_data, 200 );
+	return new \WP_REST_Response( $response_data, 200 );
 }

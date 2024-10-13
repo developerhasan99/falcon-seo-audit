@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
 use Falcon_Seo_Audit\Utils;
 
 /**
@@ -17,7 +19,7 @@ use Falcon_Seo_Audit\Utils;
  *
  * @return WP_REST_Response The response object.
  */
-function falcon_seo_audit_initiate_audit() {
+function initiate_audit() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'falcon_seo_audit_report';
 
@@ -32,6 +34,6 @@ function falcon_seo_audit_initiate_audit() {
 			'audit_id'          => $new_report_id,
 			'approx_link_count' => count( Utils\get_all_links() ),
 		);
-		return new WP_REST_Response( $response_data, 200 );
+		return new \WP_REST_Response( $response_data, 200 );
 	}
 }

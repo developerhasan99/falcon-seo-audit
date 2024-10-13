@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
+use WP_REST_Request;
+
 /**
  * Gets the status of a single audit report.
  *
@@ -17,7 +21,7 @@
  *
  * @return WP_REST_Response The response object.
  */
-function falcon_seo_audit_get_audit_status( WP_REST_Request $request ) {
+function get_audit_status( WP_REST_Request $request ) {
 
 	global $wpdb;
 	$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
@@ -41,6 +45,6 @@ function falcon_seo_audit_get_audit_status( WP_REST_Request $request ) {
 			'urls'   => $urls,
 		);
 
-		return new WP_REST_Response( $response_data, 200 );
+		return new \WP_REST_Response( $response_data, 200 );
 	}
 }

@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\Utils;
+
 /**
  * Extract all headings from a webpage.
  *

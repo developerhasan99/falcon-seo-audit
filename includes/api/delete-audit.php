@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
+use WP_REST_Request;
+
 /**
  * Deletes a Falcon SEO Audit report.
  *
@@ -15,7 +19,7 @@
  *
  * @return WP_REST_Response The response object.
  */
-function falcon_seo_audit_delete_audit( WP_REST_Request $request ) {
+function delete_audit( WP_REST_Request $request ) {
 	global $wpdb;
 	$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
 	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
@@ -49,10 +53,10 @@ function falcon_seo_audit_delete_audit( WP_REST_Request $request ) {
 				'message' => 'Audit deleted successfully',
 			);
 
-			return new WP_REST_Response( $response, 200 );
+			return new \WP_REST_Response( $response, 200 );
 		} else {
 			// Return an error if the audit ID does not exist.
-			return new WP_REST_Response(
+			return new \WP_REST_Response(
 				array(
 					'status'  => 'error',
 					'message' => 'Audit ID not found',
@@ -62,7 +66,7 @@ function falcon_seo_audit_delete_audit( WP_REST_Request $request ) {
 		}
 	} else {
 		// Return an error if 'id' is missing or invalid.
-		return new WP_REST_Response(
+		return new \WP_REST_Response(
 			array(
 				'status'  => 'error',
 				'message' => 'Invalid or missing audit ID',

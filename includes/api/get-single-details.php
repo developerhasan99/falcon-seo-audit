@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
+use WP_REST_Request;
+
 /**
  * Gets the details of a single audit report link.
  *
@@ -30,6 +34,6 @@ function falcon_seo_audit_get_single_details( WP_REST_Request $request ) {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$results = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . esc_sql( $single_content_report_table ) . ' WHERE id = %s', $link_id ) );
 
-		return new WP_REST_Response( $results, 200 );
+		return new \WP_REST_Response( $results, 200 );
 	}
 }

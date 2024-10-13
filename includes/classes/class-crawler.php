@@ -127,13 +127,13 @@ class Crawler {
 			$doc = new \DOMDocument();
 			@$doc->loadHTML( mb_convert_encoding( $body, 'HTML-ENTITIES', 'UTF-8' ) );
 
-			$page_info           = extract_information( $doc );
-			$links               = extract_page_links( $doc );
+			$page_info           = Utils\extract_information( $doc );
+			$links               = Utils\extract_page_links( $doc );
 			$content_metrics     = Utils\analyze_content_metrics( $doc );
-			$headings            = extract_headings( $doc );
-			$images              = extract_images( $doc );
-			$guessed_keywords    = guess_keywords( $doc );
-			$keyword_consistency = get_keyword_consistency( $doc, array_keys( $guessed_keywords ) );
+			$headings            = Utils\extract_headings( $doc );
+			$images              = Utils\extract_images( $doc );
+			$guessed_keywords    = Utils\guess_keywords( $doc );
+			$keyword_consistency = Utils\get_keyword_consistency( $doc, array_keys( $guessed_keywords ) );
 
 			// Insert data to report table.
 			$this->wpdb->insert(

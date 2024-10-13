@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\Utils;
+
 /**
  * Extract all links from a webpage.
  *
@@ -35,7 +37,7 @@ function extract_page_links( $doc ) {
 
 	foreach ( $link_node_list as $link_node ) {
 
-		if ( ! ( $link_node instanceof DOMElement ) ) {
+		if ( ! ( $link_node instanceof \DOMElement ) ) {
 			continue;  // Skip non-element nodes.
 		}
 

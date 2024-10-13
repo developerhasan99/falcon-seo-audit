@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
+use WP_REST_Request;
+
 /**
  * Gets all links in a single audit report.
  *
@@ -30,6 +34,6 @@ function falcon_seo_audit_get_single_audit( WP_REST_Request $request ) {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$results = $wpdb->get_results( $wpdb->prepare( 'SELECT id,url,status_code,title,meta_description,internal_links,external_links   FROM ' . esc_sql( $single_content_report_table ) . ' WHERE report_id = %s', $audit_id ) );
 
-		return new WP_REST_Response( $results, 200 );
+		return new \WP_REST_Response( $results, 200 );
 	}
 }

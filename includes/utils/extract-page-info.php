@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\Utils;
+
 /**
  * Extract metadata from an HTML document.
  *
@@ -55,7 +57,7 @@ function extract_information( $doc ) {
 
 	foreach ( $meta_tags as $meta ) {
 
-		if ( ! $meta instanceof DOMElement ) {
+		if ( ! $meta instanceof \DOMElement ) {
 			continue;
 		}
 
@@ -98,7 +100,7 @@ function extract_information( $doc ) {
 	$links = $doc->getElementsByTagName( 'link' );
 	foreach ( $links as $link ) {
 
-		if ( ! $link instanceof DOMElement ) {
+		if ( ! $link instanceof \DOMElement ) {
 			continue;
 		}
 
@@ -127,7 +129,7 @@ function extract_information( $doc ) {
 	$script_tags = $doc->getElementsByTagName( 'script' );
 	foreach ( $script_tags as $script ) {
 
-		if ( ! $script instanceof DOMElement ) {
+		if ( ! $script instanceof \DOMElement ) {
 			continue;
 		}
 

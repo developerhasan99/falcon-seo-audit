@@ -6,6 +6,8 @@
  * @since 1.0.0
  */
 
+namespace Falcon_Seo_Audit\API;
+
 /**
  * Gets all recent audits in descending order of their IDs.
  *
@@ -13,7 +15,7 @@
  *
  * @return WP_REST_Response The response object.
  */
-function falcon_seo_audit_get_recent_audits() {
+function get_recent_audits() {
 
 	global $wpdb;
 	$audit_report_table          = $wpdb->prefix . 'falcon_seo_audit_report';
@@ -47,5 +49,5 @@ function falcon_seo_audit_get_recent_audits() {
 		'reports' => $reports,
 	);
 
-	return new WP_REST_Response( $response_data, 200 );
+	return new \WP_REST_Response( $response_data, 200 );
 }

@@ -6,7 +6,9 @@
  * @since 1.0.0
  */
 
-add_action( 'rest_api_init', 'fsa_register_rest_api_routes' );
+namespace Falcon_Seo_Audit\API;
+
+use WP_REST_Request;
 
 /**
  * Registers REST API routes for the Falcon SEO Audit plugin.
@@ -24,14 +26,14 @@ add_action( 'rest_api_init', 'fsa_register_rest_api_routes' );
  *
  * @since 1.0.0
  */
-function fsa_register_rest_api_routes() {
+function register_rest_api_routes() {
 	register_rest_route(
 		'falcon-seo-audit/v1',
 		'/initiate-audit/',
 		array(
 			'methods'             => 'GET',
-			'callback'            => 'falcon_seo_audit_initiate_audit',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\initiate_audit',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 	register_rest_route(
@@ -39,8 +41,8 @@ function fsa_register_rest_api_routes() {
 		'/run-audit/',
 		array(
 			'methods'             => 'POST',
-			'callback'            => 'falcon_seo_audit_run_audit',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\run_audit',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 	register_rest_route(
@@ -48,8 +50,8 @@ function fsa_register_rest_api_routes() {
 		'/get-audit-status/',
 		array(
 			'methods'             => 'POST',
-			'callback'            => 'falcon_seo_audit_get_audit_status',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\get_audit_status',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 	register_rest_route(
@@ -57,8 +59,8 @@ function fsa_register_rest_api_routes() {
 		'/recent-audits/',
 		array(
 			'methods'             => 'GET',
-			'callback'            => 'falcon_seo_audit_get_recent_audits',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\get_recent_audits',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 	register_rest_route(
@@ -66,8 +68,8 @@ function fsa_register_rest_api_routes() {
 		'/get-single-audit/',
 		array(
 			'methods'             => 'POST',
-			'callback'            => 'falcon_seo_audit_get_single_audit',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\get_single_audit',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 	register_rest_route(
@@ -75,8 +77,8 @@ function fsa_register_rest_api_routes() {
 		'/get-single-details/',
 		array(
 			'methods'             => 'POST',
-			'callback'            => 'falcon_seo_audit_get_single_details',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\get_single_details',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 	register_rest_route(
@@ -84,11 +86,13 @@ function fsa_register_rest_api_routes() {
 		'/delete-audit/',
 		array(
 			'methods'             => 'POST',
-			'callback'            => 'falcon_seo_audit_delete_audit',
-			'permission_callback' => 'falcon_seo_audit_permission_callback',
+			'callback'            => __NAMESPACE__ . '\\delete_audit',
+			'permission_callback' => __NAMESPACE__ . '\\api_permission_callback',
 		)
 	);
 }
+
+add_action( 'rest_api_init', __NAMESPACE__ . '\\register_rest_api_routes' );
 
 /**
  * Checks if the request is authorized to access the Falcon SEO Audit API.
@@ -100,14 +104,14 @@ function fsa_register_rest_api_routes() {
  *
  * @return bool|WP_Error True if the request is authorized, or a WP_Error if the request is not authorized.
  */
-function falcon_seo_audit_permission_callback( WP_REST_Request $request ) {
+function api_permission_callback( WP_REST_Request $request ) {
 	// Validate the nonce from the request headers.
 	$nonce = $request->get_header( 'X-WP-Nonce' );
 	if ( wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 		return true;
 	}
 
-	return new WP_Error(
+	return new \WP_Error(
 		'rest_forbidden',
 		esc_html__( 'You do not have permission to access this endpoint.', 'falcon-seo-audit' ),
 		array( 'status' => 403 )
