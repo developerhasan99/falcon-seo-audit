@@ -19,7 +19,7 @@ use WP_REST_Request;
  *
  * @return WP_REST_Response The response object.
  */
-function falcon_seo_audit_get_single_details( WP_REST_Request $request ) {
+function get_single_details( WP_REST_Request $request ) {
 
 	global $wpdb;
 	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
