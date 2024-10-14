@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable, usePagination } from "react-table";
 
-const DataTable = ({ columns, data, willBeDeleted }) => {
+const DataTable = ({ columns, data, willBeDeleted = null }) => {
   const {
     headerGroups,
     page,
@@ -17,17 +17,17 @@ const DataTable = ({ columns, data, willBeDeleted }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 },
+      initialState: { pageIndex: 0, pageSize: 20 },
     },
     usePagination
   );
 
   return (
     <>
-      <table className="rounded w-full border-separate border-spacing-0 text-left fixed-actions-width">
+      <table className="rounded w-full border-separate border-spacing-0 text-left">
         <thead>
           {headerGroups.map((headerGroup, index) => (
-            <tr key={index}>
+            <tr key={index} className="sticky top-8">
               {headerGroup.headers.map((column, index) => (
                 <th
                   key={index}

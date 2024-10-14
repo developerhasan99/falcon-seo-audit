@@ -32,8 +32,44 @@ function get_single_audit( WP_REST_Request $request ) {
 		$audit_id = $data['audit_id'];
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$results = $wpdb->get_results( $wpdb->prepare( 'SELECT id,url,status_code,title,meta_description,internal_links,external_links   FROM ' . esc_sql( $single_content_report_table ) . ' WHERE report_id = %s', $audit_id ) );
+		$results = $wpdb->get_results( $wpdb->prepare( 'SELECT id,url,status_code,title,robots,readability_score,internal_links,external_links   FROM ' . esc_sql( $single_content_report_table ) . ' WHERE report_id = %s', $audit_id ) );
 
-		return new \WP_REST_Response( $results, 200 );
+		$response_data = array();
+
+		foreach ( $results as $result ) {
+
+			$links_present = array();
+
+			$internal_links = json_decode( $result->internal_links );
+			$external_links = json_decode( $result->external_links );
+
+			foreach ( $internal_links as $link ) {
+				$links_present[] = array(
+					'anchor' => $link->anchor,
+					'href'   => $link->href,
+					'type'   => 'Internal',
+				);
+			}
+
+			foreach ( $external_links as $link ) {
+				$links_present[] = array(
+					'anchor' => $link->anchor,
+					'href'   => $link->href,
+					'type'   => 'External',
+				);
+			}
+
+			$response_data[] = array(
+				'id'                => $result->id,
+				'url'               => $result->url,
+				'status_code'       => $result->status_code,
+				'title'             => $result->title,
+				'robots'            => $result->robots,
+				'readability_score' => $result->readability_score,
+				'links_present'     => $links_present,
+			);
+		}
+
+		return new \WP_REST_Response( $response_data, 200 );
 	}
 }

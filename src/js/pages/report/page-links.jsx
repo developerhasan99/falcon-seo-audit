@@ -25,7 +25,13 @@ function PageLinks({ link, pageLinks, closeLinksModal }) {
                   {index + 1}
                 </td>
                 <td className="px-4 py-3 border border-l-0 border-t-0 border-solid border-gray-300">
-                  {link.href}
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    className="text-blue-700 hover:underline newtab"
+                  >
+                    {link.href}
+                  </a>
                 </td>
                 <td className="px-4 py-3 border border-l-0 border-t-0  border-solid border-gray-300">
                   {link.anchor}

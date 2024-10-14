@@ -522,8 +522,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       padding-right: 1em;
     }
 
-.falcon-seo-audit table.fixed-actions-width td:last-child,
-    .falcon-seo-audit table.fixed-actions-width th:last-child {
+.falcon-seo-audit .recent-reports table td:last-child,
+    .falcon-seo-audit .recent-reports table th:last-child {
       width: 180px;
     }
 
@@ -789,10 +789,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .falcon-seo-audit .overflow-y-auto{
   overflow-y: auto;
-}
-
-.falcon-seo-audit .whitespace-nowrap{
-  white-space: nowrap;
 }
 
 .falcon-seo-audit .rounded{
@@ -1097,11 +1093,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .text-gray-700{
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-.falcon-seo-audit .text-gray-900{
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
 .falcon-seo-audit .text-green-500{

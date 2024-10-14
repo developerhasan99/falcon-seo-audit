@@ -14,8 +14,8 @@
       padding-right: 1em;
     }
 
-    table.fixed-actions-width td:last-child,
-    table.fixed-actions-width th:last-child {
+    .recent-reports table td:last-child,
+    .recent-reports table th:last-child {
       width: 180px;
     }
   }
