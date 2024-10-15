@@ -587,6 +587,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   z-index: 20;
 }
 
+.falcon-seo-audit .col-span-1{
+  grid-column: span 1 / span 1;
+}
+
+.falcon-seo-audit .col-span-3{
+  grid-column: span 3 / span 3;
+}
+
+.falcon-seo-audit .col-span-5{
+  grid-column: span 5 / span 5;
+}
+
 .falcon-seo-audit .m-0{
   margin: 0px;
 }
@@ -626,6 +638,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .falcon-seo-audit .mt-8{
   margin-top: 2rem;
+}
+
+.falcon-seo-audit .mt-6{
+  margin-top: 1.5rem;
 }
 
 .falcon-seo-audit .inline-block{
@@ -745,6 +761,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .falcon-seo-audit .cursor-pointer{
   cursor: pointer;
+}
+
+.falcon-seo-audit .grid-cols-4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.falcon-seo-audit .grid-cols-6{
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .falcon-seo-audit .flex-col{
@@ -992,6 +1016,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   padding-bottom: 2rem;
 }
 
+.falcon-seo-audit .py-6{
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 .falcon-seo-audit .pb-4{
   padding-bottom: 1rem;
 }
@@ -1014,6 +1043,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .falcon-seo-audit .pt-8{
   padding-top: 2rem;
+}
+
+.falcon-seo-audit .pr-6{
+  padding-right: 1.5rem;
+}
+
+.falcon-seo-audit .pl-6{
+  padding-left: 1.5rem;
+}
+
+.falcon-seo-audit .pb-6{
+  padding-bottom: 1.5rem;
 }
 
 .falcon-seo-audit .text-left{

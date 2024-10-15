@@ -64,7 +64,7 @@ function SingleAuditReport({
       Header: "Actions",
       Cell: ({ row }) => (
         <button
-          onClick={() => showDetails(row.original.id)}
+          onClick={() => showDetails(row.original.id, row.original.url)}
           className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
         >
           View

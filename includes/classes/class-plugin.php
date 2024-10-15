@@ -20,11 +20,13 @@ class Plugin {
 	/**
 	 * Constructor to initialize hooks and activation.
 	 */
-	public function __construct() {
-		// Register activation hook.
-		register_activation_hook( __FILE__, array( $this, 'activate_plugin' ) );
+	public function __construct() {}
 
-		// Add hook to load inline CSS for specific admin pages.
+	/**
+	 * Initialize the plugin by registering activation hook and adding hook to load inline CSS
+	 * for specific admin pages.
+	 */
+	public function initialize() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_inline_css' ) );
 	}
 
@@ -112,9 +114,4 @@ class Plugin {
 			wp_add_inline_style( 'wp-admin', $custom_css );
 		}
 	}
-}
-
-// Initialize the plugin class.
-if ( class_exists( 'Falcon_Seo_Audit\Plugin' ) ) {
-	$falcon_seo_audit_plugin = new Plugin();
 }
