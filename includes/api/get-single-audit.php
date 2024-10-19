@@ -29,10 +29,31 @@ function get_single_audit( WP_REST_Request $request ) {
 
 	if ( isset( $data['audit_id'] ) ) {
 
-		$audit_id = $data['audit_id'];
+		$audit_id = !empty($data['audit_id']) ? intval($data['audit_id']) : 0;
+		$page = !empty($data['page']) ? intval($data['page']) : 1;
+		$per_page = !empty($data['per_page']) ? intval($data['per_page']) : 20;
 
+		$count_query = $wpdb->prepare(
+			'SELECT COUNT(*) FROM ' . esc_sql($single_content_report_table) . ' WHERE report_id = %s', 
+			$audit_id
+		);
+		
+		$total_count = $wpdb->get_var($count_query);
+		
+		$offset = ($page - 1) * $per_page; // Calculate offset
+		
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$results = $wpdb->get_results( $wpdb->prepare( 'SELECT id,url,status_code,title,robots,readability_score,internal_links,external_links   FROM ' . esc_sql( $single_content_report_table ) . ' WHERE report_id = %s', $audit_id ) );
+		$query = $wpdb->prepare(
+			'SELECT id, url, status_code, title, robots, readability_score, internal_links, external_links 
+			 FROM ' . esc_sql($single_content_report_table) . ' 
+			 WHERE report_id = %s 
+			 LIMIT %d, %d', 
+			$audit_id, 
+			$offset, 
+			$per_page
+		);
+		
+		$results = $wpdb->get_results($query);		
 
 		$response_data = array();
 
@@ -70,6 +91,6 @@ function get_single_audit( WP_REST_Request $request ) {
 			);
 		}
 
-		return new \WP_REST_Response( $response_data, 200 );
+		return new \WP_REST_Response( array( 'audit' => $response_data, 'total_count' => $total_count ), 200 );
 	}
 }

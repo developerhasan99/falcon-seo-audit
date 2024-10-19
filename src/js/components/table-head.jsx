@@ -7,7 +7,7 @@ const TableHead = ({ headings, top }) => {
             style={{ top: top }}
             scope="col"
             className={`px-4 py-3 border border-solid border-gray-300 border-l-0 sticky bg-gray-200 z-10 ${
-              index === 0 && "border-l"
+              index === 0 ? "border-l" : ""
             }`}
           >
             {heading}

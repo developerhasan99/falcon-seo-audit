@@ -8,7 +8,6 @@ import fetchRecentAudits from "../../axios/fetch-recent-audits";
 import Header from "../../components/header";
 import RecentReports from "./recent-reports";
 import SingleAuditReport from "./single-audit-report";
-import fetchSingleAudit from "../../axios/fetch-single-audit";
 import Details from "./details";
 import fetchLinkDetails from "../../axios/fetch-link-details";
 import PageLinks from "./page-links";
@@ -22,7 +21,6 @@ function Report() {
   const [recentAudits, setRecentAudits] = useState([]);
 
   const [auditId, setAuditId] = useState(null);
-  const [audit, setAudit] = useState([]);
   const [willBeDeleted, setWillBeDeleted] = useState("");
 
   const [singleLinkId, setSingleLinkId] = useState(null);
@@ -80,10 +78,6 @@ function Report() {
   }, []);
 
   useEffect(() => {
-    fetchSingleAudit(setLoading, auditId, setAudit);
-  }, [auditId]);
-
-  useEffect(() => {
     fetchLinkDetails(setLoading, singleLinkId, setDetails);
   }, [singleLinkId]);
 
@@ -103,8 +97,6 @@ function Report() {
         {page === "single" && (
           <SingleAuditReport
             auditId={auditId}
-            isLoading={isLoading}
-            audit={audit}
             backToRecentReports={backToRecentReports}
             showDetails={showDetails}
             showLinks={showLinks}

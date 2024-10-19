@@ -1,77 +1,40 @@
+import { useState, useEffect } from "react";
+import fetchSingleAudit from "../../axios/fetch-single-audit";
 import FalconLoader from "../../components/falcon-loader";
-import RadialProgress from "../../components/radial-progress";
 import { AnimatePresence, motion } from "framer-motion";
 import Card from "../../components/card";
 import BackButton from "../../components/back-button";
-import DataTable from "./datatable";
+import TableHead from "../../components/table-head";
+import { Search } from "lucide-react";
+import ReactPaginate from "react-paginate";
 
 function SingleAuditReport({
   auditId,
-  isLoading,
-  audit,
   backToRecentReports,
   showDetails,
   showLinks,
 }) {
-  const columns = [
-    {
-      Header: "S/L",
-      accessor: (_, index) => index + 1, // For row numbering
-      Cell: ({ value }) => <strong>{value}</strong>,
-    },
-    {
-      Header: "URL",
-      accessor: "url",
-      Cell: ({ value, row }) => (
-        <>
-          <p className="text-base">{row.original.title}</p>
-          <a
-            href={value}
-            target="_blank"
-            className="text-blue-700 hover:underline newtab"
-          >
-            {value}
-          </a>
-        </>
-      ),
-    },
-    {
-      Header: "HTTP Status Code",
-      accessor: "status_code",
-    },
-    {
-      Header: "Robot Tag",
-      accessor: "robots",
-    },
-    {
-      Header: "Readability Score",
-      accessor: "readability_score",
-    },
-    {
-      Header: "Links Present",
-      accessor: "links_present",
-      Cell: ({ value, row }) => (
-        <button
-          onClick={() => showLinks(row.original.url, value)}
-          className="border-0 bg-transparent text-blue-600 cursor-pointer inline-flex gap-1 items-center"
-        >
-          {value.length}
-          <img src={falcon_seo_obj.asset_url + "search.svg"} alt="Expand" />
-        </button>
-      ),
-    },
-    {
-      Header: "Actions",
-      Cell: ({ row }) => (
-        <button
-          onClick={() => showDetails(row.original.id, row.original.url)}
-          className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
-        >
-          View
-        </button>
-      ),
-    },
-  ];
+  const [isLoading, setLoading] = useState(false);
+  const [audit, setAudit] = useState([]);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+  const [totalPage, setTotalPage] = useState(1);
+
+  const onPageChange = (pagignate) => {    
+    setPage(pagignate.selected);
+  };
+
+  useEffect(() => {
+    fetchSingleAudit(
+      setLoading,
+      auditId,
+      setAudit,
+      page,
+      perPage,
+      setTotalPage
+    );
+    
+  }, [page, perPage]);
 
   return (
     <Card>
@@ -90,7 +53,98 @@ function SingleAuditReport({
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {audit.length > 0 ? (
-              <DataTable columns={columns} data={audit} />
+              <>
+                <table className="rounded w-full border-separate border-spacing-0 text-left">
+                  <TableHead
+                    top="32px"
+                    headings={[
+                      "S/L",
+                      "URL",
+                      "HTTP Status Code",
+                      "Robot Tag",
+                      "Readablity Score",
+                      "Links Present",
+                      "Actions",
+                    ]}
+                  />
+                  <tbody>
+                    {audit.map((item, index) => (
+                      <tr>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r border-l">
+                          {index + 1}
+                        </td>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          <p className="text-base">{item.title}</p>
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            className="text-blue-700 hover:underline newtab"
+                          >
+                            {item.url}
+                          </a>
+                        </td>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          {item.status_code}
+                        </td>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          {item.robots}
+                        </td>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          {item.readability_score}
+                        </td>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          <button
+                            onClick={() =>
+                              showLinks(item.url.url, item.links_present)
+                            }
+                            className="border-0 bg-transparent cursor-pointer inline-flex gap-1 items-center"
+                          >
+                            <span className="text-blue-600">
+                              {item.links_present.length}
+                            </span>
+                            <Search size={14} />
+                          </button>
+                        </td>
+                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          <button
+                            onClick={() => showDetails(item.id, item.url)}
+                            className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="flex justify-between mt-4">
+                  <div className="flex gap-2 items-center">
+                    <span className="text-base">Items per page: </span>
+                    <select
+                      value={perPage}
+                      onChange={(e) => setPerPage(Number(e.target.value))}
+                      className="border border-solid border-gray-300 px-4 py-2 rounded pr-8 font-semibold"
+                    >
+                      {[5, 10, 20, 30, 40, 50].map((size) => (
+                        <option key={size} value={size}>
+                          Show {size}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel={null}
+                      onPageChange={onPageChange}
+                      pageRangeDisplayed={5}
+                      pageCount={totalPage}
+                      previousLabel={null}
+                      marginPagesDisplayed={1}
+                      renderOnZeroPageCount={null}
+                      className="react-paginate"
+                    />
+                </div>
+              </>
             ) : (
               <div className="py-8 text-center text-xl">No data found!</div>
             )}
