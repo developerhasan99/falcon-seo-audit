@@ -6,7 +6,7 @@ import Card from "../../components/card";
 import BackButton from "../../components/back-button";
 import TableHead from "../../components/table-head";
 import { Search } from "lucide-react";
-import ReactPaginate from "react-paginate";
+import Pagination from "../../components/pagination";
 
 function SingleAuditReport({
   auditId,
@@ -21,7 +21,7 @@ function SingleAuditReport({
   const [totalPage, setTotalPage] = useState(1);
 
   const onPageChange = (pagignate) => {    
-    setPage(pagignate.selected);
+    setPage(pagignate);
   };
 
   useEffect(() => {
@@ -132,17 +132,7 @@ function SingleAuditReport({
                       ))}
                     </select>
                   </div>
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel={null}
-                      onPageChange={onPageChange}
-                      pageRangeDisplayed={5}
-                      pageCount={totalPage}
-                      previousLabel={null}
-                      marginPagesDisplayed={1}
-                      renderOnZeroPageCount={null}
-                      className="react-paginate"
-                    />
+                    <Pagination currentPage={page} totalPages={totalPage} onPageChange={onPageChange} />
                 </div>
               </>
             ) : (

@@ -527,11 +527,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       width: 180px;
     }
 
-.falcon-seo-audit .react-paginate {
-      display: flex;
-      gap: 0.5rem;
-    }
-
 .falcon-seo-audit .fixed{
   position: fixed;
 }

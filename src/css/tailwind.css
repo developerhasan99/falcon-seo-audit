@@ -18,10 +18,5 @@
     .recent-reports table th:last-child {
       width: 180px;
     }
-
-    .react-paginate {
-      display: flex;
-      gap: 0.5rem;
-    }
   }
 }
