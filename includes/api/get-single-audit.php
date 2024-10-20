@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: class-crawler.php
  *
@@ -19,7 +20,8 @@ use WP_REST_Request;
  *
  * @return WP_REST_Response The response object.
  */
-function get_single_audit( WP_REST_Request $request ) {
+function get_single_audit(WP_REST_Request $request)
+{
 
 	global $wpdb;
 	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
@@ -27,44 +29,46 @@ function get_single_audit( WP_REST_Request $request ) {
 	// Get JSON payload from the request.
 	$data = $request->get_json_params();
 
-	if ( isset( $data['audit_id'] ) ) {
+	if (isset($data['audit_id'])) {
 
 		$audit_id = !empty($data['audit_id']) ? intval($data['audit_id']) : 0;
 		$page = !empty($data['page']) ? intval($data['page']) : 1;
 		$per_page = !empty($data['per_page']) ? intval($data['per_page']) : 20;
 
+		// TODO: Implement this total page count on the component mount and make the pagination and per page logic on front end.
+
 		$count_query = $wpdb->prepare(
-			'SELECT COUNT(*) FROM ' . esc_sql($single_content_report_table) . ' WHERE report_id = %s', 
+			'SELECT COUNT(*) FROM ' . esc_sql($single_content_report_table) . ' WHERE report_id = %s',
 			$audit_id
 		);
-		
+
 		$total_count = $wpdb->get_var($count_query);
-		
+
 		$offset = ($page - 1) * $per_page; // Calculate offset
-		
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$query = $wpdb->prepare(
 			'SELECT id, url, status_code, title, robots, readability_score, internal_links, external_links 
 			 FROM ' . esc_sql($single_content_report_table) . ' 
 			 WHERE report_id = %s 
-			 LIMIT %d, %d', 
-			$audit_id, 
-			$offset, 
+			 LIMIT %d, %d',
+			$audit_id,
+			$offset,
 			$per_page
 		);
-		
-		$results = $wpdb->get_results($query);		
+
+		$results = $wpdb->get_results($query);
 
 		$response_data = array();
 
-		foreach ( $results as $result ) {
+		foreach ($results as $result) {
 
 			$links_present = array();
 
-			$internal_links = json_decode( $result->internal_links );
-			$external_links = json_decode( $result->external_links );
+			$internal_links = json_decode($result->internal_links);
+			$external_links = json_decode($result->external_links);
 
-			foreach ( $internal_links as $link ) {
+			foreach ($internal_links as $link) {
 				$links_present[] = array(
 					'anchor' => $link->anchor,
 					'href'   => $link->href,
@@ -72,7 +76,7 @@ function get_single_audit( WP_REST_Request $request ) {
 				);
 			}
 
-			foreach ( $external_links as $link ) {
+			foreach ($external_links as $link) {
 				$links_present[] = array(
 					'anchor' => $link->anchor,
 					'href'   => $link->href,
@@ -91,6 +95,6 @@ function get_single_audit( WP_REST_Request $request ) {
 			);
 		}
 
-		return new \WP_REST_Response( array( 'audit' => $response_data, 'total_count' => $total_count ), 200 );
+		return new \WP_REST_Response(array('audit' => $response_data, 'total_count' => $total_count), 200);
 	}
 }

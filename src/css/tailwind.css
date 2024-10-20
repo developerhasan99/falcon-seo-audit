@@ -12,6 +12,7 @@
       background-repeat: no-repeat;
       background-size: 0.857em;
       padding-right: 1em;
+      word-break: break-word;
     }
 
     .recent-reports table td:last-child,

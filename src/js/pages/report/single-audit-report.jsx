@@ -20,7 +20,7 @@ function SingleAuditReport({
   const [perPage, setPerPage] = useState(20);
   const [totalPage, setTotalPage] = useState(1);
 
-  const onPageChange = (pagignate) => {    
+  const onPageChange = (pagignate) => {
     setPage(pagignate);
   };
 
@@ -33,7 +33,6 @@ function SingleAuditReport({
       perPage,
       setTotalPage
     );
-    
   }, [page, perPage]);
 
   return (
@@ -71,7 +70,7 @@ function SingleAuditReport({
                     {audit.map((item, index) => (
                       <tr>
                         <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r border-l">
-                          {index + 1}
+                          {index + 1 + (page - 1) * perPage}
                         </td>
                         <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
                           <p className="text-base">{item.title}</p>
@@ -132,7 +131,11 @@ function SingleAuditReport({
                       ))}
                     </select>
                   </div>
-                    <Pagination currentPage={page} totalPages={totalPage} onPageChange={onPageChange} />
+                  <Pagination
+                    currentPage={page}
+                    totalPages={totalPage}
+                    onPageChange={onPageChange}
+                  />
                 </div>
               </>
             ) : (

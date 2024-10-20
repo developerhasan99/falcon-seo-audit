@@ -1,56 +1,59 @@
-import React from 'react';
-
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-    const renderPagination = () => {
-        const pagination = [];
-        
-        // Always show the first page
-        pagination.push(1);
+  const renderPagination = () => {
+    const pagination = [];
 
-        // If the current page is greater than 4, show an ellipsis before
-        if (currentPage > 4) {
-            pagination.push('...');
-        }
+    // Always show the first page
+    pagination.push(1);
 
-        // Calculate the start and end pages
-        const start = Math.max(2, currentPage - 1);
-        const end = Math.min(totalPages - 1, currentPage + 1);
+    // If the current page is greater than 4, show an ellipsis before
+    if (currentPage > 4) {
+      pagination.push("...");
+    }
 
-        // Add previous pages
-        for (let i = start; i <= end; i++) {
-            pagination.push(i);
-        }
+    // Calculate the start and end pages
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
 
-        // If the current page is less than totalPages - 3, show an ellipsis after
-        if (currentPage < totalPages - 3) {
-            pagination.push('...');
-        }
+    // Add previous pages
+    for (let i = start; i <= end; i++) {
+      pagination.push(i);
+    }
 
-        // Always show the last page
-        if (totalPages > 1) {
-            pagination.push(totalPages);
-        }
+    // If the current page is less than totalPages - 3, show an ellipsis after
+    if (currentPage < totalPages - 3) {
+      pagination.push("...");
+    }
 
-        return pagination.map((page, index) => (
-            <button
-                key={index}
-                onClick={() => typeof page === 'number' && onPageChange(page)}
-                disabled={page === currentPage}
-                style={{
-                    margin: '0 5px',
-                    fontWeight: page === currentPage ? 'bold' : 'normal',
-                }}
-            >
-                {page}
-            </button>
-        ));
-    };
+    // Always show the last page
+    if (totalPages > 1) {
+      pagination.push(totalPages);
+    }
 
-    return (
-        <div>
-            {renderPagination()}
-        </div>
-    );
+    return pagination.map((page, index) => {
+      if (page === "...") {
+        return (
+          <span key={index} className="text-gray-500">
+            ...
+          </span>
+        );
+      }
+
+      return (
+        <button
+          key={index}
+          className={`px-3 py-2 border border-solid rounded bg-gray-100 text-gray-700 font-semibold hover:text-white hover:bg-gray-700 transition-colors duration-300 ${
+            page === currentPage ? "bg-gray-700 text-white" : ""
+          }`}
+          onClick={() => typeof page === "number" && onPageChange(page)}
+          disabled={page === currentPage}
+        >
+          {page}
+        </button>
+      );
+    });
+  };
+
+  return <div className="flex items-center gap-2">{renderPagination()}</div>;
 };
 
 export default Pagination;

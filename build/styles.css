@@ -520,6 +520,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       background-repeat: no-repeat;
       background-size: 0.857em;
       padding-right: 1em;
+      word-break: break-word;
     }
 
 .falcon-seo-audit .recent-reports table td:last-child,
@@ -1156,6 +1157,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .text-yellow-300{
   --tw-text-opacity: 1;
   color: rgb(253 224 71 / var(--tw-text-opacity));
+}
+
+.falcon-seo-audit .text-gray-500{
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .falcon-seo-audit .no-underline{
