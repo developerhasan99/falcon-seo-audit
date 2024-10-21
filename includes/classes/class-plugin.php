@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: admin-pages.php
  *
@@ -15,43 +16,47 @@ namespace Falcon_Seo_Audit;
  *
  * This class handles plugin activation, initialization, and loading of inline CSS for admin pages.
  */
-class Plugin {
+class Plugin
+{
 
-	/**
-	 * Constructor to initialize hooks and activation.
-	 */
-	public function __construct() {}
+    /**
+     * Constructor to initialize hooks and activation.
+     */
+    public function __construct() {}
 
-	/**
-	 * Initialize the plugin by registering activation hook and adding hook to load inline CSS
-	 * for specific admin pages.
-	 */
-	public function initialize() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_inline_css' ) );
-	}
+    /**
+     * Initialize the plugin by registering activation hook and adding hook to load inline CSS
+     * for specific admin pages.
+     */
+    public function initialize($plugin_file)
+    {
+        add_action('admin_enqueue_scripts', array($this, 'load_inline_css'));
+        register_activation_hook($plugin_file, array($this, 'activate_plugin'));
+    }
 
-	/**
-	 * Activation function for the plugin.
-	 * This is triggered when the plugin is activated.
-	 */
-	public function activate_plugin() {
-		// Create the database table.
-		global $wpdb;
+    /**
+     * Activation function for the plugin.
+     * This is triggered when the plugin is activated.
+     */
+    public function activate_plugin()
+    {
+        // Create the database table.
+        global $wpdb;
 
-		$charset_collate             = $wpdb->get_charset_collate();
-		$audit_report_table          = $wpdb->prefix . 'falcon_seo_audit_report';
-		$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
+        $charset_collate             = $wpdb->get_charset_collate();
+        $audit_report_table          = $wpdb->prefix . 'falcon_seo_audit_report';
+        $single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-		// First table creation.
-		$sql = "CREATE TABLE IF NOT EXISTS $audit_report_table (
+        // First table creation.
+        $sql = "CREATE TABLE IF NOT EXISTS $audit_report_table (
             id int(20) NOT NULL AUTO_INCREMENT,
             status ENUM('pending', 'running', 'completed', 'failed') NOT NULL DEFAULT 'pending',
             initiated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY  (id)
         ) $charset_collate;";
 
-		// Second table creation (fixed).
-		$sql2 = "CREATE TABLE IF NOT EXISTS $single_content_report_table (
+        // Second table creation (fixed).
+        $sql2 = "CREATE TABLE IF NOT EXISTS $single_content_report_table (
             id int(20) NOT NULL AUTO_INCREMENT,
             report_id int(20) NOT NULL,
             url TEXT NOT NULL,
@@ -93,25 +98,26 @@ class Plugin {
             INDEX (report_id)
         ) $charset_collate;";
 
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta( $sql );
-		dbDelta( $sql2 );
-	}
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta($sql);
+        dbDelta($sql2);
+    }
 
-	/**
-	 * Loads inline CSS for the plugin's admin pages.
-	 */
-	public function load_inline_css() {
-		if ( is_admin() ) {
-			wp_enqueue_style( 'wp-admin' );
+    /**
+     * Loads inline CSS for the plugin's admin pages.
+     */
+    public function load_inline_css()
+    {
+        if (is_admin()) {
+            wp_enqueue_style('wp-admin');
 
-			$custom_css = '
+            $custom_css = '
             #adminmenu .toplevel_page_falcon-seo-audit .wp-menu-image img {
                 padding: 0;
                 opacity: 0.9;
             }';
 
-			wp_add_inline_style( 'wp-admin', $custom_css );
-		}
-	}
+            wp_add_inline_style('wp-admin', $custom_css);
+        }
+    }
 }
