@@ -18,20 +18,25 @@ function SingleAuditReport({
   const [audit, setAudit] = useState([]);
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(20);
-  const [totalPage, setTotalPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(1);
 
   const onPageChange = (pagignate) => {
     setPage(pagignate);
   };
 
   useEffect(() => {
+    if (Math.ceil(totalCount / perPage) < page) {
+      setPage(Math.ceil(totalCount / perPage));
+      return;
+    }
+
     fetchSingleAudit(
       setLoading,
       auditId,
       setAudit,
       page,
       perPage,
-      setTotalPage
+      setTotalCount
     );
   }, [page, perPage]);
 
@@ -154,7 +159,7 @@ function SingleAuditReport({
                   </div>
                   <Pagination
                     currentPage={page}
-                    totalPages={totalPage}
+                    totalPages={Math.ceil(totalCount / perPage)}
                     onPageChange={onPageChange}
                   />
                 </div>

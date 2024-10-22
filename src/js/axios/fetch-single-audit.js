@@ -6,7 +6,7 @@ const fetchSingleAudit = async (
   setAudit,
   page,
   perPage,
-  setTotalPage
+  setTotalCount
 ) => {
   if (auditId) {
     setLoading(true);
@@ -26,10 +26,9 @@ const fetchSingleAudit = async (
 
       if (response.data.success === true) {
         const { total_count, audit } = response.data.data;
-        const totalPage = Math.ceil(total_count / perPage);
 
         setAudit(audit);
-        setTotalPage(totalPage);
+        setTotalCount(total_count);
       }
     } catch (error) {
       console.error(error);
