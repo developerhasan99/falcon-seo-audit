@@ -1,4 +1,4 @@
-import axios from "./instance.js";
+import axios from "axios";
 
 const fetchLinkDetails = async (setLoading, singleLinkId, setDetails) => {
   if (singleLinkId) {

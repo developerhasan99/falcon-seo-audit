@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import axios from "../../axios/instance";
+import axios from "axios";
 // Import utils
 import fetchRecentAudits from "../../axios/fetch-recent-audits";
 
@@ -48,9 +48,16 @@ function Report() {
     if (confirm("Are you sure you want to delete this audit?")) {
       setWillBeDeleted(id);
 
-      const response = await axios.post("/delete-audit/", { id });
+      const response = await axios.get(
+        ajaxurl +
+          "?action=delete_audit" +
+          "&nonce=" +
+          falcon_seo_obj.nonce +
+          "&id=" +
+          id
+      );
 
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Audit deleted successfully");
         const newAudits = recentAudits.filter((audit) => audit.id !== id);
         setRecentAudits(newAudits);

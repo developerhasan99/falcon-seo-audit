@@ -32,7 +32,6 @@ require_once PLUGIN_DIR_PATH . 'includes/classes/class-crawler.php';
 // Load API related files.
 require_once PLUGIN_DIR_PATH . 'includes/api/routes.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/initiate-audit.php';
-require_once PLUGIN_DIR_PATH . 'includes/api/run-audit.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/get-audit-status.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/recent-audits.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/get-single-audit.php';

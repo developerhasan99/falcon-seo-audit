@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: delete-audit.php
  *
@@ -8,7 +9,7 @@
 
 namespace Falcon_Seo_Audit\API;
 
-use WP_REST_Request;
+use Falcon_Seo_Audit\API;
 
 /**
  * Deletes a Falcon SEO Audit report.
@@ -19,59 +20,25 @@ use WP_REST_Request;
  *
  * @return WP_REST_Response The response object.
  */
-function delete_audit( WP_REST_Request $request ) {
-	global $wpdb;
-	$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
-	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
+function delete_audit()
+{
 
-	// Get JSON payload from the request.
-	$data = $request->get_json_params();
+	API\permission_callback();
 
-	// Validate and sanitize the 'id' parameter.
-	if ( isset( $data['id'] ) && is_string( $data['id'] ) && ! empty( $data['id'] ) ) {
+	if (isset($_GET['id']) && !empty($_GET['id'])) {
 
-		$audit_id = sanitize_text_field( $data['id'] );
+		global $wpdb;
+		$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
+		$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
+
+		$audit_id = $_GET['id'];
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$report_exists = $wpdb->get_var(
-			$wpdb->prepare(
-				'SELECT COUNT(*) FROM ' . esc_sql( $audit_report_table_name ) . ' WHERE id = %s',
-				$audit_id
-			)
-		);
+		$wpdb->delete($audit_report_table_name, array('id' => $audit_id), array('%s'));
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$wpdb->delete($single_content_report_table, array('report_id' => $audit_id), array('%s'));
 
-		// Delete the audit report and related single content report.
-		if ( $report_exists ) {
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->delete( $audit_report_table_name, array( 'id' => $audit_id ), array( '%s' ) );
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->delete( $single_content_report_table, array( 'report_id' => $audit_id ), array( '%s' ) );
-
-			// Return a success response.
-			$response = array(
-				'status'  => 'success',
-				'message' => 'Audit deleted successfully',
-			);
-
-			return new \WP_REST_Response( $response, 200 );
-		} else {
-			// Return an error if the audit ID does not exist.
-			return new \WP_REST_Response(
-				array(
-					'status'  => 'error',
-					'message' => 'Audit ID not found',
-				),
-				404
-			);
-		}
-	} else {
-		// Return an error if 'id' is missing or invalid.
-		return new \WP_REST_Response(
-			array(
-				'status'  => 'error',
-				'message' => 'Invalid or missing audit ID',
-			),
-			400
-		);
+		wp_send_json_success();
+		wp_die();
 	}
 }

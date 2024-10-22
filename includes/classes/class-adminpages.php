@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: class-adminpages.php
  *
@@ -16,7 +17,8 @@ namespace Falcon_SEO_Audit;
  * This class is responsible for adding the admin menu and submenus, enqueueing React assets and localization,
  * and rendering the main admin pages.
  */
-class AdminPages {
+class AdminPages
+{
 
 	/**
 	 * The WordPress database object.
@@ -35,18 +37,20 @@ class AdminPages {
 	/**
 	 * Constructor to initialize hooks.
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 
 		$this->wpdb              = $GLOBALS['wpdb'];
 		$this->report_table_name = $this->wpdb->prefix . 'falcon_seo_audit_report';
 
-		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
+		add_action('admin_menu', array($this, 'add_admin_menu'));
 	}
 
 	/**
 	 * Adds the admin menu and submenus for Falcon SEO Audit.
 	 */
-	public function add_admin_menu() {
+	public function add_admin_menu()
+	{
 		$icon_url = PLUGIN_DIR_URL . '/assets/falcon-menu-icon.svg';
 
 		add_menu_page(
@@ -54,7 +58,7 @@ class AdminPages {
 			'Falcon SEO Audit',
 			'manage_options',
 			'falcon-seo-audit',
-			array( $this, 'render_main_page' ),
+			array($this, 'render_main_page'),
 			$icon_url,
 			36
 		);
@@ -65,7 +69,7 @@ class AdminPages {
 			'Run Audit',
 			'manage_options',
 			'run-audit',
-			array( $this, 'render_run_audit_page' )
+			array($this, 'render_run_audit_page')
 		);
 
 		add_submenu_page(
@@ -74,20 +78,21 @@ class AdminPages {
 			'Audit Report',
 			'manage_options',
 			'audit-report',
-			array( $this, 'render_audit_report_page' )
+			array($this, 'render_audit_report_page')
 		);
 
-		remove_submenu_page( 'falcon-seo-audit', 'falcon-seo-audit' );
+		remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
 	}
 
 	/**
 	 * Enqueues React assets and localization.
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 		wp_enqueue_script(
 			'falcon-seo-audit-js',
 			PLUGIN_DIR_URL . 'build/bundle.js',
-			array( 'wp-element' ),
+			array('wp-element'),
 			'1.0',
 			true
 		);
@@ -98,9 +103,9 @@ class AdminPages {
 			array(
 				'version'          => VERSION,
 				'asset_url'        => PLUGIN_DIR_URL . 'assets/',
-				'api_url'          => rest_url( 'falcon-seo-audit/v1' ),
-				'api_base'         => rest_url( 'falcon-seo-audit/v1/' ),
-				'nonce'            => wp_create_nonce( 'wp_rest' ),
+				'api_url'          => rest_url('falcon-seo-audit/v1'),
+				'api_base'         => rest_url('falcon-seo-audit/v1/'),
+				'nonce'            => wp_create_nonce('falcon_seo_audit'),
 				'running_audit_id' => $this->get_running_audit_id(),
 			)
 		);
@@ -118,11 +123,12 @@ class AdminPages {
 	 *
 	 * @return int|null The ID of the running audit or null if none is running.
 	 */
-	private function get_running_audit_id() {
+	private function get_running_audit_id()
+	{
 
-		$last_audit = $this->wpdb->get_row( 'SELECT id, status FROM ' . esc_sql( $this->report_table_name ) . ' ORDER BY id DESC LIMIT 1' );
+		$last_audit = $this->wpdb->get_row('SELECT id, status FROM ' . esc_sql($this->report_table_name) . ' ORDER BY id DESC LIMIT 1');
 
-		if ( $last_audit && 'running' === $last_audit->status ) {
+		if ($last_audit && 'running' === $last_audit->status) {
 			return $last_audit->id;
 		}
 
@@ -132,7 +138,8 @@ class AdminPages {
 	/**
 	 * Renders the main admin page.
 	 */
-	public function render_main_page() {
+	public function render_main_page()
+	{
 		$this->enqueue_scripts();
 		echo '<div id="fsa-main-page" class="falcon-seo-audit"></div>';
 	}
@@ -140,7 +147,8 @@ class AdminPages {
 	/**
 	 * Renders the "Run Audit" page.
 	 */
-	public function render_run_audit_page() {
+	public function render_run_audit_page()
+	{
 		$this->enqueue_scripts();
 		echo '<div id="fsa-run-audit-page" class="falcon-seo-audit"></div>';
 	}
@@ -148,13 +156,14 @@ class AdminPages {
 	/**
 	 * Renders the "Audit Report" page.
 	 */
-	public function render_audit_report_page() {
+	public function render_audit_report_page()
+	{
 		$this->enqueue_scripts();
 		echo '<div id="fsa-audit-report-page" class="falcon-seo-audit"></div>';
 	}
 }
 
 // Initialize the class.
-if ( is_admin() ) {
+if (is_admin()) {
 	new AdminPages();
 }

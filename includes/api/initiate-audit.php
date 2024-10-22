@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: initiate-audit.php
  *
@@ -8,7 +9,7 @@
 
 namespace Falcon_Seo_Audit\API;
 
-use Falcon_Seo_Audit\Utils;
+use Falcon_Seo_Audit\API;
 
 /**
  * Initiates a new Falcon SEO audit.
@@ -19,21 +20,26 @@ use Falcon_Seo_Audit\Utils;
  *
  * @return WP_REST_Response The response object.
  */
-function initiate_audit() {
+function initiate_audit()
+{
+
+	API\permission_callback();
+
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'falcon_seo_audit_report';
 
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-	$wpdb->insert( $table_name, array( 'status' => 'pending' ) );
+	$wpdb->insert($table_name, array('status' => 'pending'));
 	$new_report_id = $wpdb->insert_id;
 
-	if ( $new_report_id ) {
-		$response_data = array(
-			'status'            => 'success',
-			'Message'           => 'Initiated falcon audit',
-			'audit_id'          => $new_report_id,
-			'approx_link_count' => count( Utils\get_all_links() ),
-		);
-		return new \WP_REST_Response( $response_data, 200 );
+	if ($new_report_id) {
+
+		// Schedule a one-time cron event with an argument if it's not already scheduled.
+		if (!wp_next_scheduled('falcon_seo_audit_cron', array($new_report_id))) {
+			wp_schedule_single_event(time(), 'falcon_seo_audit_cron', array($new_report_id));
+		}
+
+		wp_send_json_success($new_report_id);
+		wp_die();
 	}
 }

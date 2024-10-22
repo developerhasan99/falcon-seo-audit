@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: get-audit-status.php
  *
@@ -8,7 +9,7 @@
 
 namespace Falcon_Seo_Audit\API;
 
-use WP_REST_Request;
+use Falcon_SEO_Audit\API;
 
 /**
  * Gets the status of a single audit report.
@@ -21,23 +22,24 @@ use WP_REST_Request;
  *
  * @return WP_REST_Response The response object.
  */
-function get_audit_status( WP_REST_Request $request ) {
+function get_audit_status()
+{
 
-	global $wpdb;
-	$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
-	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
+	API\permission_callback();
 
 	// Get JSON payload from the request.
-	$data = $request->get_json_params();
+	if (isset($_GET['audit_id']) && !empty($_GET['audit_id'])) {
 
-	if ( isset( $data['audit_id'] ) ) {
+		global $wpdb;
+		$audit_report_table_name     = $wpdb->prefix . 'falcon_seo_audit_report';
+		$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-		$audit_id = $data['audit_id'];
+		$audit_id = $_GET['audit_id'];
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$last_audit_status = $wpdb->get_var( $wpdb->prepare( 'SELECT status FROM ' . esc_sql( $audit_report_table_name ) . ' WHERE id = %s', $audit_id ) );
+		$last_audit_status = $wpdb->get_var($wpdb->prepare('SELECT status FROM ' . esc_sql($audit_report_table_name) . ' WHERE id = %s', $audit_id));
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$urls = $wpdb->get_col( $wpdb->prepare( 'SELECT url FROM ' . esc_sql( $single_content_report_table ) . ' WHERE report_id = %s', $audit_id ) );
+		$urls = $wpdb->get_col($wpdb->prepare('SELECT url FROM ' . esc_sql($single_content_report_table) . ' WHERE report_id = %s', $audit_id));
 
 		// Your logic for processing the data.
 		$response_data = array(
@@ -45,6 +47,7 @@ function get_audit_status( WP_REST_Request $request ) {
 			'urls'   => $urls,
 		);
 
-		return new \WP_REST_Response( $response_data, 200 );
+		wp_send_json_success($response_data); // Send the JSON response.
+		wp_die(); // Ensure no further script execution.
 	}
 }

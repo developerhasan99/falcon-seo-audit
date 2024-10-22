@@ -67,53 +67,74 @@ function SingleAuditReport({
                     ]}
                   />
                   <tbody>
-                    {audit.map((item, index) => (
-                      <tr>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r border-l">
-                          {index + 1 + (page - 1) * perPage}
-                        </td>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                          <p className="text-base">{item.title}</p>
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            className="text-blue-700 hover:underline newtab"
-                          >
-                            {item.url}
-                          </a>
-                        </td>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                          {item.status_code}
-                        </td>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                          {item.robots}
-                        </td>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                          {item.readability_score}
-                        </td>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                          <button
-                            onClick={() =>
-                              showLinks(item.url.url, item.links_present)
-                            }
-                            className="border-0 bg-transparent cursor-pointer inline-flex gap-1 items-center"
-                          >
-                            <span className="text-blue-600">
-                              {item.links_present.length}
-                            </span>
-                            <Search size={14} />
-                          </button>
-                        </td>
-                        <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                          <button
-                            onClick={() => showDetails(item.id, item.url)}
-                            className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
-                          >
-                            View
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                    {audit.map((item, index) => {
+                      const internal_links = JSON.parse(item.internal_links);
+                      const external_links = JSON.parse(item.external_links);
+
+                      const links_present = [];
+
+                      internal_links.forEach((link) => {
+                        links_present.push({
+                          ...link,
+                          type: "internal",
+                        });
+                      });
+
+                      external_links.forEach((link) => {
+                        links_present.push({
+                          ...link,
+                          type: "external",
+                        });
+                      });
+
+                      return (
+                        <tr>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r border-l">
+                            {index + 1 + (page - 1) * perPage}
+                          </td>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                            <p className="text-base">{item.title}</p>
+                            <a
+                              href={item.url}
+                              target="_blank"
+                              className="text-blue-700 hover:underline newtab"
+                            >
+                              {item.url}
+                            </a>
+                          </td>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                            {item.status_code}
+                          </td>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                            {item.robots}
+                          </td>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                            {item.readability_score}
+                          </td>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                            <button
+                              onClick={() =>
+                                showLinks(item.url.url, links_present)
+                              }
+                              className="border-0 bg-transparent cursor-pointer inline-flex gap-1 items-center"
+                            >
+                              <span className="text-blue-600">
+                                {links_present.length}
+                              </span>
+                              <Search size={14} />
+                            </button>
+                          </td>
+                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                            <button
+                              onClick={() => showDetails(item.id, item.url)}
+                              className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
+                            >
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
                 <div className="flex justify-between mt-4">

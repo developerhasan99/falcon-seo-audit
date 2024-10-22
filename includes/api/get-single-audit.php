@@ -9,7 +9,7 @@
 
 namespace Falcon_Seo_Audit\API;
 
-use WP_REST_Request;
+use Falcon_Seo_Audit\API;
 
 /**
  * Gets all links in a single audit report.
@@ -20,31 +20,21 @@ use WP_REST_Request;
  *
  * @return WP_REST_Response The response object.
  */
-function get_single_audit(WP_REST_Request $request)
+function get_single_audit()
 {
 
-	global $wpdb;
-	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
+	API\permission_callback();
 
-	// Get JSON payload from the request.
-	$data = $request->get_json_params();
+	if (isset($_GET['audit_id']) || !empty($_GET['audit_id'])) {
 
-	if (isset($data['audit_id'])) {
+		global $wpdb;
+		$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-		$audit_id = !empty($data['audit_id']) ? intval($data['audit_id']) : 0;
-		$page = !empty($data['page']) ? intval($data['page']) : 1;
-		$per_page = !empty($data['per_page']) ? intval($data['per_page']) : 20;
+		$audit_id = $_GET['audit_id'];
+		$page = $_GET['page'] ? $_GET['page'] : 1;
+		$per_page = $_GET['per_page'] ? $_GET['per_page'] : 20;
 
-		// TODO: Implement this total page count on the component mount and make the pagination and per page logic on front end.
-
-		$count_query = $wpdb->prepare(
-			'SELECT COUNT(*) FROM ' . esc_sql($single_content_report_table) . ' WHERE report_id = %s',
-			$audit_id
-		);
-
-		$total_count = $wpdb->get_var($count_query);
-
-		$offset = ($page - 1) * $per_page; // Calculate offset
+		$offset = ($page - 1) * $per_page; // Calculate offset.
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$query = $wpdb->prepare(
@@ -59,42 +49,14 @@ function get_single_audit(WP_REST_Request $request)
 
 		$results = $wpdb->get_results($query);
 
-		$response_data = array();
+		// Get total count without limit, since doing main query without limit lead memory limit issue.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$total_count = $wpdb->get_var($wpdb->prepare(
+			'SELECT COUNT(*) FROM ' . esc_sql($single_content_report_table) . ' WHERE report_id = %s',
+			$audit_id
+		));
 
-		foreach ($results as $result) {
-
-			$links_present = array();
-
-			$internal_links = json_decode($result->internal_links);
-			$external_links = json_decode($result->external_links);
-
-			foreach ($internal_links as $link) {
-				$links_present[] = array(
-					'anchor' => $link->anchor,
-					'href'   => $link->href,
-					'type'   => 'Internal',
-				);
-			}
-
-			foreach ($external_links as $link) {
-				$links_present[] = array(
-					'anchor' => $link->anchor,
-					'href'   => $link->href,
-					'type'   => 'External',
-				);
-			}
-
-			$response_data[] = array(
-				'id'                => $result->id,
-				'url'               => $result->url,
-				'status_code'       => $result->status_code,
-				'title'             => $result->title,
-				'robots'            => $result->robots,
-				'readability_score' => $result->readability_score,
-				'links_present'     => $links_present,
-			);
-		}
-
-		return new \WP_REST_Response(array('audit' => $response_data, 'total_count' => $total_count), 200);
+		wp_send_json_success(array('audit' => $results, 'total_count' => $total_count));
+		wp_die();
 	}
 }

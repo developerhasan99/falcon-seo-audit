@@ -1,15 +1,17 @@
-import axios from "./instance.js";
+import axios from "axios";
 
 const fetchAuditStatus = async (audit_id, setStatus, setJustCompleted) => {
   try {
-    const response = await axios.post("/get-audit-status/", { audit_id });
+    const response = await axios.get(ajaxurl + "?action=get_audit_status" + "&nonce=" + falcon_seo_obj.nonce + "&audit_id=" + audit_id);
 
-    if (response.status === 200) {
-      // Update the UI
-      setJustCompleted(response.data.urls);
+    if (response.data.success === true) {
+      
+      const {urls, status} = response.data.data;
+      
+      setJustCompleted(urls);
 
       // Return if audit is completed
-      if (response.data.status === "completed") {
+      if (status === "completed") {
         setStatus("completed");
         return;
       }

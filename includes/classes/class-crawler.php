@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: class-crawler.php
  *
@@ -16,7 +17,8 @@ use Falcon_Seo_Audit\Utils;
  * @package Falcon_Seo_Audit
  * @since 1.0.0
  */
-class Crawler {
+class Crawler
+{
 
 	/**
 	 * WordPress database object.
@@ -58,11 +60,15 @@ class Crawler {
 	 *
 	 * @return void
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		global $wpdb;
 		$this->wpdb                        = $wpdb;
 		$this->audit_report_table          = $wpdb->prefix . 'falcon_seo_audit_report';
 		$this->single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
+
+		// Hook the callback to the cron event.
+		add_action('falcon_seo_audit_cron', array($this, 'start_the_crawler'));
 	}
 
 	/**
@@ -76,23 +82,23 @@ class Crawler {
 	 *
 	 * @return void
 	 */
-	public function start_the_crawler( $new_report_id ) {
+	public function start_the_crawler($new_report_id)
+	{
 
 		$this->report_id = $new_report_id;
 
 		try {
 			// Mark status as running.
-			$this->wpdb->update( $this->audit_report_table, array( 'status' => 'running' ), array( 'id' => $this->report_id ) );
+			$this->wpdb->update($this->audit_report_table, array('status' => 'running'), array('id' => $this->report_id));
 
 			// Perform the audit.
-			$home_page_url = home_url( '/' );
-			$this->audit_url( $home_page_url );
+			$home_page_url = home_url('/');
+			$this->audit_url($home_page_url);
 
 			// Mark status as completed if no exceptions occur.
-			$this->wpdb->update( $this->audit_report_table, array( 'status' => 'completed' ), array( 'id' => $this->report_id ) );
-
-		} catch ( \Exception $e ) {
-			$this->wpdb->update( $this->audit_report_table, array( 'status' => 'failed' ), array( 'id' => $this->report_id ) );
+			$this->wpdb->update($this->audit_report_table, array('status' => 'completed'), array('id' => $this->report_id));
+		} catch (\Exception $e) {
+			$this->wpdb->update($this->audit_report_table, array('status' => 'failed'), array('id' => $this->report_id));
 		}
 	}
 
@@ -103,37 +109,38 @@ class Crawler {
 	 *
 	 * @return void
 	 */
-	public function audit_url( $url ) {
-		if ( in_array( $url, $this->audited_urls, true ) ) {
+	public function audit_url($url)
+	{
+		if (in_array($url, $this->audited_urls, true)) {
 			return;
 		}
 
 		$this->audited_urls[] = $url;
 
-		$response    = wp_remote_get( $url );
-		$status_code = wp_remote_retrieve_response_code( $response );
-		$headers     = wp_remote_retrieve_headers( $response );
+		$response    = wp_remote_get($url);
+		$status_code = wp_remote_retrieve_response_code($response);
+		$headers     = wp_remote_retrieve_headers($response);
 
 		// Getting header data.
 		$csp_header        = $headers['content-security-policy'] ?? null;
 		$encoding          = $headers['content-encoding'] ?? null;
 		$uncompressed_size = $headers['content-length'] ?? null;
 
-		if ( 200 === $status_code ) {
+		if (200 === $status_code) {
 			$body = $response['body'];
 
-			$compressed_size = strlen( $body );
+			$compressed_size = strlen($body);
 
 			$doc = new \DOMDocument();
-			@$doc->loadHTML( mb_convert_encoding( $body, 'HTML-ENTITIES', 'UTF-8' ) );
+			@$doc->loadHTML(mb_convert_encoding($body, 'HTML-ENTITIES', 'UTF-8'));
 
-			$page_info           = Utils\extract_information( $doc );
-			$links               = Utils\extract_page_links( $doc );
-			$content_metrics     = Utils\analyze_content_metrics( $doc );
-			$headings            = Utils\extract_headings( $doc );
-			$images              = Utils\extract_images( $doc );
-			$guessed_keywords    = Utils\guess_keywords( $doc );
-			$keyword_consistency = Utils\get_keyword_consistency( $doc, array_keys( $guessed_keywords ) );
+			$page_info           = Utils\extract_information($doc);
+			$links               = Utils\extract_page_links($doc);
+			$content_metrics     = Utils\analyze_content_metrics($doc);
+			$headings            = Utils\extract_headings($doc);
+			$images              = Utils\extract_images($doc);
+			$guessed_keywords    = Utils\guess_keywords($doc);
+			$keyword_consistency = Utils\get_keyword_consistency($doc, array_keys($guessed_keywords));
 
 			// Insert data to report table.
 			$this->wpdb->insert(
@@ -149,17 +156,17 @@ class Crawler {
 					'robots'                      => $page_info['robots'],
 					'lang'                        => $page_info['lang'],
 					'canonical_url'               => $page_info['canonical_url'],
-					'open_graph'                  => wp_json_encode( $page_info['open_graph'] ),
-					'twitter_data'                => wp_json_encode( $page_info['twitter_data'] ),
-					'json_ld'                     => wp_json_encode( $page_info['json_ld'] ),
+					'open_graph'                  => wp_json_encode($page_info['open_graph']),
+					'twitter_data'                => wp_json_encode($page_info['twitter_data']),
+					'json_ld'                     => wp_json_encode($page_info['json_ld']),
 					'viewport'                    => $page_info['viewport'],
 					'favicon'                     => $page_info['favicon'],
-					'stylesheets'                 => wp_json_encode( $page_info['stylesheets'] ),
+					'stylesheets'                 => wp_json_encode($page_info['stylesheets']),
 					'csp'                         => $csp_header ?? $page_info['csp'],
-					'alternate_links'             => wp_json_encode( $page_info['alternate_links'] ),
-					'javascript_links'            => wp_json_encode( $page_info['javascript_links'] ),
-					'internal_links'              => wp_json_encode( $links['internal'] ),
-					'external_links'              => wp_json_encode( $links['external'] ),
+					'alternate_links'             => wp_json_encode($page_info['alternate_links']),
+					'javascript_links'            => wp_json_encode($page_info['javascript_links']),
+					'internal_links'              => wp_json_encode($links['internal']),
+					'external_links'              => wp_json_encode($links['external']),
 					'compressed_size'             => $compressed_size,
 					'uncompressed_size'           => $uncompressed_size,
 					'encoding'                    => $encoding,
@@ -170,18 +177,21 @@ class Crawler {
 					'average_words_per_sentence'  => $content_metrics['average_words_per_sentence'],
 					'readability_score'           => $content_metrics['readability_score'],
 					'node_count'                  => $content_metrics['node_count'],
-					'headings'                    => wp_json_encode( $headings ),
-					'images'                      => wp_json_encode( $images ),
-					'guessed_keywords'            => wp_json_encode( $guessed_keywords ),
-					'keyword_consistency'         => wp_json_encode( $keyword_consistency ),
+					'headings'                    => wp_json_encode($headings),
+					'images'                      => wp_json_encode($images),
+					'guessed_keywords'            => wp_json_encode($guessed_keywords),
+					'keyword_consistency'         => wp_json_encode($keyword_consistency),
 
 				)
 			);
 
 			// Crawl the links for this page.
-			foreach ( $links['internal'] as $internal_link ) {
-				$this->audit_url( $internal_link['href'] );
+			foreach ($links['internal'] as $internal_link) {
+				$this->audit_url($internal_link['href']);
 			}
 		}
 	}
 }
+
+// Initialize the plugin.
+$fsa_crawler = new Crawler();

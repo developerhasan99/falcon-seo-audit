@@ -1,19 +1,18 @@
-import axios from "./instance.js";
+import axios from "axios";
 import fetchAuditStatus from "./fetch-audit-status.js";
 
 async function initiateAndRun(setStatus, setJustCompleted) {
   setStatus("initiating");
 
   try {
-    const response = await axios.get("/initiate-audit/");
+    const response = await axios.get(ajaxurl + "?action=initiate_audit" + "&nonce=" + falcon_seo_obj.nonce);
 
-    if (response.status === 200) {
+    if (response.data.success === true) {
       setStatus("running");
 
-      const audit_id = response.data.audit_id;
-
+      const audit_id = response.data.data;
+      
       fetchAuditStatus(audit_id, setStatus, setJustCompleted);
-      axios.post("/run-audit/", { audit_id }, { timeout: 0 });
     }
   } catch (error) {
     console.log(error);

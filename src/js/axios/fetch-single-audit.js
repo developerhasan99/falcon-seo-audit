@@ -1,19 +1,36 @@
-import axios from "./instance.js";
+import axios from "axios";
 
-const fetchSingleAudit = async (setLoading, auditId, setAudit, page, perPage, setTotalPage) => {
+const fetchSingleAudit = async (
+  setLoading,
+  auditId,
+  setAudit,
+  page,
+  perPage,
+  setTotalPage
+) => {
   if (auditId) {
     setLoading(true);
     try {
-      const response = await axios.post("/get-single-audit/", {
-        audit_id: auditId,
-        page: page,
-        per_page: perPage
-      });
+      const response = await axios.get(
+        ajaxurl +
+          "?action=get_single_audit" +
+          "&nonce=" +
+          falcon_seo_obj.nonce +
+          "&audit_id=" +
+          auditId +
+          "&page=" +
+          page +
+          "&per_page=" +
+          perPage
+      );
 
-      const totalPage = Math.ceil(response.data.total_count / perPage);
+      if (response.data.success === true) {
+        const { total_count, audit } = response.data.data;
+        const totalPage = Math.ceil(total_count / perPage);
 
-      setAudit(response.data.audit);
-      setTotalPage(totalPage);
+        setAudit(audit);
+        setTotalPage(totalPage);
+      }
     } catch (error) {
       console.error(error);
     }
