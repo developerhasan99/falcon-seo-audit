@@ -103,7 +103,7 @@ class AdminPages
 			array(
 				'version'          => VERSION,
 				'asset_url'        => PLUGIN_DIR_URL . 'assets/',
-				'api_url'          => rest_url('falcon-seo-audit/v1'),
+				'site_url'          => home_url(),
 				'api_base'         => rest_url('falcon-seo-audit/v1/'),
 				'nonce'            => wp_create_nonce('falcon_seo_audit'),
 				'running_audit_id' => $this->get_running_audit_id(),

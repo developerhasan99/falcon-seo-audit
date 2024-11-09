@@ -64,10 +64,10 @@ function SingleAuditReport({
                     headings={[
                       "S/L",
                       "URL",
-                      "HTTP Status Code",
+                      "Status",
                       "Robot Tag",
-                      "Readablity Score",
-                      "Links Present",
+                      "Readablity",
+                      "Links",
                       "Actions",
                     ]}
                   />
@@ -94,18 +94,22 @@ function SingleAuditReport({
 
                       return (
                         <tr>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r border-l">
+                          <td className="px-4 py-3 font-semibold border-0 border-solid border-gray-200 border-b border-r border-l ">
                             {index + 1 + (page - 1) * perPage}
                           </td>
                           <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                            <p className="text-base">{item.title}</p>
-                            <a
-                              href={item.url}
-                              target="_blank"
-                              className="text-blue-700 hover:underline newtab"
-                            >
-                              {item.url}
-                            </a>
+                            <div className="max-w-80">
+                              <p className="text-sm text-gray-900 max-line-elips">
+                                {item.title}
+                              </p>
+                              <a
+                                href={item.url}
+                                target="_blank"
+                                className="text-[#006dca] text-sm hover:underline newtab max-line-elips"
+                              >
+                                {item.url}
+                              </a>
+                            </div>
                           </td>
                           <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
                             {item.status_code}
