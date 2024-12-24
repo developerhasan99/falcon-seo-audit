@@ -105,7 +105,7 @@ function SingleAuditReport({
                               <a
                                 href={item.url}
                                 target="_blank"
-                                className="text-[#006dca] text-sm hover:underline newtab max-line-elips"
+                                className="text-sm hover:underline newtab max-line-elips"
                               >
                                 {item.url}
                               </a>
