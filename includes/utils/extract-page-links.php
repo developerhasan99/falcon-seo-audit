@@ -27,7 +27,7 @@ namespace Falcon_Seo_Audit\Utils;
  *
  * @return array An associative array of internal and external links.
  */
-function extract_page_links( $doc ) {
+function extract_page_links( $doc, $home_page_url ) {
 
 	$internal_links = array();
 	$external_links = array();
@@ -49,17 +49,17 @@ function extract_page_links( $doc ) {
 
 		if ( is_webpage_link( $href ) && ! str_contains( $href, '#' ) ) {
 			$parsed_url      = wp_parse_url( $href );
-			$parsed_home_url = wp_parse_url( home_url() );
+			$parsed_home_page_url = wp_parse_url( $home_page_url );
 
 			// Check if it's an internal link.
-			if ( ! isset( $parsed_url['host'] ) || $parsed_url['host'] === $parsed_home_url['host'] ) {
+			if ( ! isset( $parsed_url['host'] ) || $parsed_url['host'] === $parsed_home_page_url['host'] ) {
 				// Ensure it has a trailing slash.
 				if ( substr( $href, -1 ) !== '/' ) {
 					$href = rtrim( $href, '/' ) . '/';
 				}
 
-				// Append home_url() if it's a relative path.
-				$href = isset( $parsed_url['host'] ) ? $href : home_url() . $href;
+				// Append $home_page_url if it's a relative path.
+				$href = isset( $parsed_url['host'] ) ? $href : $home_page_url . $href;
 
 				$internal_links[] = array(
 					'anchor' => $anchor_text,

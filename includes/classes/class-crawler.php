@@ -55,6 +55,8 @@ class Crawler
 	 */
 	protected $audited_urls = array();
 
+	protected $home_page_url = 'https://wpsm.developerhasan.com/';
+
 	/**
 	 * Construct the crawler with database references.
 	 *
@@ -92,8 +94,7 @@ class Crawler
 			$this->wpdb->update($this->audit_report_table, array('status' => 'running'), array('id' => $this->report_id));
 
 			// Perform the audit.
-			$home_page_url = home_url('/');
-			$this->audit_url($home_page_url);
+			$this->audit_url($this->home_page_url);
 
 			// Mark status as completed if no exceptions occur.
 			$this->wpdb->update($this->audit_report_table, array('status' => 'completed'), array('id' => $this->report_id));
@@ -121,6 +122,15 @@ class Crawler
 		$status_code = wp_remote_retrieve_response_code($response);
 		$headers     = wp_remote_retrieve_headers($response);
 
+		// Get DATA from PSI API.
+		$psi_rsponse = wp_remote_get('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=' . $url . '&category=performance&&fields=lighthouseResult.audits', [
+			'timeout' => 30,
+		]);
+
+		$psi_data = $psi_rsponse['body'];
+
+		
+
 		// Getting header data.
 		$csp_header        = $headers['content-security-policy'] ?? null;
 		$encoding          = $headers['content-encoding'] ?? null;
@@ -135,7 +145,7 @@ class Crawler
 			@$doc->loadHTML(mb_convert_encoding($body, 'HTML-ENTITIES', 'UTF-8'));
 
 			$page_info           = Utils\extract_information($doc);
-			$links               = Utils\extract_page_links($doc);
+			$links               = Utils\extract_page_links($doc, $this->home_page_url);
 			$content_metrics     = Utils\analyze_content_metrics($doc);
 			$headings            = Utils\extract_headings($doc);
 			$images              = Utils\extract_images($doc);
