@@ -65,7 +65,7 @@ function SingleAuditReport({
                       "S/L",
                       "URL",
                       "Status",
-                      "Robot Tag",
+                      "Indexable",
                       "Readablity",
                       "Links",
                       "Actions",
@@ -75,6 +75,11 @@ function SingleAuditReport({
                     {audit.map((item, index) => {
                       const internal_links = JSON.parse(item.internal_links);
                       const external_links = JSON.parse(item.external_links);
+
+                      const robotTags = item.robots
+                        .toLowerCase()
+                        .split(",")
+                        .map((val) => val.trim());
 
                       const links_present = [];
 
@@ -115,7 +120,24 @@ function SingleAuditReport({
                             {item.status_code}
                           </td>
                           <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
-                            {item.robots}
+                            {!item.robots ? (
+                              <span className="inline-block px-2 mr-1 rounded-full text-sm text-yellow-600 bg-yellow-200">
+                                Not set
+                              </span>
+                            ) : (
+                              <>
+                                {robotTags.includes("noindex") ? (
+                                  <span className="inline-block px-2 mr-1 rounded-full text-sm text-red-600 bg-red-200">
+                                    No
+                                  </span>
+                                ) : (
+                                  <span className="inline-block px-2 mr-1 rounded-full text-sm text-green-600 bg-green-200">
+                                    Yes
+                                  </span>
+                                )}
+                                
+                              </>
+                            )}
                           </td>
                           <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
                             {item.readability_score}
