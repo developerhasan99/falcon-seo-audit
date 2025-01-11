@@ -20,8 +20,8 @@ function SingleAuditReport({
   const [perPage, setPerPage] = useState(20);
   const [totalCount, setTotalCount] = useState(1);
 
-  const onPageChange = (pagignate) => {
-    setPage(pagignate);
+  const onPageChange = (paginate) => {
+    setPage(paginate);
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function SingleAuditReport({
       perPage,
       setTotalCount
     );
-  }, [page, perPage]);
+  }, [auditId, page, perPage, totalCount]);
 
   return (
     <Card>
@@ -66,39 +66,28 @@ function SingleAuditReport({
                       "URL",
                       "Status",
                       "Indexable",
-                      "Readablity",
+                      "Readability",
                       "Links",
                       "Actions",
                     ]}
                   />
                   <tbody>
                     {audit.map((item, index) => {
-                      const internal_links = JSON.parse(item.internal_links);
-                      const external_links = JSON.parse(item.external_links);
+                      const internal_links = JSON.parse(item.internal_links || "[]");
+                      const external_links = JSON.parse(item.external_links || "[]");
 
                       const robotTags = item.robots
                         .toLowerCase()
                         .split(",")
                         .map((val) => val.trim());
 
-                      const links_present = [];
-
-                      internal_links.forEach((link) => {
-                        links_present.push({
-                          ...link,
-                          type: "internal",
-                        });
-                      });
-
-                      external_links.forEach((link) => {
-                        links_present.push({
-                          ...link,
-                          type: "external",
-                        });
-                      });
+                      const links_present = [
+                        ...internal_links.map((link) => ({ ...link, type: "internal" })),
+                        ...external_links.map((link) => ({ ...link, type: "external" })),
+                      ];
 
                       return (
-                        <tr>
+                        <tr key={item.id}>
                           <td className="px-4 py-3 font-semibold border-0 border-solid border-gray-200 border-b border-r border-l ">
                             {index + 1 + (page - 1) * perPage}
                           </td>
@@ -110,6 +99,7 @@ function SingleAuditReport({
                               <a
                                 href={item.url}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="text-sm hover:underline newtab max-line-elips"
                               >
                                 {item.url}
@@ -124,19 +114,14 @@ function SingleAuditReport({
                               <span className="inline-block px-2 mr-1 rounded-full text-sm text-yellow-600 bg-yellow-200">
                                 Not set
                               </span>
+                            ) : robotTags.includes("noindex") ? (
+                              <span className="inline-block px-2 mr-1 rounded-full text-sm text-red-600 bg-red-200">
+                                No
+                              </span>
                             ) : (
-                              <>
-                                {robotTags.includes("noindex") ? (
-                                  <span className="inline-block px-2 mr-1 rounded-full text-sm text-red-600 bg-red-200">
-                                    No
-                                  </span>
-                                ) : (
-                                  <span className="inline-block px-2 mr-1 rounded-full text-sm text-green-600 bg-green-200">
-                                    Yes
-                                  </span>
-                                )}
-                                
-                              </>
+                              <span className="inline-block px-2 mr-1 rounded-full text-sm text-green-600 bg-green-200">
+                                Yes
+                              </span>
                             )}
                           </td>
                           <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
@@ -144,9 +129,7 @@ function SingleAuditReport({
                           </td>
                           <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
                             <button
-                              onClick={() =>
-                                showLinks(item.url.url, links_present)
-                              }
+                              onClick={() => showLinks(item.url, links_present)}
                               className="border-0 bg-transparent cursor-pointer inline-flex gap-1 items-center"
                             >
                               <span className="text-blue-600">
