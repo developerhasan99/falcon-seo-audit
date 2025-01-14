@@ -28,7 +28,7 @@ function PageLinks({ link, pageLinks, closeLinksModal }) {
                   <a
                     href={link.href}
                     target="_blank"
-                    className="text-blue-700 hover:underline newtab"
+                    className="hover:underline newtab"
                   >
                     {link.href}
                   </a>

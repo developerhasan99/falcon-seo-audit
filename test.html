@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+  
+    <script>
+        function run() {
+          const url = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://wpsm.developerhasan.com&category=performance&&fields=lighthouseResult.audits';
+          fetch(url)
+            .then(response => response.json())
+            .then(json => {
+
+            //   showCruxContent(cruxMetrics);
+              const audits = json.lighthouseResult.audits;
+              const lighthouseMetrics = {
+                'Score': audits['speed-index'].score * 100,
+                'Time to first byte': audits['server-response-time'].numericValue,
+                'First Contentful Paint': Math.round(audits['first-contentful-paint'].numericValue),
+                'Time To Interactive': Math.round(audits['interactive'].numericValue),
+                'Speed Index': Math.round(audits['speed-index'].numericValue), //numericValue in miliseconds
+                'Cumulative Layout Shift': Math.trunc(audits['cumulative-layout-shift'].numericValue * 1000) / 1000,
+                'Page Screenshot':  "<img src='" + audits['final-screenshot'].details.data + "'>"
+              };
+              showLighthouseContent(lighthouseMetrics);
+            console.log(lighthouseMetrics);
+            
+            });
+        }
+        
+        
+        function showLighthouseContent(lighthouseMetrics) {
+          const lighthouseHeader = document.createElement('h2');
+          lighthouseHeader.textContent = "Lighthouse Results";
+          document.body.appendChild(lighthouseHeader);
+          for (key in lighthouseMetrics) {
+            const p = document.createElement('p');
+            p.innerHTML = `${key}: ${lighthouseMetrics[key]}`;
+            document.body.appendChild(p);
+          }
+        }
+        
+        run();
+        </script>
+</body>
+</html>

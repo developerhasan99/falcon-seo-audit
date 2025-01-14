@@ -9,7 +9,7 @@ function Progress({ justCompleted }) {
             <a
               href={audit}
               target="_blank"
-              className="newtab hover:underline text-base text-blue-600"
+              className="newtab hover:underline text-base"
             >
               {audit}
             </a>

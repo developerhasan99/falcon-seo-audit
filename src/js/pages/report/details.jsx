@@ -53,6 +53,9 @@ const reportToc = [
 ];
 
 function Details({ isLoading, link, details, backToSingleAudit }) {
+  
+  console.log(details);
+  
   return (
     <Card>
       <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-lg font-bold flex items-center gap-4">

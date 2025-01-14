@@ -8,32 +8,31 @@
 
 namespace Falcon_Seo_Audit\API;
 
-use WP_REST_Request;
+use Falcon_Seo_Audit\API;
 
 /**
- * Gets the details of a single audit report link.
+ * Retrieves the details of a single link from the content report.
  *
- * Returns the details of a single link in an audit report.
+ * This endpoint fetches information about a specific link identified by its link ID.
+ * The response includes all the data associated with the link from the database.
  *
- * @param WP_REST_Request $request The request object.
- *
- * @return WP_REST_Response The response object.
+ * @return void Outputs the link details as a JSON response.
  */
-function get_single_details( WP_REST_Request $request ) {
+function get_single_details( ) {
+
+	API\permission_callback();
 
 	global $wpdb;
 	$single_content_report_table = $wpdb->prefix . 'falcon_seo_single_content_report';
 
-	// Get JSON payload from the request.
-	$data = $request->get_json_params();
+	if ( isset( $_GET['link_id'] ) && ! empty( $_GET['link_id'] ) ) {
 
-	if ( isset( $data['link_id'] ) ) {
-
-		$link_id = $data['link_id'];
+		$link_id = $_GET['link_id'];
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$results = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . esc_sql( $single_content_report_table ) . ' WHERE id = %s', $link_id ) );
 
-		return new \WP_REST_Response( $results, 200 );
+		wp_send_json_success($results, 200 );
+		wp_die();
 	}
 }
