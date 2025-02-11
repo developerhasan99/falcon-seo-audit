@@ -41,9 +41,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       return (
         <button
           key={index}
-          className={`px-3 py-2 border border-solid rounded bg-gray-100 text-gray-700 font-semibold hover:text-white hover:bg-gray-700 transition-colors duration-300 ${
-            page === currentPage ? "bg-gray-700 text-white" : ""
-          }`}
+          className={"px-3 py-2 border border-solid rounded bg-white text-gray-700 font-semibold hover:text-white hover:bg-gray-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-700 disabled:text-white"}
           onClick={() => typeof page === "number" && onPageChange(page)}
           disabled={page === currentPage}
         >

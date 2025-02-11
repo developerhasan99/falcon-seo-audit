@@ -1,8 +1,9 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-function Card({ title, children }) {
+function Card({ className, children }) {
   return (
-    <div className="bg-white p-6 rounded mt-8 border border-solid border-gray-200">
+    <div className={twMerge("bg-white rounded border border-solid border-gray-200", className)}>
       <div>{children}</div>
     </div>
   );

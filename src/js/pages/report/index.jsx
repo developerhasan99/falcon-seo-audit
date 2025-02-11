@@ -8,7 +8,7 @@ import fetchRecentAudits from "../../axios/fetch-recent-audits";
 import Header from "../../components/header";
 import RecentReports from "./recent-reports";
 import SingleAuditReport from "./single-audit-report";
-import Details from "./details";
+import Details from "./details/details";
 import fetchLinkDetails from "../../axios/fetch-link-details";
 import PageLinks from "./page-links";
 import { toast, ToastContainer } from "react-toastify";
@@ -90,7 +90,7 @@ function Report() {
 
   return (
     <div className="pr-2.5 text-sm">
-      <div className="pt-8 max-w-screen-2xl mx-auto">
+      <div className="pt-8 max-w-screen-xl">
         <Header />
         {page === "recent" && (
           <RecentReports

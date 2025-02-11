@@ -123,13 +123,18 @@ class Crawler
 		$headers     = wp_remote_retrieve_headers($response);
 
 		// Get DATA from PSI API.
-		$psi_rsponse = wp_remote_get('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=' . $url . '&category=performance&&fields=lighthouseResult.audits', [
-			'timeout' => 30,
-		]);
+		$psi_rsponse = wp_remote_get('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=' . $url . '&category=performance&&fields=lighthouseResult', [
+			'timeout' => 60,
+		]); 
+
+		if (is_wp_error($psi_rsponse)) {
+			error_log('Error: ' . $psi_rsponse->get_error_message());
+			return;
+		}
 
 		$psi_data = $psi_rsponse['body'];
 
-		
+		$psi_metrics = Utils\extractMetrics($psi_data);
 
 		// Getting header data.
 		$csp_header        = $headers['content-security-policy'] ?? null;
@@ -191,6 +196,13 @@ class Crawler
 					'images'                      => wp_json_encode($images),
 					'guessed_keywords'            => wp_json_encode($guessed_keywords),
 					'keyword_consistency'         => wp_json_encode($keyword_consistency),
+					'psi_score'                   => $psi_metrics['score'],
+					'psi_fcp'                     => $psi_metrics['fcp'],
+					'psi_lcp'                     => $psi_metrics['lcp'],
+					'psi_tbt'                     => $psi_metrics['tbt'],
+					'psi_cls'                     => $psi_metrics['cls'],
+					'psi_speed_index'             => $psi_metrics['speedIndex'],
+					'psi_screenshot'              => $psi_metrics['screenshot'],
 
 				)
 			);

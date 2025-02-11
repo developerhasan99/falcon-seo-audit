@@ -93,6 +93,13 @@ class Plugin
             images LONGTEXT NULL,
             guessed_keywords LONGTEXT NULL,
             keyword_consistency LONGTEXT NULL,
+            psi_score int(3) NULL,
+            psi_fcp DECIMAL(10, 1) NULL,
+            psi_lcp DECIMAL(10, 1) NULL,
+            psi_tbt int(20) NULL,
+            psi_cls DECIMAL(10, 3) NULL,
+            psi_speed_index DECIMAL(10, 1) NULL,
+            psi_screenshot LONGTEXT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY  (id),
             INDEX (report_id)

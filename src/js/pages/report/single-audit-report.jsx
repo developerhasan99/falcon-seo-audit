@@ -4,7 +4,6 @@ import FalconLoader from "../../components/falcon-loader";
 import { AnimatePresence, motion } from "framer-motion";
 import Card from "../../components/card";
 import BackButton from "../../components/back-button";
-import TableHead from "../../components/table-head";
 import { Search } from "lucide-react";
 import Pagination from "../../components/pagination";
 
@@ -41,8 +40,8 @@ function SingleAuditReport({
   }, [auditId, page, perPage, totalCount]);
 
   return (
-    <Card>
-      <h2 className="mb-6 pb-4 border-0 border-b border-solid border-gray-200 text-base font-bold flex items-center gap-4">
+    <div className="mt-12">
+      <h2 className="mb-6 text-xl font-bold flex items-center gap-4">
         <BackButton onClick={backToRecentReports} />
         <span>Viewing audit report for: #{auditId}</span>
       </h2>
@@ -58,21 +57,19 @@ function SingleAuditReport({
           >
             {audit.length > 0 ? (
               <>
-                <table className="rounded w-full border-separate border-spacing-0 text-left">
-                  <TableHead
-                    top="32px"
-                    headings={[
-                      "S/L",
-                      "URL",
-                      "Status",
-                      "Indexable",
-                      "Readability",
-                      "Links",
-                      "Actions",
-                    ]}
-                  />
-                  <tbody>
-                    {audit.map((item, index) => {
+                <Card>
+                  <div className="px-5 py-2 grid grid-cols-7 gap-2 rounded-t">
+                    <div className="font-bold text-base">S/L</div>
+                    <div className="font-bold text-base">URL</div>
+                    <div className="font-bold text-base">Status Code</div>
+                    <div className="font-bold text-base">Indexable</div>
+                    <div className="font-bold text-base">Readability</div>
+                    <div className="font-bold text-base">Links</div>
+                    <div className="font-bold text-base">Actions</div>
+                  </div>
+                  {
+                    audit.map((item, index) => {
+
                       const internal_links = JSON.parse(item.internal_links || "[]");
                       const external_links = JSON.parse(item.external_links || "[]");
 
@@ -87,11 +84,9 @@ function SingleAuditReport({
                       ];
 
                       return (
-                        <tr key={item.id}>
-                          <td className="px-4 py-3 font-semibold border-0 border-solid border-gray-200 border-b border-r border-l ">
-                            {index + 1 + (page - 1) * perPage}
-                          </td>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                        <div className="px-5 py-3 grid grid-cols-7 gap-2 items-center border-t border-solid border-gray-200">
+                          <div className="text-base"><strong>{index + 1}</strong></div>
+                          <div className="text-base">
                             <div className="max-w-80">
                               <p className="text-sm text-gray-900 max-line-elips">
                                 {item.title}
@@ -105,11 +100,11 @@ function SingleAuditReport({
                                 {item.url}
                               </a>
                             </div>
-                          </td>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          </div>
+                          <div className="text-base">
                             {item.status_code}
-                          </td>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          </div>
+                          <div className="text-base">
                             {!item.robots ? (
                               <span className="inline-block px-2 mr-1 rounded-full text-sm text-yellow-600 bg-yellow-200">
                                 Not set
@@ -123,11 +118,11 @@ function SingleAuditReport({
                                 Yes
                               </span>
                             )}
-                          </td>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          </div>
+                          <div className="text-base">
                             {item.readability_score}
-                          </td>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          </div>
+                          <div className="text-base">
                             <button
                               onClick={() => showLinks(item.url, links_present)}
                               className="border-0 bg-transparent cursor-pointer inline-flex gap-1 items-center"
@@ -137,21 +132,27 @@ function SingleAuditReport({
                               </span>
                               <Search size={14} />
                             </button>
-                          </td>
-                          <td className="px-4 py-3 border-0 border-solid border-gray-200 border-b border-r">
+                          </div>
+                          <div className="text-base">
                             <button
                               onClick={() => showDetails(item.id, item.url)}
-                              className="px-4 py-2 border-0 rounded font-semibold text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
+                              className="px-3 py-2 border-0 rounded text-sm text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
                             >
                               View
                             </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
+                </Card>
+
                 <div className="flex justify-between mt-4">
+                  <Pagination
+                    currentPage={page}
+                    totalPages={Math.ceil(totalCount / perPage)}
+                    onPageChange={onPageChange}
+                  />
                   <div className="flex gap-2 items-center">
                     <span className="text-base">Items per page: </span>
                     <select
@@ -166,11 +167,7 @@ function SingleAuditReport({
                       ))}
                     </select>
                   </div>
-                  <Pagination
-                    currentPage={page}
-                    totalPages={Math.ceil(totalCount / perPage)}
-                    onPageChange={onPageChange}
-                  />
+
                 </div>
               </>
             ) : (
@@ -179,7 +176,7 @@ function SingleAuditReport({
           </motion.div>
         )}
       </AnimatePresence>
-    </Card>
+    </div>
   );
 }
 
