@@ -63,7 +63,6 @@ class Plugin
             status_code int(3) NOT NULL,
             title TEXT NULL,
             meta_description TEXT NULL,
-            keywords TEXT NULL,
             content_type TEXT NULL,
             robots TEXT NULL,
             lang TEXT NULL,

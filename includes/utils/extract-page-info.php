@@ -18,7 +18,6 @@ namespace Falcon_Seo_Audit\Utils;
  *
  *     @type string $title            Page title.
  *     @type string $meta_description  Meta description.
- *     @type string $keywords          Keywords.
  *     @type string $content_type      Content type or charset.
  *     @type string $robots            Robots tag.
  *     @type string $lang              HTML lang attribute.
@@ -37,7 +36,6 @@ namespace Falcon_Seo_Audit\Utils;
 function extract_information( $doc ) {
 	$title            = $doc->getElementsByTagName( 'title' )->item( 0 )->nodeValue;
 	$description      = '';
-	$keywords         = '';
 	$content_type     = '';
 	$robots           = '';
 	$lang             = '';
@@ -61,12 +59,9 @@ function extract_information( $doc ) {
 			continue;
 		}
 
-		// Meta description and keywords.
+		// Meta description and other tags.
 		if ( $meta->getAttribute( 'name' ) === 'description' ) {
 			$description = $meta->getAttribute( 'content' );
-		}
-		if ( $meta->getAttribute( 'name' ) === 'keywords' ) {
-			$keywords = $meta->getAttribute( 'content' );
 		}
 		// Content type or charset.
 		if ( $meta->hasAttribute( 'http-equiv' ) && $meta->getAttribute( 'http-equiv' ) === 'Content-Type' ) {
@@ -148,7 +143,6 @@ function extract_information( $doc ) {
 	return array(
 		'title'            => $title,
 		'meta_description' => $description,
-		'keywords'         => $keywords,
 		'content_type'     => $content_type,
 		'robots'           => $robots,
 		'lang'             => $lang,

@@ -166,7 +166,6 @@ class Crawler
 					'status_code'                 => $status_code,
 					'title'                       => $page_info['title'],
 					'meta_description'            => $page_info['meta_description'],
-					'keywords'                    => $page_info['keywords'],
 					'content_type'                => $page_info['content_type'],
 					'robots'                      => $page_info['robots'],
 					'lang'                        => $page_info['lang'],

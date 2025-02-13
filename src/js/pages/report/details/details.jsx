@@ -12,8 +12,15 @@ import {
   LineChart,
   Link,
   TextSearch,
+  Check,
 } from "lucide-react";
 import Overview from "./overview";
+import SEOTitleMeter from "./seo-title-meter";
+import SEOMetaDescriptionMeter from "./meta-description-meter";
+import SEORobotsChecker from "./robot-tag-checker";
+import SEOLanguageChecker from "./lang-attribute-checker";
+import CanonicalURLChecker from "./canonical-url-checker";
+import PageURLChecker from "./page-url-checker";
 
 const reportToc = [
   {
@@ -83,6 +90,15 @@ function Details({ isLoading, link, details, backToSingleAudit }) {
           </div>
           <div className="col-span-5">
             <Overview details={details} />
+            <Card className="mb-4">
+              <h3 className="px-6 py-4 font-semibold text-base">Basic SEO</h3>
+              <SEOTitleMeter title={details.title} />
+              <SEOMetaDescriptionMeter description={details.meta_description} />
+              <PageURLChecker pageUrl={details.url} />
+              <SEORobotsChecker content={details.robots} />
+              <SEOLanguageChecker lang={details.lang} />
+              <CanonicalURLChecker url={details.canonical_url} pageUrl={details.url} />
+            </Card>
             <h4 className="text-base font-bold mb-3">Robots tag: 20</h4>
             <h4 className="text-base font-bold mb-3">SEO title: 30</h4>
             <h4 className="text-base font-bold mb-3">Url Readability: 20</h4>
