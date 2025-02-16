@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function RunFirstAudit() {
   return (
     <div className="flex flex-col items-center gap-10 mb-10">
@@ -13,12 +15,12 @@ function RunFirstAudit() {
           generate reports.
         </p>
       </div>
-      <a
-        href="/wp-admin/admin.php?page=run-audit"
+      <Link
+        to="/run-audit"
         className="px-8 py-2.5 cursor-pointer border border-solid border-gray-700 rounded-full text-white text-base no-underline font-semibold bg-gray-700 hover:text-white hover:bg-gray-800 transition-colors duration-300 after:text-white active:text-white focus-within:text-white"
       >
         Run audit
-      </a>
+      </Link>
     </div>
   );
 }

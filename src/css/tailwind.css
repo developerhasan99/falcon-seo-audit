@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body[class*="page_falcon-seo-audit"] {
+  background-color: #f3f4f5;
+}
+
+body[class*="page_falcon-seo-audit"] #wpcontent {
+  padding: 0;
+}
 
 .falcon-seo-audit {
   @tailwind base;
@@ -15,7 +23,7 @@
       word-break: break-word;
       color: #006dca;
     }
-    
+
     .max-line-elips {
       -webkit-line-clamp: 1;
       display: -webkit-box;

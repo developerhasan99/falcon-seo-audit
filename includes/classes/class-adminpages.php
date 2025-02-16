@@ -81,7 +81,7 @@ class AdminPages
 			array($this, 'render_audit_report_page')
 		);
 
-		remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
+		// remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
 	}
 
 	/**

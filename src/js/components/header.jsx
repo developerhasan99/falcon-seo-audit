@@ -1,42 +1,57 @@
+import { NavLink } from "react-router-dom";
+
 function Header() {
+  const activeLinkStyle = {
+    color: "#e24329",
+  };
+
   return (
-    <div className="bg-white p-6 rounded border border-solid border-gray-200">
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="flex items-center gap-4">
-          <div className="flex-shrink-0 p-2 bg-gray-700 rounded-xl flex items-center justify-center">
-            <img
-              className="size-12"
-              src={falcon_seo_obj.asset_url + "falcon-icon.svg"}
-              alt="Falcon"
-            />
-          </div>
-          <div>
-            <h2 className="font-bold mb-2 text-2xl">Falcon Seo Audit</h2>
-            <p className="text-gray-600 text-base">
-              A user-focused SEO audit designed to enhance search engine
-              visibility, drive more traffic, and ultimately increase your
-              revenue.
-            </p>
-          </div>
+    <div className="bg-white p-4 shadow-lg shadow-gray-100">
+      <div className="max-w-screen-xl mx-auto flex gap-6 items-center justify-between">
+        <div className="flex items-center pr-6 border-r border-solid border-gray-200">
+          <img
+            className="size-8"
+            src={falcon_seo_obj.asset_url + "falcon-icon.svg"}
+            alt="Falcon"
+          />
+          <h2 className="text-2xl font-bold text-gray-700">FSA</h2>
         </div>
-        <div className="flex gap-4 items-end md:flex-col-reverse">
-          <div className="flex gap-4">
-            <a
-              className="px-4 py-2 border-2 border-solid border-gray-700 rounded text-gray-700 no-underline font-semibold hover:text-white hover:bg-gray-700 transition-colors duration-300"
-              href="#"
-            >
-              Give A Feedback
-            </a>
-            <a
-              className="px-4 py-2 border border-solid border-gray-700 rounded text-white  no-underline font-semibold bg-gray-700 hover:text-white hover:bg-gray-800 transition-colors duration-300 after:text-white active:text-white focus-within:text-white"
-              href="https://developerhasan.com/"
-              target="_blank"
-            >
-              Visit Plugin Author
-            </a>
-          </div>
-          <p className="text-sm text-gray-600 m-0">v{falcon_seo_obj.version}</p>
+        <div className="flex gap-6 mr-auto">
+          <NavLink
+            className="text-base font-semibold focus:ring-0"
+            style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
+            to="/reports"
+          >
+            Reports
+          </NavLink>
+          <NavLink
+            className="text-base font-semibold focus:ring-0"
+            style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
+            to="/issues"
+          >
+            Issues
+          </NavLink>
+          <NavLink
+            className="text-base font-semibold focus:ring-0"
+            style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
+            to="/run-audit"
+          >
+            Run Audit
+          </NavLink>
+          <NavLink
+            className="text-base font-semibold focus:ring-0"
+            style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
+            to="/settings"
+          >
+            Settings
+          </NavLink>
         </div>
+        <a
+          className="px-4 py-2 border-2 border-solid border-gray-700 rounded text-gray-700 no-underline font-semibold hover:text-white hover:bg-gray-700 transition-colors duration-300"
+          href="#"
+        >
+          Give A Feedback
+        </a>
       </div>
     </div>
   );
