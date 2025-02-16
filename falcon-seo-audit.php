@@ -37,6 +37,7 @@ require_once PLUGIN_DIR_PATH . 'includes/api/recent-audits.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/get-single-audit.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/get-single-details.php';
 require_once PLUGIN_DIR_PATH . 'includes/api/delete-audit.php';
+require_once PLUGIN_DIR_PATH . 'includes/api/get-issues.php';
 
 // Load utility files.
 require_once PLUGIN_DIR_PATH . 'includes/utils/is-webpage-link.php';

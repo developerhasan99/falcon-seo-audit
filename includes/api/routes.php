@@ -37,6 +37,10 @@ function register_ajax_actions()
 	// Delete Audit.
 	add_action('wp_ajax_delete_audit', __NAMESPACE__ . '\\delete_audit');
 	add_action('wp_ajax_nopriv_delete_audit', __NAMESPACE__ . '\\delete_audit');
+
+	// Get Issues.
+	add_action('wp_ajax_get_issues', __NAMESPACE__ . '\\get_issues');
+	add_action('wp_ajax_nopriv_get_issues', __NAMESPACE__ . '\\get_issues');
 }
 
 add_action('init', __NAMESPACE__ . '\\register_ajax_actions');
