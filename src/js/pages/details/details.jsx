@@ -121,24 +121,6 @@ function Details() {
                     pageUrl={details.url}
                   />
                 </Card>
-                <h4 className="text-base font-bold mb-3">Robots tag: 20</h4>
-                <h4 className="text-base font-bold mb-3">SEO title: 30</h4>
-                <h4 className="text-base font-bold mb-3">
-                  Url Readability: 20
-                </h4>
-                <h4 className="text-base font-bold mb-3">
-                  SEO meta description: 10
-                </h4>
-                <h4 className="text-base font-bold mb-3">Canonical Url: 10</h4>
-                <h4 className="text-base font-bold mb-3">
-                  Language attribute: 5
-                </h4>
-                <h4 className="text-base font-bold mb-3">Hreflang usage: 5</h4>
-
-                <hr className="pb-6 mt-6" />
-                <h3 className="text-xl font-bold mb-3">Headings Analysis:</h3>
-                <h4 className="text-base font-bold mb-3">H1 tag:</h4>
-                <h4 className="text-base font-bold mb-3">H2 - H6 tags:</h4>
               </div>
             </div>
           ) : (
