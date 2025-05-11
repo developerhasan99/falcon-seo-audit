@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File: extract-page-links.php
  *
@@ -27,39 +28,40 @@ namespace Falcon_Seo_Audit\Utils;
  *
  * @return array An associative array of internal and external links.
  */
-function extract_page_links( $doc, $home_page_url ) {
+function extract_page_links($doc, $home_page_url)
+{
 
 	$internal_links = array();
 	$external_links = array();
-	$link_node_list = $doc->getElementsByTagName( 'a' );
+	$link_node_list = $doc->getElementsByTagName('a');
 
-	$href = $link_node_list->item( 0 )->getAttribute( 'href' );
+	foreach ($link_node_list as $link_node) {
 
-	foreach ( $link_node_list as $link_node ) {
-
-		if ( ! ( $link_node instanceof \DOMElement ) ) {
+		if (! ($link_node instanceof \DOMElement)) {
 			continue;  // Skip non-element nodes.
 		}
 
-		$href = $link_node->getAttribute( 'href' );
+		$href = $link_node->getAttribute('href');
 
-        // @codingStandardsIgnoreStart
-		$anchor_text = trim( $link_node->textContent );
-        // @codingStandardsIgnoreEnd
+		// @codingStandardsIgnoreStart
+		$anchor_text = trim($link_node->textContent);
+		// @codingStandardsIgnoreEnd
 
-		if ( is_webpage_link( $href ) && ! str_contains( $href, '#' ) ) {
-			$parsed_url      = wp_parse_url( $href );
-			$parsed_home_page_url = wp_parse_url( $home_page_url );
+		if (is_webpage_link($href) && ! str_contains($href, '#')) {
+			$parsed_url = wp_parse_url($href);
+			$parsed_home_page_url = wp_parse_url($home_page_url);
 
 			// Check if it's an internal link.
-			if ( ! isset( $parsed_url['host'] ) || $parsed_url['host'] === $parsed_home_page_url['host'] ) {
-				// Ensure it has a trailing slash.
-				if ( substr( $href, -1 ) !== '/' ) {
-					$href = rtrim( $href, '/' ) . '/';
+			if (! isset($parsed_url['host']) || $parsed_url['host'] === $parsed_home_page_url['host']) {
+				// Handle relative paths by appending $home_page_url.
+				if (! isset($parsed_url['host'])) {
+					$href = rtrim($home_page_url, '/') . '/' . ltrim($href, '/');
 				}
 
-				// Append $home_page_url if it's a relative path.
-        $href = rtrim( $home_page_url, '/' ) . '/' . ltrim( $href, '/' );
+				// Ensure it has a trailing slash.
+				if (substr($href, -1) !== '/' && ! pathinfo($href, PATHINFO_EXTENSION)) {
+					$href = rtrim($href, '/') . '/';
+				}
 
 				$internal_links[] = array(
 					'anchor' => $anchor_text,

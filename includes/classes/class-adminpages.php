@@ -77,8 +77,8 @@ class AdminPages
 			'Audit Report',
 			'Audit Report',
 			'manage_options',
-			'audit-report',
-			array($this, 'render_audit_report_page')
+			'falcon-seo-audit#/reports',
+			array($this, 'render_admin_page')
 		);
 
 		// remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');

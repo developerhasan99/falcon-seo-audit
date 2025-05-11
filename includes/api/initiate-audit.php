@@ -37,6 +37,9 @@ function initiate_audit()
 		// Schedule a one-time cron event with an argument if it's not already scheduled.
 		if (!wp_next_scheduled('falcon_seo_audit_cron', array($new_report_id))) {
 			wp_schedule_single_event(time(), 'falcon_seo_audit_cron', array($new_report_id));
+
+			// TODO: Debug log delete on production.
+			error_log('Scheduled cron event falcon_seo_audit_cron for report ID: ' . $new_report_id);
 		}
 
 		wp_send_json_success($new_report_id);
