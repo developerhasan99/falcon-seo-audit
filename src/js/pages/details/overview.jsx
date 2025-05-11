@@ -12,6 +12,12 @@ import {
 import Card from "../../components/card";
 import RadialProgress from "../../components/radial-progress";
 import { twMerge } from "tailwind-merge";
+import CanonicalURLChecker from "./canonical-url-checker";
+import PageURLChecker from "./page-url-checker";
+import SEOLanguageChecker from "./lang-attribute-checker";
+import SEOMetaDescriptionMeter from "./meta-description-meter";
+import SEORobotsChecker from "./robot-tag-checker";
+import SEOTitleMeter from "./seo-title-meter";
 
 export default function Overview({ details }) {
   return (
@@ -19,7 +25,7 @@ export default function Overview({ details }) {
       <h3 className="px-6 py-4 font-semibold text-base border-b border-solid">
         Overview
       </h3>
-      <div className="px-6 py-4 grid grid-cols-10 gap-8 items-center">
+      <div className="px-6 py-8 grid grid-cols-10 gap-8 items-center">
         <div className="col-span-2 relative">
           <RadialProgress progress={90} />
           <div className="absolute inset-0 flex items-center justify-center flex-col gap-2">
@@ -53,45 +59,53 @@ export default function Overview({ details }) {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-8 px-6 py-2 border-t border-solid">
-        <InsightProgressBar
-          title="1 high issue"
-          percentage="30%"
-          className="bg-red-600"
-          Icon={Triangle}
-          iconClass="text-red-600"
-        />
-        <InsightProgressBar
-          title="2 medium issue"
-          percentage="30%"
-          className="bg-orange-500"
-          Icon={Square}
-          iconClass="text-orange-500"
-        />
-        <InsightProgressBar
-          title="3 low issue"
-          percentage="30%"
-          className="bg-gray-600"
-          Icon={Circle}
-          iconClass="text-gray-600"
-        />
-        <InsightProgressBar
-          title="15 tests passed"
-          percentage="30%"
-          className="bg-green-600"
-          Icon={Check}
-          iconClass="text-green-600"
-        />
+      <div className="grid grid-cols-2 gap-16 px-6 pb-8">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+          <InsightProgressBar
+            title="1 high issue"
+            percentage="30%"
+            className="bg-red-600"
+            Icon={Triangle}
+            iconClass="text-red-600"
+          />
+          <InsightProgressBar
+            title="2 medium issue"
+            percentage="30%"
+            className="bg-orange-500"
+            Icon={Square}
+            iconClass="text-orange-500"
+          />
+          <InsightProgressBar
+            title="3 low issue"
+            percentage="30%"
+            className="bg-gray-600"
+            Icon={Circle}
+            iconClass="text-gray-600"
+          />
+          <InsightProgressBar
+            title="15 tests passed"
+            percentage="30%"
+            className="bg-green-600"
+            Icon={Check}
+            iconClass="text-green-600"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+          <PageInfoItem
+            Icon={Timer}
+            title={`${details.psi_speed_index} Seconds`}
+          />
+          <PageInfoItem Icon={Scale} title={`55.09 kB`} />
+          <PageInfoItem Icon={FolderTree} title={`15 resources`} />
+          <PageInfoItem Icon={LockKeyhole} title={`Secure`} />
+        </div>
       </div>
-      <div className="grid grid-cols-4 gap-8 px-6 py-2 border-t border-solid">
-        <PageInfoItem
-          Icon={Timer}
-          title={`${details.psi_speed_index} Seconds`}
-        />
-        <PageInfoItem Icon={Scale} title={`55.09 kB`} />
-        <PageInfoItem Icon={FolderTree} title={`15 resources`} />
-        <PageInfoItem Icon={LockKeyhole} title={`Secure`} />
-      </div>
+      <SEOTitleMeter title={details.title} />
+      <SEOMetaDescriptionMeter description={details.meta_description} />
+      <PageURLChecker pageUrl={details.url} />
+      <SEORobotsChecker content={details.robots} />
+      <SEOLanguageChecker lang={details.lang} />
+      <CanonicalURLChecker url={details.canonical_url} pageUrl={details.url} />
     </Card>
   );
 }

@@ -5,7 +5,6 @@ import {
   Heading1Icon,
   Image,
   KeyIcon,
-  LineChart,
   Link,
   Shapes,
   TextSearch,
@@ -13,15 +12,8 @@ import {
 import { useEffect, useState } from "react";
 
 import BackButton from "../../components/back-button";
-import CanonicalURLChecker from "./canonical-url-checker";
-import Card from "../../components/card";
 import FalconLoader from "../../components/falcon-loader";
 import Overview from "./overview";
-import PageURLChecker from "./page-url-checker";
-import SEOLanguageChecker from "./lang-attribute-checker";
-import SEOMetaDescriptionMeter from "./meta-description-meter";
-import SEORobotsChecker from "./robot-tag-checker";
-import SEOTitleMeter from "./seo-title-meter";
 import fetchLinkDetails from "../../axios/fetch-link-details";
 import { useParams } from "react-router-dom";
 
@@ -29,10 +21,6 @@ const reportToc = [
   {
     title: "Overview",
     icon: Shapes,
-  },
-  {
-    title: "Basic SEO",
-    icon: LineChart,
   },
   {
     title: "Headings",
@@ -105,22 +93,6 @@ function Details() {
               </div>
               <div className="col-span-5">
                 <Overview details={details} />
-                <Card className="mb-4">
-                  <h3 className="px-6 py-4 font-semibold text-base">
-                    Basic SEO
-                  </h3>
-                  <SEOTitleMeter title={details.title} />
-                  <SEOMetaDescriptionMeter
-                    description={details.meta_description}
-                  />
-                  <PageURLChecker pageUrl={details.url} />
-                  <SEORobotsChecker content={details.robots} />
-                  <SEOLanguageChecker lang={details.lang} />
-                  <CanonicalURLChecker
-                    url={details.canonical_url}
-                    pageUrl={details.url}
-                  />
-                </Card>
               </div>
             </div>
           ) : (

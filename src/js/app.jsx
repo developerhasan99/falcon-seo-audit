@@ -19,7 +19,7 @@ const App = () => {
     <HashRouter>
       <Header />
       <div className="px-4">
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-screen-xl">
           <Routes>
             <Route path="/" element={<Navigate to="/reports" replace />} />
             <Route path="/reports" element={<RecentReports />} />

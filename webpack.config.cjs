@@ -35,5 +35,5 @@ module.exports = {
     extensions: [".js", ".jsx"], // Resolve JS and JSX file extensions
   },
   mode: "production", // Can be set to 'production' for optimized builds
-  watch: true, // Automatically recompile on file save
+  // Removed watch option to ensure the build process terminates after completion
 };

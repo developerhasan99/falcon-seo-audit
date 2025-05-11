@@ -55,59 +55,64 @@ function RecentReports() {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="recent-reports"
             >
-              <Card>
-                <div className="px-5 py-2 grid grid-cols-5 gap-4 rounded-t">
-                  <div className="font-bold text-base">S/L</div>
-                  <div className="font-bold text-base">Initiated at</div>
-                  <div className="font-bold text-base">Status</div>
-                  <div className="font-bold text-base">Total URLs</div>
-                  <div className="font-bold text-base">Actions</div>
-                </div>
-                {recentAudits.map((audit, index) => (
-                  <div
-                    className={`px-5 py-3 grid grid-cols-5 gap-4 items-center border-t border-solid border-gray-200 ${
-                      willBeDeleted === audit.id ? "bg-red-100" : ""
-                    }`}
-                  >
-                    <div className="text-base">
-                      <strong>{index + 1}</strong>
-                    </div>
-                    <div className="text-base">
-                      {moment(audit.initiated_at).format("DD MMM, h:mm A")}
-                    </div>
-                    <div className="text-base">
-                      <span
-                        className={`inline-block px-4 py-1 rounded-full font-medium text-sm ${
-                          audit.status === "pending"
-                            ? "bg-gray-200 text-gray-700"
-                            : audit.status === "running"
-                            ? "bg-sky-200 text-sky-700"
-                            : audit.status === "completed"
-                            ? "bg-green-200 text-green-700"
-                            : "bg-red-200 text-red-700"
-                        }`}
-                      >
-                        {audit.status}
-                      </span>
-                    </div>
-                    <div className="text-base">{audit.urls_count}</div>
-                    <div className="text-base">
-                      <button
-                        onClick={() => deleteAudit(audit.id)}
-                        className="mr-4 px-3 py-2 border-0 rounded text-red-500 bg-red-50 text-sm hover:bg-red-600 hover:text-white transition-colors duration-300"
-                      >
-                        Delete
-                      </button>
-                      <Link
-                        to={`/reports/${audit.id}`}
-                        className="px-3 py-2 border-0 rounded text-sm text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
-                      >
-                        View
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </Card>
+              <table className="bg-white rounded border border-solid border-gray-200 w-full">
+                <thead>
+                  <tr>
+                    <TH>S/L</TH>
+                    <TH>Initiated at</TH>
+                    <TH>Status</TH>
+                    <TH>Total URLs</TH>
+                    <TH>Actions</TH>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentAudits.map((audit, index) => (
+                    <tr
+                      key={audit.id}
+                      className={`${
+                        willBeDeleted === audit.id ? "bg-red-100" : ""
+                      }`}
+                    >
+                      <TD>
+                        <strong>{index + 1}</strong>
+                      </TD>
+                      <TD>
+                        {moment(audit.initiated_at).format("DD MMM, h:mm A")}
+                      </TD>
+                      <TD>
+                        <span
+                          className={`inline-block px-4 py-1 rounded-full font-medium text-sm ${
+                            audit.status === "pending"
+                              ? "bg-gray-200 text-gray-700"
+                              : audit.status === "running"
+                              ? "bg-sky-200 text-sky-700"
+                              : audit.status === "completed"
+                              ? "bg-green-200 text-green-700"
+                              : "bg-red-200 text-red-700"
+                          }`}
+                        >
+                          {audit.status}
+                        </span>
+                      </TD>
+                      <TD>{audit.urls_count}</TD>
+                      <TD>
+                        <button
+                          onClick={() => deleteAudit(audit.id)}
+                          className="mr-4 px-3 py-2 border-0 rounded text-red-500 bg-red-50 text-sm hover:bg-red-600 hover:text-white transition-colors duration-300"
+                        >
+                          Delete
+                        </button>
+                        <Link
+                          to={`/reports/${audit.id}`}
+                          className="px-3 py-2 border-0 rounded text-sm text-white bg-gray-600 hover:bg-gray-800 transition-colors duration-300"
+                        >
+                          View
+                        </Link>
+                      </TD>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </motion.div>
           ) : (
             <RunFirstAudit />
@@ -119,3 +124,19 @@ function RecentReports() {
 }
 
 export default RecentReports;
+
+const TD = ({ children }) => {
+  return (
+    <td className="text-base px-5 py-3 border-t border-solid border-gray-200">
+      {children}
+    </td>
+  );
+};
+
+const TH = ({ children }) => {
+  return (
+    <th className="text-base px-5 py-2 border-t border-solid border-gray-200 text-left">
+      {children}
+    </th>
+  );
+};

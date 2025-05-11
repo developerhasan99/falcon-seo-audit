@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <div className="bg-white p-4 shadow-lg shadow-gray-100">
-      <div className="max-w-screen-xl mx-auto flex gap-6 items-center justify-between">
+      <div className="max-w-screen-xl flex gap-6 items-center justify-between">
         <div className="flex items-center pr-6 border-r border-solid border-gray-200">
           <img
             className="size-8"
