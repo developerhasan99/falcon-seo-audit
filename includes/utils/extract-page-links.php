@@ -59,7 +59,7 @@ function extract_page_links( $doc, $home_page_url ) {
 				}
 
 				// Append $home_page_url if it's a relative path.
-				$href = isset( $parsed_url['host'] ) ? $href : $home_page_url . $href;
+        $href = rtrim( $home_page_url, '/' ) . '/' . ltrim( $href, '/' );
 
 				$internal_links[] = array(
 					'anchor' => $anchor_text,

@@ -68,8 +68,8 @@ class AdminPages
 			'Run Audit',
 			'Run Audit',
 			'manage_options',
-			'run-audit',
-			array($this, 'render_run_audit_page')
+			'falcon-seo-audit#/run-audit',
+			array($this, 'render_main_page')
 		);
 
 		add_submenu_page(
