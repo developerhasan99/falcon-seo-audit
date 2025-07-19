@@ -121,6 +121,22 @@ class Plugin
             #adminmenu .toplevel_page_falcon-seo-audit .wp-menu-image img {
                 padding: 0;
                 opacity: 0.9;
+            }
+            body[class*="page_falcon-seo-audit"] {
+                background-color: #f9fafb;
+            }
+            body[class*="page_falcon-seo-audit"] #wpcontent {
+                padding: 0;
+            }
+            body[class*="page_falcon-seo-audit"] #wpbody-content {
+                padding-bottom: 0;
+            }
+            body[class*="page_falcon-seo-audit"] #wpfooter {
+                display: none;
+            }
+            body[class*="page_falcon-seo-audit"] #fsa-main-page {
+                position: relative;
+                min-height: calc(100vh - var(--wp-admin--admin-bar--height));
             }';
 
             wp_add_inline_style('wp-admin', $custom_css);

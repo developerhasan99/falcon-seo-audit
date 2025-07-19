@@ -74,14 +74,68 @@ class AdminPages
 
 		add_submenu_page(
 			'falcon-seo-audit',
-			'Audit Report',
-			'Audit Report',
+			'Crawled URLs',
+			'Crawled URLs',
 			'manage_options',
-			'falcon-seo-audit#/reports',
-			array($this, 'render_admin_page')
+			'falcon-seo-audit#/crawled-urls',
+			array($this, 'render_main_page')
 		);
 
-		// remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
+		add_submenu_page(
+			'falcon-seo-audit',
+			'SEO Issues',
+			'SEO Issues',
+			'manage_options',
+			'falcon-seo-audit#/seo-issues',
+			array($this, 'render_main_page')
+		);
+
+		add_submenu_page(
+			'falcon-seo-audit',
+			'Page Speed',
+			'Page Speed',
+			'manage_options',
+			'falcon-seo-audit#/page-speed',
+			array($this, 'render_main_page')
+		);
+
+		add_submenu_page(
+			'falcon-seo-audit',
+			'Mobile Usability',
+			'Mobile Usability',
+			'manage_options',
+			'falcon-seo-audit#/mobile-usability',
+			array($this, 'render_main_page')
+		);
+
+		add_submenu_page(
+			'falcon-seo-audit',
+			'Backlinks',
+			'Backlinks',
+			'manage_options',
+			'falcon-seo-audit#/backlinks',
+			array($this, 'render_main_page')
+		);
+
+		add_submenu_page(
+			'falcon-seo-audit',
+			'Content Analysis',
+			'Content Analysis',
+			'manage_options',
+			'falcon-seo-audit#/content-analysis',
+			array($this, 'render_main_page')
+		);
+
+		add_submenu_page(
+			'falcon-seo-audit',
+			'Technical SEO',
+			'Technical SEO',
+			'manage_options',
+			'falcon-seo-audit#/technical-seo',
+			array($this, 'render_main_page')
+		);
+
+		remove_submenu_page('falcon-seo-audit', 'falcon-seo-audit');
 	}
 
 	/**
@@ -142,24 +196,6 @@ class AdminPages
 	{
 		$this->enqueue_scripts();
 		echo '<div id="fsa-main-page" class="falcon-seo-audit"></div>';
-	}
-
-	/**
-	 * Renders the "Run Audit" page.
-	 */
-	public function render_run_audit_page()
-	{
-		$this->enqueue_scripts();
-		echo '<div id="fsa-run-audit-page" class="falcon-seo-audit"></div>';
-	}
-
-	/**
-	 * Renders the "Audit Report" page.
-	 */
-	public function render_audit_report_page()
-	{
-		$this->enqueue_scripts();
-		echo '<div id="fsa-audit-report-page" class="falcon-seo-audit"></div>';
 	}
 }
 

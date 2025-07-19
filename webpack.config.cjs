@@ -28,7 +28,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "styles.css", // Name of the CSS output file
+      filename: "tailwind-compiled.css", // Name of the CSS output file
     }),
   ],
   resolve: {

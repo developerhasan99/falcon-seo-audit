@@ -13,15 +13,22 @@ import RecentReports from "./pages/recent-reports/recent-reports";
 import RunAudit from "./pages/run-audit/run-audit";
 import SingleAuditReport from "./pages/single-audit-report/single-audit-report";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "./pages/dashboard/dashboard";
+import Sidebar from "./components/sidebar";
 
 const App = () => {
   return (
     <HashRouter>
-      <Header />
-      <div className="px-4">
-        <div className="max-w-screen-xl">
+      <Sidebar />
+      <div className="pl-64">
+        <Header />
+        <div className="px-6 max-w-screen-xl mx-auto">
           <Routes>
-            <Route path="/" element={<Navigate to="/reports" replace />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route
+              path="/reports"
+              element={<Navigate to="/reports" replace />}
+            />
             <Route path="/reports" element={<RecentReports />} />
             <Route path="/reports/:id" element={<SingleAuditReport />} />
             <Route path="/run-audit" element={<RunAudit />} />

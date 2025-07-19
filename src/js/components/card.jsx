@@ -3,8 +3,13 @@ import { twMerge } from "tailwind-merge";
 
 function Card({ className, children }) {
   return (
-    <div className={twMerge("bg-white rounded border border-solid border-gray-200", className)}>
-      <div>{children}</div>
+    <div
+      className={twMerge(
+        "bg-white border border-gray-200 shadow-2xs rounded-xl",
+        className
+      )}
+    >
+      {children}
     </div>
   );
 }
