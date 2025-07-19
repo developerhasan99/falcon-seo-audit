@@ -130,6 +130,7 @@ class Plugin
             }
             body[class*="page_falcon-seo-audit"] #wpbody-content {
                 padding-bottom: 0;
+                float: none;
             }
             body[class*="page_falcon-seo-audit"] #wpfooter {
                 display: none;

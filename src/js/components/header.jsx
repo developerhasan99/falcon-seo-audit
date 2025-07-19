@@ -8,7 +8,7 @@ import {
 
 const Header = () => {
   return (
-    <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-48 w-full bg-white border-b border-gray-200 text-sm py-2.5 lg:ps-65">
+    <header className="sticky top-8 z-50 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-48 w-full bg-white border-b border-gray-200 text-sm py-2.5 lg:ps-65">
       <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
         <div className="me-5 lg:me-0 lg:hidden flex items-center">
           <div className="font-bold">Falcon SEO Audit</div>
