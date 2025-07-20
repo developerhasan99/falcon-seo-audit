@@ -5,6 +5,7 @@ import {
   SearchIcon,
   XIcon,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -46,13 +47,13 @@ const Header = () => {
             </div>
           </div>
           <div className="inline-flex gap-x-2">
-            <a
+            <Link
+              to="/run-audit"
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none"
-              href="#"
             >
               <PlusIcon className="shrink-0 size-4" />
-              New Crawl
-            </a>
+              New Audit
+            </Link>
             <a
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"
               href="#"

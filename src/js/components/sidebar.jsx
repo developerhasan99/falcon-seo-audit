@@ -64,7 +64,7 @@ const Sidebar = () => {
           <div className="pl-3 pr-2 py-2 border border-gray-200 border-solid rounded-lg cursor-pointer flex items-center justify-between">
             <div>
               <h3 className="font-semibold text-base">Recent Audits</h3>
-              <p className="text-xs text-gray-500">13/06/2025</p>
+              <p className="text-xs text-gray-400">06 July 2025 12:30 PM</p>
             </div>
             <div>
               <ChevronsUpDownIcon className="shrink-0 size-6 stroke-1 text-gray-500" />
