@@ -22,7 +22,7 @@ const App = () => {
       <Sidebar />
       <div className="pl-64">
         <Header />
-        <div className="px-6 max-w-screen-xl mx-auto">
+        <div className="px-6 max-w-screen-xl mx-auto pb-12">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route
