@@ -460,6 +460,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .falcon-seo-audit .recent-reports table th:last-child {
     width: 180px;
   }
+.falcon-seo-audit .falcon-sidebar {
+    --hs-overlay-auto-close: lg;
+    height: calc(100vh - 2rem);
+  }
 .falcon-seo-audit .sr-only{
   position: absolute;
   width: 1px;
@@ -473,9 +477,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .pointer-events-none{
   pointer-events: none;
-}
-.falcon-seo-audit .invisible{
-  visibility: hidden;
 }
 .falcon-seo-audit .fixed{
   position: fixed;
@@ -518,11 +519,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .left-1\/2{
   left: 50%;
 }
+.falcon-seo-audit .right-0{
+  right: 0px;
+}
+.falcon-seo-audit .right-4{
+  right: 1rem;
+}
 .falcon-seo-audit .start-0{
   inset-inline-start: 0px;
-}
-.falcon-seo-audit .top-0{
-  top: 0px;
 }
 .falcon-seo-audit .top-1{
   top: 0.25rem;
@@ -533,23 +537,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .top-1\/2{
   top: 50%;
 }
-.falcon-seo-audit .right-0{
-  right: 0px;
-}
-.falcon-seo-audit .right-4{
-  right: 1rem;
-}
 .falcon-seo-audit .top-4{
   top: 1rem;
 }
-.falcon-seo-audit .left-3{
-  left: 0.75rem;
-}
-.falcon-seo-audit .right-3{
-  right: 0.75rem;
-}
 .falcon-seo-audit .top-8{
   top: 2rem;
+}
+.falcon-seo-audit .z-0{
+  z-index: 0;
 }
 .falcon-seo-audit .z-10{
   z-index: 10;
@@ -559,9 +554,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .z-50{
   z-index: 50;
-}
-.falcon-seo-audit .z-0{
-  z-index: 0;
 }
 .falcon-seo-audit .col-span-1{
   grid-column: span 1 / span 1;
@@ -582,6 +574,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+.falcon-seo-audit .mx-2{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
 .falcon-seo-audit .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -594,9 +590,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.falcon-seo-audit .mx-2{
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+.falcon-seo-audit .-ml-0\.5{
+  margin-left: -0.125rem;
+}
+.falcon-seo-audit .mb-0{
+  margin-bottom: 0px;
 }
 .falcon-seo-audit .mb-10{
   margin-bottom: 2.5rem;
@@ -619,6 +617,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .ml-3{
   margin-left: 0.75rem;
 }
+.falcon-seo-audit .ml-auto{
+  margin-left: auto;
+}
 .falcon-seo-audit .mr-1{
   margin-right: 0.25rem;
 }
@@ -634,35 +635,20 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .ms-auto{
   margin-inline-start: auto;
 }
-.falcon-seo-audit .mt-2{
-  margin-top: 0.5rem;
-}
-.falcon-seo-audit .mt-4{
-  margin-top: 1rem;
-}
-.falcon-seo-audit .mb-0{
-  margin-bottom: 0px;
-}
-.falcon-seo-audit .mt-1\.5{
-  margin-top: 0.375rem;
-}
-.falcon-seo-audit .mt-6{
-  margin-top: 1.5rem;
-}
-.falcon-seo-audit .mt-3{
-  margin-top: 0.75rem;
+.falcon-seo-audit .mt-0\.5{
+  margin-top: 0.125rem;
 }
 .falcon-seo-audit .mt-1{
   margin-top: 0.25rem;
 }
-.falcon-seo-audit .ml-auto{
-  margin-left: auto;
+.falcon-seo-audit .mt-2{
+  margin-top: 0.5rem;
 }
-.falcon-seo-audit .mt-0\.5{
-  margin-top: 0.125rem;
+.falcon-seo-audit .mt-3{
+  margin-top: 0.75rem;
 }
-.falcon-seo-audit .-ml-0\.5{
-  margin-left: -0.125rem;
+.falcon-seo-audit .mt-4{
+  margin-top: 1rem;
 }
 .falcon-seo-audit .block{
   display: block;
@@ -705,6 +691,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   width: 0.75rem;
   height: 0.75rem;
 }
+.falcon-seo-audit .size-3\.5{
+  width: 0.875rem;
+  height: 0.875rem;
+}
 .falcon-seo-audit .size-32{
   width: 8rem;
   height: 8rem;
@@ -721,23 +711,21 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   width: 1.5rem;
   height: 1.5rem;
 }
-.falcon-seo-audit .size-3\.5{
-  width: 0.875rem;
-  height: 0.875rem;
-}
 .falcon-seo-audit .size-8{
   width: 2rem;
   height: 2rem;
 }
-.falcon-seo-audit .size-12{
-  width: 3rem;
-  height: 3rem;
-}
 .falcon-seo-audit .h-1\.5{
   height: 0.375rem;
 }
+.falcon-seo-audit .h-4{
+  height: 1rem;
+}
 .falcon-seo-audit .h-40{
   height: 10rem;
+}
+.falcon-seo-audit .h-5{
+  height: 1.25rem;
 }
 .falcon-seo-audit .h-\[5px\]{
   height: 5px;
@@ -745,44 +733,29 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-full{
   height: 100%;
 }
-.falcon-seo-audit .h-2{
-  height: 0.5rem;
-}
-.falcon-seo-audit .h-4{
-  height: 1rem;
-}
-.falcon-seo-audit .h-5{
-  height: 1.25rem;
-}
 .falcon-seo-audit .max-h-full{
   max-height: 100%;
-}
-.falcon-seo-audit .w-12{
-  width: 3rem;
-}
-.falcon-seo-audit .w-full{
-  width: 100%;
-}
-.falcon-seo-audit .w-64{
-  width: 16rem;
-}
-.falcon-seo-audit .w-2{
-  width: 0.5rem;
-}
-.falcon-seo-audit .w-4{
-  width: 1rem;
-}
-.falcon-seo-audit .w-56{
-  width: 14rem;
 }
 .falcon-seo-audit .w-1\.5{
   width: 0.375rem;
 }
+.falcon-seo-audit .w-12{
+  width: 3rem;
+}
+.falcon-seo-audit .w-4{
+  width: 1rem;
+}
 .falcon-seo-audit .w-5{
   width: 1.25rem;
 }
-.falcon-seo-audit .min-w-60{
-  min-width: 15rem;
+.falcon-seo-audit .w-56{
+  width: 14rem;
+}
+.falcon-seo-audit .w-64{
+  width: 16rem;
+}
+.falcon-seo-audit .w-full{
+  width: 100%;
 }
 .falcon-seo-audit .min-w-full{
   min-width: 100%;
@@ -796,11 +769,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .max-w-xs{
   max-width: 20rem;
 }
-.falcon-seo-audit .flex-none{
-  flex: none;
-}
 .falcon-seo-audit .flex-1{
   flex: 1 1 0%;
+}
+.falcon-seo-audit .flex-none{
+  flex: none;
 }
 .falcon-seo-audit .flex-shrink-0{
   flex-shrink: 0;
@@ -816,10 +789,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .-translate-x-full{
   --tw-translate-x: -100%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.falcon-seo-audit .-translate-y-1\/2{
-  --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .falcon-seo-audit .rotate-180{
@@ -840,10 +809,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .cursor-pointer{
   cursor: pointer;
 }
-.falcon-seo-audit .appearance-none{
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+.falcon-seo-audit .grid-cols-1{
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .falcon-seo-audit .grid-cols-10{
   grid-template-columns: repeat(10, minmax(0, 1fr));
@@ -859,9 +826,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .grid-cols-8{
   grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-.falcon-seo-audit .grid-cols-1{
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .falcon-seo-audit .flex-col{
   flex-direction: column;
@@ -896,6 +860,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .gap-10{
   gap: 2.5rem;
 }
+.falcon-seo-audit .gap-12{
+  gap: 3rem;
+}
 .falcon-seo-audit .gap-16{
   gap: 4rem;
 }
@@ -918,13 +885,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   -moz-column-gap: 0.25rem;
        column-gap: 0.25rem;
 }
-.falcon-seo-audit .gap-x-8{
-  -moz-column-gap: 2rem;
-       column-gap: 2rem;
-}
-.falcon-seo-audit .gap-y-4{
-  row-gap: 1rem;
-}
 .falcon-seo-audit .gap-x-2{
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
@@ -933,9 +893,22 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   -moz-column-gap: 0.875rem;
        column-gap: 0.875rem;
 }
-.falcon-seo-audit .gap-x-1\.5{
-  -moz-column-gap: 0.375rem;
-       column-gap: 0.375rem;
+.falcon-seo-audit .gap-x-8{
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+.falcon-seo-audit .gap-y-4{
+  row-gap: 1rem;
+}
+.falcon-seo-audit .-space-x-px > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(-1px * var(--tw-space-x-reverse));
+  margin-left: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
+}
+.falcon-seo-audit .space-x-2 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .falcon-seo-audit .space-y-1 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
@@ -947,35 +920,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
-.falcon-seo-audit .space-y-0\.5 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.125rem * var(--tw-space-y-reverse));
-}
 .falcon-seo-audit .space-y-4 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
-.falcon-seo-audit .space-y-3 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
 .falcon-seo-audit .space-y-6 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-.falcon-seo-audit .-space-x-px > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(-1px * var(--tw-space-x-reverse));
-  margin-left: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
-}
-.falcon-seo-audit .space-x-2 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .falcon-seo-audit .divide-y > :not([hidden]) ~ :not([hidden]){
   --tw-divide-y-reverse: 0;
@@ -1024,10 +977,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .rounded-xl{
   border-radius: 0.75rem;
 }
-.falcon-seo-audit .rounded-t{
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
 .falcon-seo-audit .rounded-l{
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -1039,6 +988,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .rounded-r-md{
   border-top-right-radius: 0.375rem;
   border-bottom-right-radius: 0.375rem;
+}
+.falcon-seo-audit .rounded-t{
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 .falcon-seo-audit .border{
   border-width: 1px;
@@ -1058,23 +1011,31 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .border-b-4{
   border-bottom-width: 4px;
 }
+.falcon-seo-audit .border-e{
+  border-inline-end-width: 1px;
+}
 .falcon-seo-audit .border-l{
   border-left-width: 1px;
 }
 .falcon-seo-audit .border-l-0{
   border-left-width: 0px;
 }
-.falcon-seo-audit .border-t{
-  border-top-width: 1px;
-}
-.falcon-seo-audit .border-e{
-  border-inline-end-width: 1px;
-}
 .falcon-seo-audit .border-l-4{
   border-left-width: 4px;
 }
+.falcon-seo-audit .border-t{
+  border-top-width: 1px;
+}
 .falcon-seo-audit .border-solid{
   border-style: solid;
+}
+.falcon-seo-audit .border-blue-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity));
+}
+.falcon-seo-audit .border-gray-100{
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity));
 }
 .falcon-seo-audit .border-gray-200{
   --tw-border-opacity: 1;
@@ -1103,14 +1064,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .border-transparent{
   border-color: transparent;
 }
-.falcon-seo-audit .border-blue-500{
-  --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity));
-}
-.falcon-seo-audit .border-gray-100{
-  --tw-border-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity));
-}
 .falcon-seo-audit .border-t-\[\#e24329\]{
   --tw-border-opacity: 1;
   border-top-color: rgb(226 67 41 / var(--tw-border-opacity));
@@ -1122,6 +1075,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .border-t-\[\#fca326\]{
   --tw-border-opacity: 1;
   border-top-color: rgb(252 163 38 / var(--tw-border-opacity));
+}
+.falcon-seo-audit .bg-blue-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+}
+.falcon-seo-audit .bg-blue-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity));
+}
+.falcon-seo-audit .bg-blue-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 .falcon-seo-audit .bg-gray-100{
   --tw-bg-opacity: 1;
@@ -1159,6 +1124,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
+.falcon-seo-audit .bg-green-500\/15{
+  background-color: rgb(34 197 94 / 0.15);
+}
 .falcon-seo-audit .bg-green-600{
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
@@ -1195,6 +1163,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.falcon-seo-audit .bg-yellow-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 195 / var(--tw-bg-opacity));
+}
 .falcon-seo-audit .bg-yellow-200{
   --tw-bg-opacity: 1;
   background-color: rgb(254 240 138 / var(--tw-bg-opacity));
@@ -1202,29 +1174,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .bg-yellow-500{
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-blue-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-blue-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 246 255 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-gray-900{
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-green-500\/15{
-  background-color: rgb(34 197 94 / 0.15);
-}
-.falcon-seo-audit .bg-yellow-100{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 249 195 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-blue-100{
-  --tw-bg-opacity: 1;
-  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
 }
 .falcon-seo-audit .fill-green-500{
   fill: #22c55e;
@@ -1247,12 +1196,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .p-6{
   padding: 1.5rem;
 }
-.falcon-seo-audit .p-1{
-  padding: 0.25rem;
-}
 .falcon-seo-audit .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+.falcon-seo-audit .px-2\.5{
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
 }
 .falcon-seo-audit .px-3{
   padding-left: 0.75rem;
@@ -1274,9 +1224,17 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   padding-left: 2rem;
   padding-right: 2rem;
 }
+.falcon-seo-audit .py-0\.5{
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
 .falcon-seo-audit .py-1{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+.falcon-seo-audit .py-1\.5{
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
 }
 .falcon-seo-audit .py-2{
   padding-top: 0.5rem;
@@ -1298,25 +1256,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
-.falcon-seo-audit .px-2\.5{
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
+.falcon-seo-audit .pb-12{
+  padding-bottom: 3rem;
 }
-.falcon-seo-audit .px-1\.5{
-  padding-left: 0.375rem;
-  padding-right: 0.375rem;
-}
-.falcon-seo-audit .py-\[5px\]{
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.falcon-seo-audit .py-1\.5{
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
-}
-.falcon-seo-audit .py-0\.5{
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
+.falcon-seo-audit .pb-4{
+  padding-bottom: 1rem;
 }
 .falcon-seo-audit .pb-8{
   padding-bottom: 2rem;
@@ -1330,6 +1274,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .pe-3{
   padding-inline-end: 0.75rem;
 }
+.falcon-seo-audit .pl-10{
+  padding-left: 2.5rem;
+}
 .falcon-seo-audit .pl-2{
   padding-left: 0.5rem;
 }
@@ -1338,6 +1285,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .pl-6{
   padding-left: 1.5rem;
+}
+.falcon-seo-audit .pl-64{
+  padding-left: 16rem;
+}
+.falcon-seo-audit .pr-2{
+  padding-right: 0.5rem;
 }
 .falcon-seo-audit .pr-3{
   padding-right: 0.75rem;
@@ -1353,27 +1306,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .pt-4{
   padding-top: 1rem;
-}
-.falcon-seo-audit .pl-64{
-  padding-left: 16rem;
-}
-.falcon-seo-audit .pr-2{
-  padding-right: 0.5rem;
-}
-.falcon-seo-audit .pb-4{
-  padding-bottom: 1rem;
-}
-.falcon-seo-audit .pl-10{
-  padding-left: 2.5rem;
-}
-.falcon-seo-audit .pr-4{
-  padding-right: 1rem;
-}
-.falcon-seo-audit .pt-2{
-  padding-top: 0.5rem;
-}
-.falcon-seo-audit .pb-12{
-  padding-bottom: 3rem;
 }
 .falcon-seo-audit .text-left{
   text-align: left;
@@ -1427,20 +1359,32 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .italic{
   font-style: italic;
 }
+.falcon-seo-audit .leading-4{
+  line-height: 1rem;
+}
+.falcon-seo-audit .leading-5{
+  line-height: 1.25rem;
+}
 .falcon-seo-audit .leading-\[0\]{
   line-height: 0;
 }
 .falcon-seo-audit .leading-snug{
   line-height: 1.375;
 }
-.falcon-seo-audit .leading-5{
-  line-height: 1.25rem;
-}
-.falcon-seo-audit .leading-4{
-  line-height: 1rem;
-}
 .falcon-seo-audit .tracking-wider{
   letter-spacing: 0.05em;
+}
+.falcon-seo-audit .text-blue-500{
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+.falcon-seo-audit .text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+.falcon-seo-audit .text-blue-800{
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 .falcon-seo-audit .text-gray-200{
   --tw-text-opacity: 1;
@@ -1462,6 +1406,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
+.falcon-seo-audit .text-gray-800{
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
 .falcon-seo-audit .text-gray-900{
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
@@ -1478,6 +1426,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-text-opacity: 1;
   color: rgb(21 128 61 / var(--tw-text-opacity));
 }
+.falcon-seo-audit .text-green-800{
+  --tw-text-opacity: 1;
+  color: rgb(22 101 52 / var(--tw-text-opacity));
+}
 .falcon-seo-audit .text-orange-500{
   --tw-text-opacity: 1;
   color: rgb(249 115 22 / var(--tw-text-opacity));
@@ -1493,6 +1445,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .text-red-700{
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+.falcon-seo-audit .text-red-800{
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
 }
 .falcon-seo-audit .text-sky-700{
   --tw-text-opacity: 1;
@@ -1514,33 +1470,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity));
 }
-.falcon-seo-audit .text-gray-800{
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-blue-600{
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-red-800{
-  --tw-text-opacity: 1;
-  color: rgb(153 27 27 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-green-800{
-  --tw-text-opacity: 1;
-  color: rgb(22 101 52 / var(--tw-text-opacity));
-}
 .falcon-seo-audit .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-blue-500{
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-blue-800{
-  --tw-text-opacity: 1;
-  color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 .falcon-seo-audit .no-underline{
   text-decoration-line: none;
@@ -1552,14 +1484,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .placeholder-gray-500::placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(107 114 128 / var(--tw-placeholder-opacity));
-}
-.falcon-seo-audit .opacity-0{
-  opacity: 0;
-}
-.falcon-seo-audit .shadow-md{
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .falcon-seo-audit .shadow-lg{
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -1603,32 +1527,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.falcon-seo-audit .transition-opacity{
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-.falcon-seo-audit .transition-\[opacity\2c margin\]{
-  transition-property: opacity,margin;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
 .falcon-seo-audit .transition-transform{
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.falcon-seo-audit .duration-300{
-  transition-duration: 300ms;
+.falcon-seo-audit .duration-150{
+  transition-duration: 150ms;
 }
 .falcon-seo-audit .duration-200{
   transition-duration: 200ms;
 }
-.falcon-seo-audit .duration-150{
-  transition-duration: 150ms;
-}
-.falcon-seo-audit .\[--auto-close\:lg\]{
-  --auto-close: lg;
+.falcon-seo-audit .duration-300{
+  transition-duration: 300ms;
 }
 .falcon-seo-audit .\[animation-duration\:0\.5s\]{
   animation-duration: 0.5s;
@@ -1641,56 +1552,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .\[transform\:translate\(-50\%\2c -50\%\)\]{
   transform: translate(-50%,-50%);
-}
-
-.falcon-seo-audit .before\:absolute::before{
-  content: var(--tw-content);
-  position: absolute;
-}
-
-.falcon-seo-audit .before\:-top-4::before{
-  content: var(--tw-content);
-  top: -1rem;
-}
-
-.falcon-seo-audit .before\:start-0::before{
-  content: var(--tw-content);
-  inset-inline-start: 0px;
-}
-
-.falcon-seo-audit .before\:h-4::before{
-  content: var(--tw-content);
-  height: 1rem;
-}
-
-.falcon-seo-audit .before\:w-full::before{
-  content: var(--tw-content);
-  width: 100%;
-}
-
-.falcon-seo-audit .after\:absolute::after{
-  content: var(--tw-content);
-  position: absolute;
-}
-
-.falcon-seo-audit .after\:-bottom-4::after{
-  content: var(--tw-content);
-  bottom: -1rem;
-}
-
-.falcon-seo-audit .after\:start-0::after{
-  content: var(--tw-content);
-  inset-inline-start: 0px;
-}
-
-.falcon-seo-audit .after\:h-4::after{
-  content: var(--tw-content);
-  height: 1rem;
-}
-
-.falcon-seo-audit .after\:w-full::after{
-  content: var(--tw-content);
-  width: 100%;
 }
 
 .falcon-seo-audit .after\:text-white::after{
@@ -1717,9 +1578,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   cursor: pointer;
 }
 
+.falcon-seo-audit .hover\:bg-blue-700:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
 .falcon-seo-audit .hover\:bg-gray-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.falcon-seo-audit .hover\:bg-gray-50:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .falcon-seo-audit .hover\:bg-gray-700:hover{
@@ -1737,34 +1608,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
-.falcon-seo-audit .hover\:bg-blue-700:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
-}
-
-.falcon-seo-audit .hover\:bg-gray-50:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-
 .falcon-seo-audit .hover\:text-blue-600:hover{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
-}
-
-.falcon-seo-audit .hover\:text-gray-900:hover{
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.falcon-seo-audit .hover\:text-white:hover{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.falcon-seo-audit .hover\:text-gray-600:hover{
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .falcon-seo-audit .hover\:text-blue-800:hover{
@@ -1772,14 +1618,19 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 
-.falcon-seo-audit .hover\:text-green-800:hover{
+.falcon-seo-audit .hover\:text-gray-900:hover{
   --tw-text-opacity: 1;
-  color: rgb(22 101 52 / var(--tw-text-opacity));
+  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
 .falcon-seo-audit .hover\:text-red-800:hover{
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
+}
+
+.falcon-seo-audit .hover\:text-white:hover{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .falcon-seo-audit .hover\:underline:hover{
@@ -1791,32 +1642,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   border-color: rgb(59 130 246 / var(--tw-border-opacity));
 }
 
-.falcon-seo-audit .focus\:border-transparent:focus{
-  border-color: transparent;
-}
-
-.falcon-seo-audit .focus\:bg-blue-700:focus{
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
-}
-
-.falcon-seo-audit .focus\:bg-gray-50:focus{
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-
-.falcon-seo-audit .focus\:bg-gray-100:focus{
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
 .falcon-seo-audit .focus\:text-blue-600:focus{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
-}
-
-.falcon-seo-audit .focus\:opacity-80:focus{
-  opacity: 0.8;
 }
 
 .falcon-seo-audit .focus\:outline-none:focus{
@@ -1940,9 +1768,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     -moz-column-gap: 0.75rem;
          column-gap: 0.75rem;
   }
-  .falcon-seo-audit .md\:p-5{
-    padding: 1.25rem;
-  }
 }
 
 @media (min-width: 1024px){
@@ -1970,101 +1795,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 }
 
-@media (prefers-color-scheme: dark){
-  .falcon-seo-audit .dark\:divide-neutral-700 > :not([hidden]) ~ :not([hidden]){
-    --tw-divide-opacity: 1;
-    border-color: rgb(64 64 64 / var(--tw-divide-opacity));
-  }
-  .falcon-seo-audit .dark\:border{
-    border-width: 1px;
-  }
-  .falcon-seo-audit .dark\:border-neutral-700{
-    --tw-border-opacity: 1;
-    border-color: rgb(64 64 64 / var(--tw-border-opacity));
-  }
-  .falcon-seo-audit .dark\:bg-neutral-800{
-    --tw-bg-opacity: 1;
-    background-color: rgb(38 38 38 / var(--tw-bg-opacity));
-  }
-  .falcon-seo-audit .dark\:bg-transparent{
-    background-color: transparent;
-  }
-  .falcon-seo-audit .dark\:bg-neutral-700{
-    --tw-bg-opacity: 1;
-    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
-  }
-  .falcon-seo-audit .dark\:bg-red-500\/10{
-    background-color: rgb(239 68 68 / 0.1);
-  }
-  .falcon-seo-audit .dark\:text-neutral-400{
-    --tw-text-opacity: 1;
-    color: rgb(163 163 163 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:text-neutral-500{
-    --tw-text-opacity: 1;
-    color: rgb(115 115 115 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:text-white\/60{
-    color: rgb(255 255 255 / 0.6);
-  }
-  .falcon-seo-audit .dark\:text-neutral-300{
-    --tw-text-opacity: 1;
-    color: rgb(212 212 212 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:text-white{
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:text-neutral-200{
-    --tw-text-opacity: 1;
-    color: rgb(229 229 229 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:text-red-500{
-    --tw-text-opacity: 1;
-    color: rgb(239 68 68 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:placeholder\:text-neutral-400::-moz-placeholder{
-    --tw-text-opacity: 1;
-    color: rgb(163 163 163 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:placeholder\:text-neutral-400::placeholder{
-    --tw-text-opacity: 1;
-    color: rgb(163 163 163 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:hover\:bg-neutral-800:hover{
-    --tw-bg-opacity: 1;
-    background-color: rgb(38 38 38 / var(--tw-bg-opacity));
-  }
-  .falcon-seo-audit .dark\:hover\:bg-neutral-700:hover{
-    --tw-bg-opacity: 1;
-    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
-  }
-  .falcon-seo-audit .dark\:hover\:text-blue-500:hover{
-    --tw-text-opacity: 1;
-    color: rgb(59 130 246 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:hover\:text-neutral-300:hover{
-    --tw-text-opacity: 1;
-    color: rgb(212 212 212 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:focus\:bg-neutral-800:focus{
-    --tw-bg-opacity: 1;
-    background-color: rgb(38 38 38 / var(--tw-bg-opacity));
-  }
-  .falcon-seo-audit .dark\:focus\:bg-neutral-700:focus{
-    --tw-bg-opacity: 1;
-    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
-  }
-  .falcon-seo-audit .dark\:focus\:text-blue-500:focus{
-    --tw-text-opacity: 1;
-    color: rgb(59 130 246 / var(--tw-text-opacity));
-  }
-  .falcon-seo-audit .dark\:focus\:ring-neutral-600:focus{
-    --tw-ring-opacity: 1;
-    --tw-ring-color: rgb(82 82 82 / var(--tw-ring-opacity));
-  }
-}
-
 .falcon-seo-audit .\[\&\:\:-webkit-scrollbar-thumb\]\:rounded-full::-webkit-scrollbar-thumb{
   border-radius: 9999px;
 }
@@ -2074,31 +1804,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
-@media (prefers-color-scheme: dark){
-  .falcon-seo-audit .dark\:\[\&\:\:-webkit-scrollbar-thumb\]\:bg-neutral-500::-webkit-scrollbar-thumb{
-    --tw-bg-opacity: 1;
-    background-color: rgb(115 115 115 / var(--tw-bg-opacity));
-  }
-}
-
 .falcon-seo-audit .\[\&\:\:-webkit-scrollbar-track\]\:bg-gray-100::-webkit-scrollbar-track{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-@media (prefers-color-scheme: dark){
-  .falcon-seo-audit .dark\:\[\&\:\:-webkit-scrollbar-track\]\:bg-neutral-700::-webkit-scrollbar-track{
-    --tw-bg-opacity: 1;
-    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
-  }
-}
-
 .falcon-seo-audit .\[\&\:\:-webkit-scrollbar\]\:w-2::-webkit-scrollbar{
   width: 0.5rem;
-}
-
-.falcon-seo-audit .\[\&\>li\:first-child\]\:mb-0>li:first-child{
-  margin-bottom: 0px;
 }
 
 .falcon-seo-audit .\[\&\>li\:first-child\]\:\!mt-0>li:first-child{

@@ -1,4 +1,5 @@
 import {
+  CoinsIcon,
   CommandIcon,
   DownloadIcon,
   PlusIcon,
@@ -46,7 +47,14 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="inline-flex gap-x-2">
+          <div className="inline-flex items-center gap-4">
+            <div
+              className="flex items-center gap-x-1 bg-green-500/15 text-green-600 rounded-full px-2 py-1"
+              title="Credits available"
+            >
+              <CoinsIcon className="shrink-0 size-4" />
+              <span>100</span>
+            </div>
             <Link
               to="/run-audit"
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none"
@@ -54,13 +62,6 @@ const Header = () => {
               <PlusIcon className="shrink-0 size-4" />
               New Audit
             </Link>
-            <a
-              className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150"
-              href="#"
-            >
-              <DownloadIcon className="shrink-0 size-4" />
-              Export Report
-            </a>
           </div>
         </div>
       </nav>

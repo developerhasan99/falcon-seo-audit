@@ -26,4 +26,8 @@
   .recent-reports table th:last-child {
     width: 180px;
   }
+  .falcon-sidebar {
+    --hs-overlay-auto-close: lg;
+    height: calc(100vh - 2rem);
+  }
 }

@@ -166,7 +166,7 @@ class AdminPages
 
 		wp_enqueue_style(
 			'falcon-seo-audit-css',
-			PLUGIN_DIR_URL . 'build/styles.css',
+			PLUGIN_DIR_URL . 'build/tailwind-compiled.css',
 			array(),
 			'1.0'
 		);
