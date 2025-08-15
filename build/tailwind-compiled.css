@@ -739,26 +739,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-full{
   height: 100%;
 }
-.falcon-seo-audit .h-screen{
-  height: 100vh;
-}
-.falcon-seo-audit .h-\[calc\(100vh-4rem\)\]{
-  height: calc(100vh - 4rem);
-}
-.falcon-seo-audit .h-\[calc\(100vh-2rem\)\]{
-  height: calc(100vh - 2rem);
-}
 .falcon-seo-audit .max-h-full{
   max-height: 100%;
 }
-.falcon-seo-audit .min-h-screen{
-  min-height: 100vh;
-}
-.falcon-seo-audit .min-h-svh{
-  min-height: 100svh;
-}
 .falcon-seo-audit .min-h-\[calc\(100vh-2rem\)\]{
   min-height: calc(100vh - 2rem);
+}
+.falcon-seo-audit .min-h-screen{
+  min-height: 100vh;
 }
 .falcon-seo-audit .w-1\.5{
   width: 0.375rem;
@@ -787,14 +775,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .max-w-80{
   max-width: 20rem;
 }
+.falcon-seo-audit .max-w-\[70\%\]{
+  max-width: 70%;
+}
 .falcon-seo-audit .max-w-screen-xl{
   max-width: 1280px;
 }
 .falcon-seo-audit .max-w-xs{
   max-width: 20rem;
-}
-.falcon-seo-audit .max-w-\[70\%\]{
-  max-width: 70%;
 }
 .falcon-seo-audit .flex-1{
   flex: 1 1 0%;
@@ -1218,37 +1206,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
-.falcon-seo-audit .bg-gray-300{
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-\[\#85cccb\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(133 204 203 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-gradient-to-br{
-  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
-}
-.falcon-seo-audit .from-blue-600\/80{
-  --tw-gradient-from: rgb(37 99 235 / 0.8) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(37 99 235 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-.falcon-seo-audit .to-blue-800\/80{
-  --tw-gradient-to: rgb(30 64 175 / 0.8) var(--tw-gradient-to-position);
-}
-.falcon-seo-audit .bg-cover{
-  background-size: cover;
-}
-.falcon-seo-audit .bg-contain{
-  background-size: contain;
-}
-.falcon-seo-audit .bg-center{
-  background-position: center;
-}
-.falcon-seo-audit .bg-no-repeat{
-  background-repeat: no-repeat;
-}
 .falcon-seo-audit .fill-green-500{
   fill: #22c55e;
 }
@@ -1257,9 +1214,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .stroke-1{
   stroke-width: 1;
-}
-.falcon-seo-audit .p-10{
-  padding: 2.5rem;
 }
 .falcon-seo-audit .p-2{
   padding: 0.5rem;
@@ -1451,10 +1405,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .tracking-wider{
   letter-spacing: 0.05em;
 }
-.falcon-seo-audit .text-blue-100{
-  --tw-text-opacity: 1;
-  color: rgb(219 234 254 / var(--tw-text-opacity));
-}
 .falcon-seo-audit .text-blue-500{
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
@@ -1571,9 +1521,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .placeholder-gray-500::placeholder{
   --tw-placeholder-opacity: 1;
   color: rgb(107 114 128 / var(--tw-placeholder-opacity));
-}
-.falcon-seo-audit .opacity-20{
-  opacity: 0.2;
 }
 .falcon-seo-audit .shadow-lg{
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -1893,9 +1840,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     -moz-column-gap: 0.75rem;
          column-gap: 0.75rem;
   }
-  .falcon-seo-audit .md\:p-10{
-    padding: 2.5rem;
-  }
 }
 
 @media (min-width: 1024px){
@@ -1917,9 +1861,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   .falcon-seo-audit .lg\:translate-x-0{
     --tw-translate-x: 0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  }
-  .falcon-seo-audit .lg\:grid-cols-2{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .falcon-seo-audit .lg\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));

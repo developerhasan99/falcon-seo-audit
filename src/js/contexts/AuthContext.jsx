@@ -1,13 +1,17 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "../axios";
 
 const AuthContext = createContext();
 
-const API_URL = 'YOUR_API_BASE_URL';
-
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,26 +21,29 @@ export const AuthProvider = ({ children }) => {
   // Set up axios defaults
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       verifyToken();
     } else {
-      delete axios.defaults.headers.common['Authorization'];
+      delete axios.defaults.headers.common["Authorization"];
       setLoading(false);
     }
   }, [token]);
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/login`, { email, password });
+      const response = await axios.post("/auth/login", {
+        email,
+        password,
+      });
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       setToken(token);
       setUser(user);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Login failed' 
+      return {
+        success: false,
+        error: error.response?.data?.message || "Login failed",
       };
     }
   };
@@ -45,14 +52,14 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${API_URL}/register`, userData);
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       setToken(token);
       setUser(user);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Registration failed' 
+      return {
+        success: false,
+        error: error.response?.data?.message || "Registration failed",
       };
     }
   };
@@ -69,10 +76,10 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setToken(null);
     setUser(null);
-    navigate('/auth');
+    navigate("/auth");
   }, [navigate]);
 
   const value = {
@@ -96,7 +103,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
