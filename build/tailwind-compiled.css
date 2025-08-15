@@ -739,6 +739,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-full{
   height: 100%;
 }
+.falcon-seo-audit .h-screen{
+  height: 100vh;
+}
+.falcon-seo-audit .h-\[calc\(100vh-4rem\)\]{
+  height: calc(100vh - 4rem);
+}
+.falcon-seo-audit .h-\[calc\(100vh-2rem\)\]{
+  height: calc(100vh - 2rem);
+}
 .falcon-seo-audit .max-h-full{
   max-height: 100%;
 }
@@ -747,6 +756,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .min-h-svh{
   min-height: 100svh;
+}
+.falcon-seo-audit .min-h-\[calc\(100vh-2rem\)\]{
+  min-height: calc(100vh - 2rem);
 }
 .falcon-seo-audit .w-1\.5{
   width: 0.375rem;
@@ -780,6 +792,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .max-w-xs{
   max-width: 20rem;
+}
+.falcon-seo-audit .max-w-\[70\%\]{
+  max-width: 70%;
 }
 .falcon-seo-audit .flex-1{
   flex: 1 1 0%;
@@ -1203,6 +1218,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
+.falcon-seo-audit .bg-gray-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+.falcon-seo-audit .bg-\[\#85cccb\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(133 204 203 / var(--tw-bg-opacity));
+}
 .falcon-seo-audit .bg-gradient-to-br{
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -1217,8 +1240,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .bg-cover{
   background-size: cover;
 }
+.falcon-seo-audit .bg-contain{
+  background-size: contain;
+}
 .falcon-seo-audit .bg-center{
   background-position: center;
+}
+.falcon-seo-audit .bg-no-repeat{
+  background-repeat: no-repeat;
 }
 .falcon-seo-audit .fill-green-500{
   fill: #22c55e;

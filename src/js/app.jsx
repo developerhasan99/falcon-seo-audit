@@ -29,17 +29,22 @@ import AuthPage from "./pages/AuthPage";
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
+  if (!isAuthenticated) {
+    return (
+      <Routes>
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+      </Routes>
+    );
+  }
+
   return (
     <>
-      {isAuthenticated && <Sidebar />}
-      <div className={isAuthenticated ? "pl-64" : ""}>
-        {isAuthenticated && <Header />}
+      <Sidebar />
+      <div className="pl-64">
+        <Header />
         <div className="px-6 max-w-screen-xl mx-auto pb-12">
           <Routes>
-            {/* Public route */}
-            <Route path="/auth" element={isAuthenticated ? <Navigate to="/" replace /> : <AuthPage />} />
-            
-            {/* Protected routes */}
             <Route path="/run-audit" element={
               <ProtectedRoute>
                 <RunAudit />
