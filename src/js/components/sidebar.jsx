@@ -10,22 +10,25 @@ import {
   ChevronsUpDownIcon,
   Settings,
   HelpCircle,
-  UserIcon,
+  LogOutIcon,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
-const SidebarLink = ({ to, icon: Icon, children }) => {
+const SidebarLink = ({ to, icon: Icon, children, className }) => {
   return (
     <li className="mb-0 mt-2">
       <NavLink
         to={to}
         className={({ isActive }) =>
-          `flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0
-          ${
+          twMerge(
+            "flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0",
             isActive
               ? "bg-blue-50 text-blue-600 font-medium"
-              : "text-gray-700 hover:bg-gray-100"
-          }`
+              : "text-gray-700 hover:bg-gray-100",
+            className
+          )
         }
       >
         <Icon className="shrink-0 size-4" />
@@ -36,6 +39,8 @@ const SidebarLink = ({ to, icon: Icon, children }) => {
 };
 
 const Sidebar = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const navItems = [
     { to: "/", icon: HomeIcon, label: "Dashboard" },
     { to: "/crawled-urls", icon: LinkIcon, label: "Crawled URLs" },
@@ -50,11 +55,7 @@ const Sidebar = () => {
   const settingsItems = [
     { to: "/help", icon: HelpCircle, label: "Help" },
     { to: "/settings", icon: Settings, label: "Settings" },
-    { to: "/account", icon: UserIcon, label: "Account" },
   ];
-
-  // TODO ADD sub menu items to account,
-  // 1. Logout, 2. Account, 3. Transaction History, 4. Credit History
 
   return (
     <div className="falcon-sidebar hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform w-64 hidden fixed z-60 bg-white border-e border-gray-200 lg:block lg:translate-x-0 lg:end-auto lg:bottom-0">
@@ -100,6 +101,16 @@ const Sidebar = () => {
                   {item.label}
                 </SidebarLink>
               ))}
+              <li className="mb-0 mt-2">
+                <button
+                  class="flex w-full items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0 text-red-500 hover:bg-gray-100"
+                  onClick={() => logout()}
+                  data-discover="true"
+                >
+                  <LogOutIcon className="shrink-0 size-4" />
+                  Log Out
+                </button>
+              </li>
             </ul>
           </nav>
         </div>

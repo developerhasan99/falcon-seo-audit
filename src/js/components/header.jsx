@@ -1,7 +1,6 @@
 import {
   CoinsIcon,
   CommandIcon,
-  DownloadIcon,
   PlusIcon,
   SearchIcon,
   XIcon,

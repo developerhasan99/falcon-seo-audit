@@ -18,16 +18,22 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Set up axios defaults
+  // Initialize auth state from localStorage
   useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      verifyToken();
-    } else {
-      delete axios.defaults.headers.common["Authorization"];
+    const initializeAuth = () => {
+      const storedToken = localStorage.getItem('token');
+      const storedUser = localStorage.getItem('user');
+      
+      if (storedToken && storedUser) {
+        setToken(storedToken);
+        setUser(JSON.parse(storedUser));
+        axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+      }
       setLoading(false);
-    }
-  }, [token]);
+    };
+    
+    initializeAuth();
+  }, []);
 
   const login = async (email, password) => {
     try {
@@ -35,15 +41,29 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
       });
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      setToken(token);
-      setUser(user);
-      return { success: true };
+      
+      if (response.data && response.data.token) {
+        const { token, user } = response.data;
+        // Store token and user in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        
+        // Update state
+        setToken(token);
+        setUser(user);
+        
+        // Set axios default headers
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        
+        return { success: true };
+      } else {
+        throw new Error('Invalid response from server');
+      }
     } catch (error) {
+      console.error('Login error:', error);
       return {
         success: false,
-        error: error.response?.data?.message || "Login failed",
+        error: error.response?.data?.message || "Login failed. Please check your credentials and try again.",
       };
     }
   };
@@ -64,19 +84,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const verifyToken = useCallback(async () => {
-    try {
-      const response = await axios.get(`${API_URL}/verify`);
-      setUser(response.data.user);
-    } catch (error) {
-      logout();
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setToken(null);
     setUser(null);
     navigate("/auth");
@@ -90,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    isAuthenticated: !!token,
+    isAuthenticated: !!token && !!user,
   };
 
   return (

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { GalleryVerticalEnd } from "lucide-react";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -50,13 +49,19 @@ const AuthPage = () => {
         });
       }
 
-      if (result.success) {
-        navigate(from, { replace: true });
+      if (result && result.success) {
+        // If login was successful, redirect to the intended page or dashboard
+        let redirectPath = from === "/auth" ? "/" : from;
+        // Ensure we use hash routing and subdirectory safe path
+        if (!redirectPath.startsWith("/")) redirectPath = "/" + redirectPath;
+        navigate(redirectPath, { replace: true });
+        // Do not reload the page or go to domain root
       } else {
-        setError(result.error || "Authentication failed");
+        setError(result?.error || "Authentication failed");
       }
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      console.error("Auth error:", err);
+      setError(err.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
