@@ -27,7 +27,7 @@ const Header = () => {
               />
 
               {/* The hidden X button to clear the search input */}
-              <div className="hidden absolute inset-y-0 end-0 flex items-center z-20 pe-1">
+              <div className="absolute inset-y-0 end-0 flex items-center z-20 pe-1">
                 <button
                   type="button"
                   className="inline-flex shrink-0 justify-center items-center size-6 rounded-full text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600"

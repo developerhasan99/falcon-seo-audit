@@ -5,27 +5,16 @@ import CompletedStatus from "./completed-status";
 import DefaultStatus from "./default-status";
 import FalconLoader from "../../components/falcon-loader";
 import Progress from "./progress";
-import fetchAuditStatus from "../../axios/fetch-audit-status";
-import initiateAndRun from "../../axios/initiate-and-run";
 
 function RunAudit() {
   const [status, setStatus] = useState("default");
   const [justCompleted, setJustCompleted] = useState([]);
 
   const runAudit = () => {
-    initiateAndRun(setStatus, setJustCompleted);
+    // TODO: Initiate Audit here
   };
 
-  useEffect(() => {
-    const audit_id = falcon_seo_obj.running_audit_id
-      ? falcon_seo_obj.running_audit_id
-      : null;
-
-    if (audit_id) {
-      setStatus("running");
-      fetchAuditStatus(audit_id, setStatus, setJustCompleted);
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

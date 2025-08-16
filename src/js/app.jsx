@@ -20,8 +20,6 @@ import SeoIssues from "./pages/seo-issues/seo-issues";
 import PageSpeed from "./pages/page-speed";
 import MobileUsability from "./pages/mobile-usability";
 import Backlinks from "./pages/backlinks";
-import RecentReports from "./pages/recent-reports/recent-reports";
-import SingleAuditReport from "./pages/single-audit-report/single-audit-report";
 import ContentAnalysis from "./pages/content-analysis";
 import TechnicalSeo from "./pages/technical-seo";
 import AuthPage from "./pages/AuthPage";
@@ -45,84 +43,110 @@ const AppRoutes = () => {
         <Header />
         <div className="px-6 max-w-screen-xl mx-auto pb-12">
           <Routes>
-            <Route path="/run-audit" element={
-              <ProtectedRoute>
-                <RunAudit />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/crawled-urls" element={
-              <ProtectedRoute>
-                <CrawledUrls />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/seo-issues" element={
-              <ProtectedRoute>
-                <SeoIssues />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/page-speed" element={
-              <ProtectedRoute>
-                <PageSpeed />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/mobile-usability" element={
-              <ProtectedRoute>
-                <MobileUsability />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/backlinks" element={
-              <ProtectedRoute>
-                <Backlinks />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/content-analysis" element={
-              <ProtectedRoute>
-                <ContentAnalysis />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/technical-seo" element={
-              <ProtectedRoute>
-                <TechnicalSeo />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/" element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/details/:id" element={
-              <ProtectedRoute>
-                <Details />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/reports" element={
-              <ProtectedRoute>
-                <RecentReports />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/reports/:id" element={
-              <ProtectedRoute>
-                <SingleAuditReport />
-              </ProtectedRoute>
-            } />
-            
+            <Route
+              path="/run-audit"
+              element={
+                <ProtectedRoute>
+                  <RunAudit />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/crawled-urls"
+              element={
+                <ProtectedRoute>
+                  <CrawledUrls />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/seo-issues"
+              element={
+                <ProtectedRoute>
+                  <SeoIssues />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/page-speed"
+              element={
+                <ProtectedRoute>
+                  <PageSpeed />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/mobile-usability"
+              element={
+                <ProtectedRoute>
+                  <MobileUsability />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/backlinks"
+              element={
+                <ProtectedRoute>
+                  <Backlinks />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/content-analysis"
+              element={
+                <ProtectedRoute>
+                  <ContentAnalysis />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/technical-seo"
+              element={
+                <ProtectedRoute>
+                  <TechnicalSeo />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/details/:id"
+              element={
+                <ProtectedRoute>
+                  <Details />
+                </ProtectedRoute>
+              }
+            />
             {/* Catch all other routes */}
-            <Route path="*" element={
-              isAuthenticated ? 
-                <Navigate to="/" replace /> : 
-                <Navigate to="/auth" replace state={{ from: window.location.pathname }} />
-            } />
+            <Route
+              path="*"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Navigate
+                    to="/auth"
+                    replace
+                    state={{ from: window.location.pathname }}
+                  />
+                )
+              }
+            />
           </Routes>
         </div>
         <ToastContainer position="bottom-right" />

@@ -6,7 +6,7 @@ import {
   useCallback,
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "../axios";
+import axios from "../utils/axios";
 
 const AuthContext = createContext();
 
@@ -21,17 +21,19 @@ export const AuthProvider = ({ children }) => {
   // Initialize auth state from localStorage
   useEffect(() => {
     const initializeAuth = () => {
-      const storedToken = localStorage.getItem('token');
-      const storedUser = localStorage.getItem('user');
-      
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+
       if (storedToken && storedUser) {
         setToken(storedToken);
         setUser(JSON.parse(storedUser));
-        axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${storedToken}`;
       }
       setLoading(false);
     };
-    
+
     initializeAuth();
   }, []);
 
@@ -41,29 +43,31 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
       });
-      
+
       if (response.data && response.data.token) {
         const { token, user } = response.data;
         // Store token and user in localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-        
+
         // Update state
         setToken(token);
         setUser(user);
-        
+
         // Set axios default headers
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        
+
         return { success: true };
       } else {
-        throw new Error('Invalid response from server');
+        throw new Error("Invalid response from server");
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
       return {
         success: false,
-        error: error.response?.data?.message || "Login failed. Please check your credentials and try again.",
+        error:
+          error.response?.data?.message ||
+          "Login failed. Please check your credentials and try again.",
       };
     }
   };
@@ -83,7 +87,6 @@ export const AuthProvider = ({ children }) => {
       };
     }
   };
-
 
   const logout = useCallback(() => {
     localStorage.removeItem("token");

@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import BackButton from "../../components/back-button";
 import FalconLoader from "../../components/falcon-loader";
 import Overview from "./overview";
-import fetchLinkDetails from "../../axios/fetch-link-details";
 import { useParams } from "react-router-dom";
 
 const reportToc = [
@@ -60,7 +59,7 @@ function Details() {
 
   useEffect(() => {
     if (id) {
-      fetchLinkDetails(setIsLoading, id, setDetails);
+      // Fetch link details
     }
   }, [id]);
 

@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 
 import Card from "../../components/card";
 import FalconLoader from "../../components/falcon-loader";
-import fetchIssues from "../../axios/fetch-issues";
 
 export default function SeoIssues() {
   const [isLoading, setLoading] = useState(true);
   const [issues, setIssues] = useState(null);
 
   useEffect(() => {
-    fetchIssues(setLoading, setIssues);
     console.log("Fetch issues");
   }, []);
 

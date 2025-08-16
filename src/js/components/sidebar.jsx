@@ -103,7 +103,7 @@ const Sidebar = () => {
               ))}
               <li className="mb-0 mt-2">
                 <button
-                  class="flex w-full items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0 text-red-500 hover:bg-gray-100"
+                  className="flex w-full items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0 text-red-500 hover:bg-gray-100"
                   onClick={() => logout()}
                   data-discover="true"
                 >
