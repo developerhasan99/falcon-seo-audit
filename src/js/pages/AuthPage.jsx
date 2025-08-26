@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useLogin, useRegister } from "@/hooks/useAuth";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,11 +13,12 @@ const AuthPage = () => {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login, register } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from?.pathname || "/";
+  
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,31 +34,21 @@ const AuthPage = () => {
     setLoading(true);
 
     try {
-      let result;
-
       if (isLogin) {
-        result = await login(formData.email, formData.password);
+        await loginMutation.mutateAsync({
+          email: formData.email,
+          password: formData.password,
+        });
       } else {
         if (formData.password !== formData.confirmPassword) {
           throw new Error("Passwords don't match");
         }
-        result = await register({
+        await registerMutation.mutateAsync({
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
         });
-      }
-
-      if (result && result.success) {
-        // If login was successful, redirect to the intended page or dashboard
-        let redirectPath = from === "/auth" ? "/" : from;
-        // Ensure we use hash routing and subdirectory safe path
-        if (!redirectPath.startsWith("/")) redirectPath = "/" + redirectPath;
-        navigate(redirectPath, { replace: true });
-        // Do not reload the page or go to domain root
-      } else {
-        setError(result?.error || "Authentication failed");
       }
     } catch (err) {
       console.error("Auth error:", err);

@@ -456,10 +456,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-.falcon-seo-audit .recent-reports table td:last-child,
-  .falcon-seo-audit .recent-reports table th:last-child {
-    width: 180px;
-  }
 .falcon-seo-audit .falcon-sidebar {
     --hs-overlay-auto-close: lg;
     height: calc(100vh - 2rem);
@@ -510,6 +506,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   top: 0px;
   bottom: 0px;
 }
+.falcon-seo-audit .bottom-full{
+  bottom: 100%;
+}
 .falcon-seo-audit .end-0{
   inset-inline-end: 0px;
 }
@@ -542,9 +541,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .top-8{
   top: 2rem;
-}
-.falcon-seo-audit .bottom-full{
-  bottom: 100%;
 }
 .falcon-seo-audit .z-0{
   z-index: 0;
@@ -599,6 +595,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .mb-0{
   margin-bottom: 0px;
 }
+.falcon-seo-audit .mb-1{
+  margin-bottom: 0.25rem;
+}
 .falcon-seo-audit .mb-10{
   margin-bottom: 2.5rem;
 }
@@ -629,9 +628,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .mr-2{
   margin-right: 0.5rem;
 }
-.falcon-seo-audit .mr-4{
-  margin-right: 1rem;
-}
 .falcon-seo-audit .mr-auto{
   margin-right: auto;
 }
@@ -652,12 +648,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .mt-4{
   margin-top: 1rem;
-}
-.falcon-seo-audit .ml-2{
-  margin-left: 0.5rem;
-}
-.falcon-seo-audit .mb-1{
-  margin-bottom: 0.25rem;
 }
 .falcon-seo-audit .block{
   display: block;
@@ -724,6 +714,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   width: 2rem;
   height: 2rem;
 }
+.falcon-seo-audit .size-10{
+  width: 2.5rem;
+  height: 2.5rem;
+}
 .falcon-seo-audit .h-1\.5{
   height: 0.375rem;
 }
@@ -766,6 +760,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .w-4{
   width: 1rem;
 }
+.falcon-seo-audit .w-48{
+  width: 12rem;
+}
 .falcon-seo-audit .w-5{
   width: 1.25rem;
 }
@@ -780,9 +777,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .min-w-full{
   min-width: 100%;
-}
-.falcon-seo-audit .max-w-80{
-  max-width: 20rem;
 }
 .falcon-seo-audit .max-w-\[70\%\]{
   max-width: 70%;
@@ -808,22 +802,22 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .basis-full{
   flex-basis: 100%;
 }
-.falcon-seo-audit .origin-top-right{
-  transform-origin: top right;
-}
 .falcon-seo-audit .origin-bottom-right{
   transform-origin: bottom right;
+}
+.falcon-seo-audit .origin-top-right{
+  transform-origin: top right;
 }
 .falcon-seo-audit .-translate-x-full{
   --tw-translate-x: -100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-.falcon-seo-audit .rotate-180{
-  --tw-rotate: 180deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
 .falcon-seo-audit .-rotate-180{
   --tw-rotate: -180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.falcon-seo-audit .rotate-180{
+  --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .falcon-seo-audit .transform{
@@ -854,9 +848,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .grid-cols-6{
   grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-.falcon-seo-audit .grid-cols-8{
-  grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 .falcon-seo-audit .flex-col{
   flex-direction: column;
@@ -933,6 +924,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .gap-y-4{
   row-gap: 1rem;
+}
+.falcon-seo-audit .gap-x-0\.5{
+  -moz-column-gap: 0.125rem;
+       column-gap: 0.125rem;
 }
 .falcon-seo-audit .-space-x-px > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
@@ -1023,15 +1018,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   border-top-right-radius: 0.375rem;
   border-bottom-right-radius: 0.375rem;
 }
-.falcon-seo-audit .rounded-t{
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
 .falcon-seo-audit .border{
   border-width: 1px;
-}
-.falcon-seo-audit .border-0{
-  border-width: 0px;
 }
 .falcon-seo-audit .border-2{
   border-width: 2px;
@@ -1160,10 +1148,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
-.falcon-seo-audit .bg-green-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
-}
 .falcon-seo-audit .bg-green-500{
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
@@ -1183,14 +1167,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
-.falcon-seo-audit .bg-red-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-red-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
-}
 .falcon-seo-audit .bg-red-500{
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
@@ -1198,10 +1174,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .bg-red-600{
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-sky-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(186 230 253 / var(--tw-bg-opacity));
 }
 .falcon-seo-audit .bg-transparent{
   background-color: transparent;
@@ -1213,10 +1185,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .bg-yellow-100{
   --tw-bg-opacity: 1;
   background-color: rgb(254 249 195 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-yellow-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 240 138 / var(--tw-bg-opacity));
 }
 .falcon-seo-audit .bg-yellow-500{
   --tw-bg-opacity: 1;
@@ -1258,10 +1226,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
-}
-.falcon-seo-audit .px-5{
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 .falcon-seo-audit .px-6{
   padding-left: 1.5rem;
@@ -1341,9 +1305,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .pr-3{
   padding-right: 0.75rem;
-}
-.falcon-seo-audit .pr-8{
-  padding-right: 2rem;
 }
 .falcon-seo-audit .ps-10{
   padding-inline-start: 2.5rem;
@@ -1497,10 +1458,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
 }
-.falcon-seo-audit .text-sky-700{
-  --tw-text-opacity: 1;
-  color: rgb(3 105 161 / var(--tw-text-opacity));
-}
 .falcon-seo-audit .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1520,10 +1477,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-red-400{
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
 }
 .falcon-seo-audit .underline{
   text-decoration-line: underline;
@@ -1566,13 +1519,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .filter{
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-.falcon-seo-audit .transition{
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }
 .falcon-seo-audit .transition-all{
   transition-property: all;
@@ -1679,11 +1625,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .hover\:bg-gray-800:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
-.falcon-seo-audit .hover\:bg-red-600:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .falcon-seo-audit .hover\:text-blue-600:hover{
@@ -1837,6 +1778,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 @media (min-width: 768px){
   .falcon-seo-audit .md\:block{
     display: block;
+  }
+  .falcon-seo-audit .md\:inline{
+    display: inline;
   }
   .falcon-seo-audit .md\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));

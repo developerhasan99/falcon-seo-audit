@@ -4,8 +4,76 @@ import {
   PlusIcon,
   SearchIcon,
   XIcon,
+  UserIcon,
+  LogOutIcon,
+  ChevronDownIcon,
+  ReceiptIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useUser, useLogout } from "@/hooks/useAuth";
+import { useState } from "react";
+
+const UserMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { data: user } = useUser();
+  const logout = useLogout();
+
+  if (!user) return null;
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="inline-flex items-center gap-x-0.5 text-sm font-medium text-gray-700 hover:text-blue-600"
+      >
+        <div className="inline-flex items-center justify-center size-10 rounded-full bg-gray-100 text-gray-600">
+          <UserIcon className="size-6" />
+        </div>
+        <span className="hidden md:inline">
+          {user.firstName} {user.lastName}
+        </span>
+        <ChevronDownIcon
+          className={`size-4 transition-transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+          <Link
+            to="/account"
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+          >
+            <UserIcon className="size-4" />
+            Account
+          </Link>
+          <Link
+            to="/account"
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+          >
+            <ReceiptIcon className="size-4" />
+            Invoices
+          </Link>
+          <Link
+            to="/account"
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+          >
+            <CoinsIcon className="size-4" />
+            Credit History
+          </Link>
+          <button
+            onClick={logout}
+            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+          >
+            <LogOutIcon className="size-4" />
+            Sign out
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Header = () => {
   return (
@@ -47,13 +115,6 @@ const Header = () => {
             </div>
           </div>
           <div className="inline-flex items-center gap-4">
-            <div
-              className="flex items-center gap-x-1 bg-green-500/15 text-green-600 rounded-full px-2 py-1"
-              title="Credits available"
-            >
-              <CoinsIcon className="shrink-0 size-4" />
-              <span>100</span>
-            </div>
             <Link
               to="/run-audit"
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none"
@@ -61,6 +122,7 @@ const Header = () => {
               <PlusIcon className="shrink-0 size-4" />
               New Audit
             </Link>
+            <UserMenu />
           </div>
         </div>
       </nav>

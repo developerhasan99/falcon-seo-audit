@@ -10,11 +10,9 @@ import {
   ChevronsUpDownIcon,
   Settings,
   HelpCircle,
-  LogOutIcon,
 } from "lucide-react";
 import { twMerge } from "tailwind-merge";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { NavLink } from "react-router-dom";
 
 const SidebarLink = ({ to, icon: Icon, children, className }) => {
   return (
@@ -39,8 +37,6 @@ const SidebarLink = ({ to, icon: Icon, children, className }) => {
 };
 
 const Sidebar = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
   const navItems = [
     { to: "/", icon: HomeIcon, label: "Dashboard" },
     { to: "/crawled-urls", icon: LinkIcon, label: "Crawled URLs" },
@@ -101,16 +97,6 @@ const Sidebar = () => {
                   {item.label}
                 </SidebarLink>
               ))}
-              <li className="mb-0 mt-2">
-                <button
-                  className="flex w-full items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0 text-red-500 hover:bg-gray-100"
-                  onClick={() => logout()}
-                  data-discover="true"
-                >
-                  <LogOutIcon className="shrink-0 size-4" />
-                  Log Out
-                </button>
-              </li>
             </ul>
           </nav>
         </div>

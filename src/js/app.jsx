@@ -1,10 +1,11 @@
 import "../css/tailwind.css"; // Import Tailwind styles
 import "react-toastify/ReactToastify.min.css";
 
-import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import ReactDOM from "react-dom/client";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useUser } from "@/hooks/useAuth";
 
 // Components
 import Header from "./components/header";
@@ -25,13 +26,24 @@ import TechnicalSeo from "./pages/technical-seo";
 import AuthPage from "./pages/AuthPage";
 
 const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { data: user, isLoading } = useUser();
+  const location = useLocation();
 
-  if (!isAuthenticated) {
+  if (isLoading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
+  if (!user) {
     return (
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="*" element={<Navigate to="/auth" replace />} />
+        <Route path="*" element={
+          <Navigate 
+            to="/auth" 
+            state={{ from: location }} 
+            replace 
+          />
+        } />
       </Routes>
     );
   }
@@ -136,13 +148,13 @@ const AppRoutes = () => {
             <Route
               path="*"
               element={
-                isAuthenticated ? (
+                user ? (
                   <Navigate to="/" replace />
                 ) : (
                   <Navigate
                     to="/auth"
                     replace
-                    state={{ from: window.location.pathname }}
+                    state={{ from: location.pathname }}
                   />
                 )
               }
@@ -155,15 +167,23 @@ const AppRoutes = () => {
   );
 };
 
-const App = () => {
-  return (
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
     <HashRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <AppRoutes />
+      <ToastContainer position="bottom-right" autoClose={5000} />
     </HashRouter>
-  );
-};
+  </QueryClientProvider>
+);
 
 // Render audit report page
 const dashboardPageContainer = document.getElementById("fsa-main-page");

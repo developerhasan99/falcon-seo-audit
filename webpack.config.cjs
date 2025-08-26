@@ -33,6 +33,9 @@ module.exports = {
   ],
   resolve: {
     extensions: [".js", ".jsx"], // Resolve JS and JSX file extensions
+    alias: {
+      '@': path.resolve(__dirname, 'src/js'),
+    },
   },
   mode: "production", // Can be set to 'production' for optimized builds
   // Removed watch option to ensure the build process terminates after completion

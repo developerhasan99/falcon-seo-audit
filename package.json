@@ -11,6 +11,8 @@
   "author": "Mehedi Hasan",
   "license": "ISC",
   "dependencies": {
+    "@tanstack/react-query": "^5.85.5",
+    "@tanstack/react-query-devtools": "^5.85.5",
     "apexcharts": "^5.2.0",
     "axios": "^1.7.7",
     "framer-motion": "^11.9.0",
