@@ -64,7 +64,7 @@ const UserMenu = () => {
           </Link>
           <button
             onClick={logout}
-            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2"
           >
             <LogOutIcon className="size-4" />
             Sign out
