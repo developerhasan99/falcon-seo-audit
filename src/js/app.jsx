@@ -199,3 +199,5 @@ if (dashboardPageContainer) {
   const root = ReactDOM.createRoot(dashboardPageContainer);
   root.render(<App />);
 }
+
+// TODO: Split routers for better file structure and code readability
