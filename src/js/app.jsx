@@ -1,7 +1,13 @@
 import "../css/tailwind.css"; // Import Tailwind styles
 import "react-toastify/ReactToastify.min.css";
 
-import { HashRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
+import {
+  HashRouter,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -30,20 +36,21 @@ const AppRoutes = () => {
   const location = useLocation();
 
   if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    );
   }
 
   if (!user) {
     return (
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="*" element={
-          <Navigate 
-            to="/auth" 
-            state={{ from: location }} 
-            replace 
-          />
-        } />
+        <Route
+          path="*"
+          element={<Navigate to="/auth" state={{ from: location }} replace />}
+        />
       </Routes>
     );
   }
