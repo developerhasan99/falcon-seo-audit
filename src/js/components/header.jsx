@@ -11,17 +11,29 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUser, useLogout } from "@/hooks/useAuth";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: user } = useUser();
   const logout = useLogout();
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   if (!user) return null;
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center gap-x-0.5 text-sm font-medium text-gray-700 hover:text-blue-600"
@@ -40,7 +52,7 @@ const UserMenu = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
           <Link
             to="/account"
             className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
