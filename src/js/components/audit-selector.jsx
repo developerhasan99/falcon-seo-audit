@@ -1,0 +1,61 @@
+import { useEffect, useRef, useState } from "react";
+import { Check, ChevronsUpDownIcon } from "lucide-react";
+
+const AuditSelector = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const selectorRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectorRef.current && !selectorRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="px-3 mt-3">
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="pl-3 pr-2 py-2 border border-gray-200 border-solid rounded-lg cursor-pointer flex items-center justify-between relative"
+      >
+        <div>
+          <h3 className="font-semibold text-base">Recent Audits</h3>
+          <p className="text-xs text-gray-400">06 July 2025 12:30 PM</p>
+        </div>
+        <div>
+          <ChevronsUpDownIcon className="shrink-0 size-6 stroke-1 text-gray-500" />
+        </div>
+        {isOpen && (
+          <div
+            ref={selectorRef}
+            className="absolute top-[calc(100%+8px)] left-0 w-full bg-white rounded-md shadow-lg z-50 border border-gray-200"
+          >
+            <button className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100">
+              <div>
+                <p className="font-semibold mb-1">06 July 2025 12:30 PM</p>
+                <span className="text-xs inline-block px-2 py-1 rounded-full bg-blue-50 text-blue-600">
+                  Running
+                </span>
+              </div>
+              <Check className="h-4 w-4" />
+            </button>
+            <button className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100">
+              <div>
+                <p className="font-semibold mb-1">06 July 2025 12:30 PM</p>
+                <span className="text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600">
+                  Completed
+                </span>
+              </div>
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AuditSelector;

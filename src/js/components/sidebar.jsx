@@ -7,12 +7,12 @@ import {
   Link2,
   FileText,
   Cpu,
-  ChevronsUpDownIcon,
   Settings,
   HelpCircle,
 } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { NavLink } from "react-router-dom";
+import AuditSelector from "./audit-selector";
 
 const SidebarLink = ({ to, icon: Icon, children, className }) => {
   return (
@@ -69,17 +69,7 @@ const Sidebar = () => {
             Falcon SEO
           </NavLink>
         </div>
-        <div className="px-3 mt-3">
-          <div className="pl-3 pr-2 py-2 border border-gray-200 border-solid rounded-lg cursor-pointer flex items-center justify-between">
-            <div>
-              <h3 className="font-semibold text-base">Recent Audits</h3>
-              <p className="text-xs text-gray-400">06 July 2025 12:30 PM</p>
-            </div>
-            <div>
-              <ChevronsUpDownIcon className="shrink-0 size-6 stroke-1 text-gray-500" />
-            </div>
-          </div>
-        </div>
+        <AuditSelector />
         <div className="h-full flex flex-col justify-between gap-12 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
           <nav className="p-3 w-full">
             <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">

@@ -65,6 +65,15 @@ class AdminPages
 
 		add_submenu_page(
 			'falcon-seo-audit',
+			'Dashboard',
+			'Dashboard',
+			'manage_options',
+			'falcon-seo-audit#/',
+			array($this, 'render_main_page')
+		);
+
+		add_submenu_page(
+			'falcon-seo-audit',
 			'Run Audit',
 			'Run Audit',
 			'manage_options',
