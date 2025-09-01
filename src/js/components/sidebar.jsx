@@ -10,48 +10,46 @@ import {
   Settings,
   HelpCircle,
 } from "lucide-react";
-import { twMerge } from "tailwind-merge";
 import { NavLink } from "react-router-dom";
 import AuditSelector from "./audit-selector";
+import SidebarLink from "./sidebar-link";
+import axios from "../utils/axios";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
-const SidebarLink = ({ to, icon: Icon, children, className }) => {
-  return (
-    <li className="mb-0 mt-2">
-      <NavLink
-        to={to}
-        className={({ isActive }) =>
-          twMerge(
-            "flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-l transition-colors duration-200 focus:ring-0",
-            isActive
-              ? "bg-blue-50 text-blue-600 font-medium"
-              : "text-gray-700 hover:bg-gray-100",
-            className
-          )
-        }
-      >
-        <Icon className="shrink-0 size-4" />
-        {children}
-      </NavLink>
-    </li>
-  );
-};
+const navItems = [
+  { to: "/", icon: HomeIcon, label: "Dashboard" },
+  { to: "/crawled-urls", icon: LinkIcon, label: "Crawled URLs" },
+  { to: "/seo-issues", icon: AlertTriangle, label: "SEO Issues" },
+  { to: "/page-speed", icon: Gauge, label: "Page Speed" },
+  { to: "/mobile-usability", icon: Smartphone, label: "Mobile Usability" },
+  { to: "/backlinks", icon: Link2, label: "Backlinks" },
+  { to: "/content-analysis", icon: FileText, label: "Content Analysis" },
+  { to: "/technical-seo", icon: Cpu, label: "Technical SEO" },
+];
+
+const settingsItems = [
+  { to: "/help", icon: HelpCircle, label: "Help" },
+  { to: "/settings", icon: Settings, label: "Settings" },
+];
 
 const Sidebar = () => {
-  const navItems = [
-    { to: "/", icon: HomeIcon, label: "Dashboard" },
-    { to: "/crawled-urls", icon: LinkIcon, label: "Crawled URLs" },
-    { to: "/seo-issues", icon: AlertTriangle, label: "SEO Issues" },
-    { to: "/page-speed", icon: Gauge, label: "Page Speed" },
-    { to: "/mobile-usability", icon: Smartphone, label: "Mobile Usability" },
-    { to: "/backlinks", icon: Link2, label: "Backlinks" },
-    { to: "/content-analysis", icon: FileText, label: "Content Analysis" },
-    { to: "/technical-seo", icon: Cpu, label: "Technical SEO" },
-  ];
+  const domain = new URL(falcon_seo_obj.site_url).hostname;
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["audits"],
+    queryFn: () =>
+      axios
+        .get("/audit/recent-audits", {
+          params: {
+            domain,
+          },
+        })
+        .then((res) => res.data),
+  });
 
-  const settingsItems = [
-    { to: "/help", icon: HelpCircle, label: "Help" },
-    { to: "/settings", icon: Settings, label: "Settings" },
-  ];
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className="falcon-sidebar hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform w-64 hidden fixed z-60 bg-white border-e border-gray-200 lg:block lg:translate-x-0 lg:end-auto lg:bottom-0">

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppRoutes from "./routes";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,8 @@ const App = () => (
       <AppRoutes />
       <ToastContainer position="bottom-right" autoClose={5000} />
     </HashRouter>
+    {/* Devtools only in development */}
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
 
