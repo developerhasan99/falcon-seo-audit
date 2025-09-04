@@ -10,7 +10,7 @@ import {
   Settings,
   HelpCircle,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AuditSelector from "./audit-selector";
 import SidebarLink from "./sidebar-link";
 import axios from "../utils/axios";
@@ -34,6 +34,7 @@ const settingsItems = [
 ];
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const domain = new URL(falcon_seo_obj.site_url).hostname;
   const { isLoading, error, data } = useQuery({
     queryKey: ["audits"],
@@ -48,7 +49,9 @@ const Sidebar = () => {
   });
 
   useEffect(() => {
-    console.log(data);
+    if (data?.redirect === "run-audit") {
+      navigate("/run-audit");
+    }
   }, [data]);
 
   return (
@@ -70,13 +73,15 @@ const Sidebar = () => {
         <AuditSelector />
         <div className="h-full flex flex-col justify-between gap-12 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
           <nav className="p-3 w-full">
-            <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
-              {navItems.map((item) => (
-                <SidebarLink key={item.to} to={item.to} icon={item.icon}>
-                  {item.label}
-                </SidebarLink>
-              ))}
-            </ul>
+            {data?.recentAudits?.length !== 0 && (
+              <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
+                {navItems.map((item) => (
+                  <SidebarLink key={item.to} to={item.to} icon={item.icon}>
+                    {item.label}
+                  </SidebarLink>
+                ))}
+              </ul>
+            )}
           </nav>
           <nav className="p-3 w-full">
             <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">

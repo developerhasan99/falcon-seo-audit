@@ -542,9 +542,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .top-8{
   top: 2rem;
 }
-.falcon-seo-audit .top-\[100\%\]{
-  top: 100%;
-}
 .falcon-seo-audit .top-\[calc\(100\%\+8px\)\]{
   top: calc(100% + 8px);
 }
@@ -748,9 +745,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-full{
   height: 100%;
 }
-.falcon-seo-audit .h-3{
-  height: 0.75rem;
-}
 .falcon-seo-audit .max-h-full{
   max-height: 100%;
 }
@@ -783,9 +777,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .w-full{
   width: 100%;
-}
-.falcon-seo-audit .w-3{
-  width: 0.75rem;
 }
 .falcon-seo-audit .min-w-full{
   min-width: 100%;
@@ -1160,6 +1151,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
+.falcon-seo-audit .bg-green-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity));
+}
 .falcon-seo-audit .bg-green-500{
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
@@ -1201,10 +1196,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .bg-yellow-500{
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
-}
-.falcon-seo-audit .bg-green-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(240 253 244 / var(--tw-bg-opacity));
 }
 .falcon-seo-audit .fill-green-500{
   fill: #22c55e;
@@ -1312,9 +1303,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .pl-6{
   padding-left: 1.5rem;
-}
-.falcon-seo-audit .pl-64{
-  padding-left: 16rem;
 }
 .falcon-seo-audit .pr-2{
   padding-right: 0.5rem;
