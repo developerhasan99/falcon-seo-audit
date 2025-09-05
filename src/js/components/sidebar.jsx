@@ -1,26 +1,20 @@
 import {
-  HomeIcon,
-  Link as LinkIcon,
-  AlertTriangle,
+  Home,
+  Settings,
+  HelpCircle,
   Gauge,
   Smartphone,
   Link2,
   FileText,
   Cpu,
-  Settings,
-  HelpCircle,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
-import AuditSelector from "./audit-selector";
-import SidebarLink from "./sidebar-link";
-import axios from "../utils/axios";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { AuditSelector } from "./audit-selector";
+import { useAudit } from "../hooks/useAudit";
 
 const navItems = [
-  { to: "/", icon: HomeIcon, label: "Dashboard" },
-  { to: "/crawled-urls", icon: LinkIcon, label: "Crawled URLs" },
-  { to: "/seo-issues", icon: AlertTriangle, label: "SEO Issues" },
+  { to: "/", icon: Home, label: "Dashboard" },
   { to: "/page-speed", icon: Gauge, label: "Page Speed" },
   { to: "/mobile-usability", icon: Smartphone, label: "Mobile Usability" },
   { to: "/backlinks", icon: Link2, label: "Backlinks" },
@@ -35,20 +29,11 @@ const settingsItems = [
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const domain = new URL(falcon_seo_obj.site_url).hostname;
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["audits"],
-    queryFn: () =>
-      axios
-        .get("/audit/recent-audits", {
-          params: {
-            domain,
-          },
-        })
-        .then((res) => res.data),
-  });
+  const { isLoading, data, error } = useAudit();
 
   useEffect(() => {
+    console.log(data);
+
     if (data?.redirect === "run-audit") {
       navigate("/run-audit");
     }
@@ -108,9 +93,19 @@ const Sidebar = () => {
                 {data?.recentAudits && data?.recentAudits.length > 0 && (
                   <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
                     {navItems.map((item) => (
-                      <SidebarLink key={item.to} to={item.to} icon={item.icon}>
-                        {item.label}
-                      </SidebarLink>
+                      <li key={item.to}>
+                        <NavLink
+                          to={item.to}
+                          className={({ isActive }) =>
+                            `flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 ${
+                              isActive ? "bg-gray-100" : ""
+                            }`
+                          }
+                        >
+                          <item.icon className="size-4" />
+                          {item.label}
+                        </NavLink>
+                      </li>
                     ))}
                   </ul>
                 )}
@@ -120,9 +115,19 @@ const Sidebar = () => {
           <nav className="p-3 w-full">
             <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
               {settingsItems.map((item) => (
-                <SidebarLink key={item.to} to={item.to} icon={item.icon}>
-                  {item.label}
-                </SidebarLink>
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 ${
+                        isActive ? "bg-gray-100" : ""
+                      }`
+                    }
+                  >
+                    <item.icon className="size-4" />
+                    {item.label}
+                  </NavLink>
+                </li>
               ))}
             </ul>
           </nav>
