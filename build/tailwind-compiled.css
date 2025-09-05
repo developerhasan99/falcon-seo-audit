@@ -660,6 +660,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .mt-5{
   margin-top: 1.25rem;
 }
+.falcon-seo-audit .mt-6{
+  margin-top: 1.5rem;
+}
 .falcon-seo-audit .block{
   display: block;
 }
@@ -758,6 +761,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .h-3{
   height: 0.75rem;
+}
+.falcon-seo-audit .h-\[calc\(100vh-56px\)\]{
+  height: calc(100vh - 56px);
+}
+.falcon-seo-audit .h-\[calc\(100vh-96px\)\]{
+  height: calc(100vh - 96px);
+}
+.falcon-seo-audit .h-\[calc\(100vh-150px\)\]{
+  height: calc(100vh - 150px);
 }
 .falcon-seo-audit .max-h-full{
   max-height: 100%;

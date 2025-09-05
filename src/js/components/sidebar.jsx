@@ -32,8 +32,6 @@ const Sidebar = () => {
   const { isLoading, data, error } = useAudit();
 
   useEffect(() => {
-    console.log(data);
-
     if (data?.redirect === "run-audit") {
       navigate("/run-audit");
     }
