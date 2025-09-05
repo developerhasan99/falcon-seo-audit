@@ -460,6 +460,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     --hs-overlay-auto-close: lg;
     height: calc(100vh - 2rem);
   }
+.falcon-seo-audit .shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+    background-size: 1000px 100%;
+  }
 .falcon-seo-audit .sr-only{
   position: absolute;
   width: 1px;
@@ -736,6 +741,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-5{
   height: 1.25rem;
 }
+.falcon-seo-audit .h-6{
+  height: 1.5rem;
+}
 .falcon-seo-audit .h-9{
   height: 2.25rem;
 }
@@ -744,6 +752,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .h-full{
   height: 100%;
+}
+.falcon-seo-audit .h-3{
+  height: 0.75rem;
 }
 .falcon-seo-audit .max-h-full{
   max-height: 100%;
@@ -1559,6 +1570,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .falcon-seo-audit .\[transform\:translate\(-50\%\2c -50\%\)\]{
   transform: translate(-50%,-50%);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
 }
 
 .falcon-seo-audit .file\:border-0::file-selector-button{

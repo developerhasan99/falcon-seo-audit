@@ -70,10 +70,21 @@ const Sidebar = () => {
             Falcon SEO
           </NavLink>
         </div>
-        <AuditSelector />
+        {isLoading ? (
+          <div className="px-3 mt-3">
+            <div className="p-2 border border-gray-200 border-solid rounded-lg">
+              <div className="shimmer w-full h-4 mb-2 mt-1 rounded"></div>
+              <div className="shimmer w-full h-3 rounded"></div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <AuditSelector />
+          </>
+        )}
         <div className="h-full flex flex-col justify-between gap-12 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
           <nav className="p-3 w-full">
-            {data?.recentAudits?.length !== 0 && (
+            {data?.recentAudits && data?.recentAudits.length > 0 && (
               <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
                 {navItems.map((item) => (
                   <SidebarLink key={item.to} to={item.to} icon={item.icon}>
