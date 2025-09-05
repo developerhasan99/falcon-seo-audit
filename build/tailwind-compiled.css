@@ -657,6 +657,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .mt-4{
   margin-top: 1rem;
 }
+.falcon-seo-audit .mt-5{
+  margin-top: 1.25rem;
+}
 .falcon-seo-audit .block{
   display: block;
 }
@@ -972,6 +975,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+.falcon-seo-audit .space-y-3 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 .falcon-seo-audit .divide-y > :not([hidden]) ~ :not([hidden]){
   --tw-divide-y-reverse: 0;

@@ -79,19 +79,42 @@ const Sidebar = () => {
           </div>
         ) : (
           <>
-            <AuditSelector />
+            {data?.recentAudits && data?.recentAudits.length > 0 ? (
+              <AuditSelector />
+            ) : (
+              <div className="px-6 mt-5">
+                <div>Please run an audit to explore your site data.</div>
+              </div>
+            )}
           </>
         )}
         <div className="h-full flex flex-col justify-between gap-12 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
           <nav className="p-3 w-full">
-            {data?.recentAudits && data?.recentAudits.length > 0 && (
-              <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
-                {navItems.map((item) => (
-                  <SidebarLink key={item.to} to={item.to} icon={item.icon}>
-                    {item.label}
-                  </SidebarLink>
-                ))}
+            {isLoading ? (
+              <ul className="px-2 space-y-3 [&>li:first-child]:!mt-0">
+                {Array(8)
+                  .fill(0)
+                  .map((audit) => (
+                    <li key={audit.id}>
+                      <div
+                        className="shimmer w-full h-6 rounded"
+                        style={{ width: `${50 + Math.random() * 30}%` }}
+                      ></div>
+                    </li>
+                  ))}
               </ul>
+            ) : (
+              <>
+                {data?.recentAudits && data?.recentAudits.length > 0 && (
+                  <ul className="flex flex-col space-y-1 [&>li:first-child]:!mt-0">
+                    {navItems.map((item) => (
+                      <SidebarLink key={item.to} to={item.to} icon={item.icon}>
+                        {item.label}
+                      </SidebarLink>
+                    ))}
+                  </ul>
+                )}
+              </>
             )}
           </nav>
           <nav className="p-3 w-full">
