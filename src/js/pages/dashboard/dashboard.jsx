@@ -13,7 +13,7 @@ const Dashboard = () => {
   const { isLoading, data, error } = useAudit();
 
   useEffect(() => {
-    if (!data.recentAudits || data?.recentAudits?.length > 0) {
+    if (!data?.recentAudits || data?.recentAudits?.length > 0) {
       navigate("/run-audit");
     }
   }, []);

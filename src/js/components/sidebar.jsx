@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { AuditSelector } from "./audit-selector";
+import AuditSelector from "./audit-selector";
 import { useAudit } from "../hooks/useAudit";
 
 const navItems = [
@@ -63,7 +63,7 @@ const Sidebar = () => {
         ) : (
           <>
             {data?.recentAudits && data?.recentAudits.length > 0 ? (
-              <AuditSelector />
+              <AuditSelector recentAudits={data?.recentAudits} />
             ) : (
               <div className="px-6 mt-5">
                 <div>Please run an audit to explore your site data.</div>

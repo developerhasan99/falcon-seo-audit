@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
+import moment from "moment";
 
-const AuditSelector = () => {
+const AuditSelector = ({ recentAudits }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectorRef = useRef(null);
 
@@ -34,23 +35,22 @@ const AuditSelector = () => {
             ref={selectorRef}
             className="absolute top-[calc(100%+8px)] left-0 w-full bg-white rounded-md shadow-lg z-50 border border-gray-200"
           >
-            <button className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100">
-              <div>
-                <p className="font-semibold mb-1">06 July 2025 12:30 PM</p>
-                <span className="text-xs inline-block px-2 py-1 rounded-full bg-blue-50 text-blue-600">
-                  Running
-                </span>
-              </div>
-              <Check className="h-4 w-4" />
-            </button>
-            <button className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100">
-              <div>
-                <p className="font-semibold mb-1">06 July 2025 12:30 PM</p>
-                <span className="text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600">
-                  Completed
-                </span>
-              </div>
-            </button>
+            {recentAudits.map((audit) => (
+              <button
+                key={audit.id}
+                className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100"
+              >
+                <div>
+                  <p className="font-semibold mb-1">
+                    {moment(audit.initiatedAt).format("DD MMM YYYY hh:mm A")}
+                  </p>
+                  <span className="text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600">
+                    {audit.status}
+                  </span>
+                </div>
+                <Check className="h-4 w-4" />
+              </button>
+            ))}
           </div>
         )}
       </div>
