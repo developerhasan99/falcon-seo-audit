@@ -1,18 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
 import moment from "moment";
+import { twMerge } from "tailwind-merge";
+import useStore from "../store/index";
 
 const AuditSelector = ({ recentAudits }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectorRef = useRef(null);
+  const { auditId, setAuditId } = useStore();
 
   useEffect(() => {
+    // Set the default audit
+    if (recentAudits.length > 0) {
+      setAuditId(recentAudits[0].id);
+    }
+
+    // Close the dropdown when clicking outside
     const handleClickOutside = (event) => {
       if (selectorRef.current && !selectorRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -44,11 +52,18 @@ const AuditSelector = ({ recentAudits }) => {
                   <p className="font-semibold mb-1">
                     {moment(audit.initiatedAt).format("DD MMM YYYY hh:mm A")}
                   </p>
-                  <span className="text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600">
+                  <span
+                    className={twMerge(
+                      "text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600",
+                      audit.status === "completed"
+                        ? "bg-green-50 text-green-600"
+                        : "bg-yellow-50 text-yellow-600"
+                    )}
+                  >
                     {audit.status}
                   </span>
                 </div>
-                <Check className="h-4 w-4" />
+                {audit.id === auditId && <Check className="h-4 w-4" />}
               </button>
             ))}
           </div>

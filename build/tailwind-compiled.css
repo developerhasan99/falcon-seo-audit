@@ -1215,6 +1215,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(254 249 195 / var(--tw-bg-opacity));
 }
+.falcon-seo-audit .bg-yellow-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 252 232 / var(--tw-bg-opacity));
+}
 .falcon-seo-audit .bg-yellow-500{
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));

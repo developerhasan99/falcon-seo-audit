@@ -73,6 +73,9 @@ class Plugin
             body[class*="page_falcon-seo-audit"] #fsa-main-page {
                 position: relative;
                 min-height: calc(100vh - var(--wp-admin--admin-bar--height));
+            }
+            body[class*="page_falcon-seo-audit"] .notice {
+                display: none;
             }';
 
             wp_add_inline_style('wp-admin', $custom_css);
