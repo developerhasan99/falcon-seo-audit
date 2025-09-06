@@ -660,9 +660,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .mt-5{
   margin-top: 1.25rem;
 }
-.falcon-seo-audit .mt-6{
-  margin-top: 1.5rem;
-}
 .falcon-seo-audit .block{
   display: block;
 }
@@ -738,6 +735,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-12{
   height: 3rem;
 }
+.falcon-seo-audit .h-3{
+  height: 0.75rem;
+}
 .falcon-seo-audit .h-4{
   height: 1rem;
 }
@@ -756,20 +756,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .h-\[5px\]{
   height: 5px;
 }
-.falcon-seo-audit .h-full{
-  height: 100%;
-}
-.falcon-seo-audit .h-3{
-  height: 0.75rem;
-}
-.falcon-seo-audit .h-\[calc\(100vh-56px\)\]{
-  height: calc(100vh - 56px);
-}
-.falcon-seo-audit .h-\[calc\(100vh-96px\)\]{
-  height: calc(100vh - 96px);
-}
 .falcon-seo-audit .h-\[calc\(100vh-150px\)\]{
   height: calc(100vh - 150px);
+}
+.falcon-seo-audit .h-full{
+  height: 100%;
 }
 .falcon-seo-audit .max-h-full{
   max-height: 100%;
@@ -978,6 +969,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
+.falcon-seo-audit .space-y-3 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
 .falcon-seo-audit .space-y-4 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -987,11 +983,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-.falcon-seo-audit .space-y-3 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 .falcon-seo-audit .divide-y > :not([hidden]) ~ :not([hidden]){
   --tw-divide-y-reverse: 0;
@@ -1493,6 +1484,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
 }
+.falcon-seo-audit .text-slate-700{
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
+}
 .falcon-seo-audit .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1512,10 +1507,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity));
-}
-.falcon-seo-audit .text-slate-700{
-  --tw-text-opacity: 1;
-  color: rgb(51 65 85 / var(--tw-text-opacity));
 }
 .falcon-seo-audit .underline{
   text-decoration-line: underline;
