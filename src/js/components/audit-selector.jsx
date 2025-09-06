@@ -2,18 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
 import moment from "moment";
 import { twMerge } from "tailwind-merge";
-import useStore from "../store/index";
 
 const AuditSelector = ({ recentAudits }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectorRef = useRef(null);
-  const { auditId, setAuditId } = useStore();
 
   useEffect(() => {
-    // Set the default audit
-    if (recentAudits.length > 0) {
-      setAuditId(recentAudits[0].id);
-    }
+    // // Set the default audit
+    // if (recentAudits.length > 0) {
+    //   setAuditId(recentAudits[0].id);
+    // }
 
     // Close the dropdown when clicking outside
     const handleClickOutside = (event) => {

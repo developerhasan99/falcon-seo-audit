@@ -5,4 +5,4 @@ const useStore = create((set) => ({
   setAuditId: (id: string) => set({ auditId: id }),
 }))
 
-export default useStore;
+export { useStore };
