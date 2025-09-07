@@ -660,6 +660,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .mt-5{
   margin-top: 1.25rem;
 }
+.falcon-seo-audit .line-clamp-1{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
 .falcon-seo-audit .block{
   display: block;
 }

@@ -11,10 +11,24 @@ import { useAudit } from "../../hooks/useAudit";
 import { useQuery } from "@tanstack/react-query";
 
 function RunAudit() {
-  const [justCompleted, setJustCompleted] = useState([]);
   const auditStatus = useStore((state) => state.auditStatus);
   const setAuditStatus = useStore((state) => state.setAuditStatus);
   const { isLoading, data, error } = useAudit();
+
+  const { data: justCompletedData } = useQuery({
+    queryKey: ["just-completed-urls", data?.recentAudits?.[0]?.id],
+    queryFn: () =>
+      axios
+        .get("/audit/just-completed-urls", {
+          params: {
+            audit_id: data?.recentAudits?.[0]?.id,
+          },
+        })
+        .then((res) => res.data),
+    enabled: auditStatus === "running",
+    staleTime: 3 * 1000,
+    refetchInterval: 3000,
+  });
 
   const runAudit = async () => {
     const response = await axios.get("/audit/initiate", {
@@ -31,18 +45,18 @@ function RunAudit() {
 
   useEffect(() => {
     if (auditStatus === "running") {
-      const { data } = useQuery({
-        queryKey: ["just-completed-urls"],
-        queryFn: () =>
-          axios
-            .get("/audit/just-completed-urls", {
-              params: {
-                audit_id: data?.recentAudits?.[0]?.id,
-              },
-            })
-            .then((res) => res.data),
-        staleTime: 3 * 1000,
-      });
+      axios
+        .get("/audit/just-completed-urls", {
+          params: {
+            audit_id: data?.recentAudits?.[0]?.id,
+          },
+        })
+        .then((res) => {
+          if (res.data?.success) {
+            setJustCompleted(res.data?.data);
+            // setAuditStatus("completed");
+          }
+        });
     }
   }, [auditStatus]);
 
@@ -68,8 +82,8 @@ function RunAudit() {
               <CompletedStatus runAudit={runAudit} />
             )}
 
-            {justCompleted.length > 0 && (
-              <Progress justCompleted={justCompleted} />
+            {justCompletedData?.data?.length > 0 && (
+              <Progress justCompleted={justCompletedData?.data} />
             )}
           </div>
         </Card>
