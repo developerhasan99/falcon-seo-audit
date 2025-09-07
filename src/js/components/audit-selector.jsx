@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronsUpDownIcon } from "lucide-react";
+import { Check, ChevronsUpDownIcon, Trash } from "lucide-react";
 import moment from "moment";
 import { twMerge } from "tailwind-merge";
 import { useStore } from "../store/index";
@@ -65,16 +65,21 @@ const AuditSelector = ({ recentAudits }) => {
                   <p className="font-semibold mb-1">
                     {moment(audit.initiatedAt).format("DD MMM YYYY hh:mm A")}
                   </p>
-                  <span
-                    className={twMerge(
-                      "text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600",
-                      audit.status === "completed"
-                        ? "bg-green-50 text-green-600"
-                        : "bg-yellow-50 text-yellow-600"
-                    )}
-                  >
-                    {audit.status}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={twMerge(
+                        "text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600",
+                        audit.status === "completed"
+                          ? "bg-green-50 text-green-600"
+                          : "bg-yellow-50 text-yellow-600"
+                      )}
+                    >
+                      {audit.status}
+                    </span>
+                    <button className="bg-red-50 rounded-full p-1">
+                      <Trash className="size-4 text-red-600" />
+                    </button>
+                  </div>
                 </div>
                 {audit.id === currentAudit.id && <Check className="h-4 w-4" />}
               </button>
