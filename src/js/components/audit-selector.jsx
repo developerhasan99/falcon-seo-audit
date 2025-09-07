@@ -2,16 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
 import moment from "moment";
 import { twMerge } from "tailwind-merge";
+import { useStore } from "../store/index";
 
 const AuditSelector = ({ recentAudits }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectorRef = useRef(null);
+  const currentAudit = useStore((state) => state.currentAudit);
+  const setCurrentAudit = useStore((state) => state.setCurrentAudit);
 
   useEffect(() => {
-    // // Set the default audit
-    // if (recentAudits.length > 0) {
-    //   setAuditId(recentAudits[0].id);
-    // }
+    // Set the default audit
+    if (recentAudits.length > 0) {
+      setCurrentAudit(recentAudits[0]);
+    }
 
     // Close the dropdown when clicking outside
     const handleClickOutside = (event) => {
@@ -31,7 +34,10 @@ const AuditSelector = ({ recentAudits }) => {
       >
         <div>
           <h3 className="font-semibold text-base">Recent Audits</h3>
-          <p className="text-xs text-gray-400">06 July 2025 12:30 PM</p>
+          <p className="text-xs text-gray-400">
+            {currentAudit.initiatedAt &&
+              moment(currentAudit.initiatedAt).format("DD MMM YYYY hh:mm A")}
+          </p>
         </div>
         <div>
           <ChevronsUpDownIcon className="shrink-0 size-6 stroke-1 text-gray-500" />
@@ -44,6 +50,7 @@ const AuditSelector = ({ recentAudits }) => {
             {recentAudits.map((audit) => (
               <button
                 key={audit.id}
+                onClick={() => setCurrentAudit(audit)}
                 className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100"
               >
                 <div>
@@ -61,7 +68,7 @@ const AuditSelector = ({ recentAudits }) => {
                     {audit.status}
                   </span>
                 </div>
-                {audit.id === auditId && <Check className="h-4 w-4" />}
+                {audit.id === currentAudit.id && <Check className="h-4 w-4" />}
               </button>
             ))}
           </div>
