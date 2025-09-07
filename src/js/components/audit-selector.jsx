@@ -9,12 +9,20 @@ const AuditSelector = ({ recentAudits }) => {
   const selectorRef = useRef(null);
   const currentAudit = useStore((state) => state.currentAudit);
   const setCurrentAudit = useStore((state) => state.setCurrentAudit);
+  const setAuditStatus = useStore((state) => state.setAuditStatus);
 
   useEffect(() => {
     // Set the default audit
     if (recentAudits.length > 0) {
       setCurrentAudit(recentAudits[0]);
     }
+
+    // Check if any audit is running
+    recentAudits.forEach((audit) => {
+      if (audit.status === "running") {
+        setAuditStatus("running");
+      }
+    });
 
     // Close the dropdown when clicking outside
     const handleClickOutside = (event) => {
