@@ -27,7 +27,7 @@ function RunAudit() {
         .then((res) => res.data),
     enabled: auditStatus === "running",
     staleTime: 3 * 1000,
-    refetchInterval: 3000,
+    refetchInterval: 5000,
   });
 
   const runAudit = async () => {
