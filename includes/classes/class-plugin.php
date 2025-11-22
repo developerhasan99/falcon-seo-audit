@@ -75,7 +75,7 @@ class Plugin
                 min-height: calc(100vh - var(--wp-admin--admin-bar--height));
             }
             body[class*="page_falcon-seo-audit"] .notice {
-                display: none;
+                display: none !important;
             }';
 
             wp_add_inline_style('wp-admin', $custom_css);
