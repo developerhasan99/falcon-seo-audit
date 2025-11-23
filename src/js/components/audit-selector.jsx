@@ -9,21 +9,8 @@ const AuditSelector = ({ recentAudits }) => {
   const selectorRef = useRef(null);
   const currentAudit = useStore((state) => state.currentAudit);
   const setCurrentAudit = useStore((state) => state.setCurrentAudit);
-  const setAuditStatus = useStore((state) => state.setAuditStatus);
 
   useEffect(() => {
-    // Set the default audit
-    if (recentAudits.length > 0) {
-      setCurrentAudit(recentAudits[0]);
-    }
-
-    // Check if any audit is running
-    recentAudits.forEach((audit) => {
-      if (audit.status === "running") {
-        setAuditStatus("running");
-      }
-    });
-
     // Close the dropdown when clicking outside
     const handleClickOutside = (event) => {
       if (selectorRef.current && !selectorRef.current.contains(event.target)) {
@@ -43,7 +30,7 @@ const AuditSelector = ({ recentAudits }) => {
         <div>
           <h3 className="font-semibold text-base">Recent Audits</h3>
           <p className="text-xs text-gray-400">
-            {currentAudit.initiatedAt &&
+            {currentAudit?.initiatedAt &&
               moment(currentAudit.initiatedAt).format("DD MMM YYYY hh:mm A")}
           </p>
         </div>
@@ -68,17 +55,16 @@ const AuditSelector = ({ recentAudits }) => {
                   <div className="flex items-center gap-2">
                     <span
                       className={twMerge(
-                        "text-xs inline-block px-2 py-1 rounded-full bg-green-50 text-green-600",
+                        "text-xs inline-block px-2 py-1 rounded-full capitalize",
                         audit.status === "completed"
                           ? "bg-green-50 text-green-600"
+                          : audit.status === "failed"
+                          ? "bg-red-50 text-red-600"
                           : "bg-yellow-50 text-yellow-600"
                       )}
                     >
                       {audit.status}
                     </span>
-                    <button className="bg-red-50 rounded-full p-1">
-                      <Trash className="size-4 text-red-600" />
-                    </button>
                   </div>
                 </div>
                 {audit.id === currentAudit.id && <Check className="h-4 w-4" />}

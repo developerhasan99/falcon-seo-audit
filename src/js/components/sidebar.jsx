@@ -12,6 +12,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import AuditSelector from "./audit-selector";
 import { useAudit } from "../hooks/useAudit";
+import { useStore } from "../store/index";
 
 const navItems = [
   { to: "/", icon: Home, label: "Dashboard" },
@@ -30,10 +31,21 @@ const settingsItems = [
 const Sidebar = () => {
   const navigate = useNavigate();
   const { isLoading, data, error } = useAudit();
+  const setCurrentAudit = useStore((state) => state.setCurrentAudit);
+  const setAuditStatus = useStore((state) => state.setAuditStatus);
 
   useEffect(() => {
-    if (data?.redirect === "run-audit") {
-      navigate("/run-audit");
+    if (error) {
+      console.log("Audit error:", error);
+    } else {
+      if (data?.recentAudits?.length === 0) {
+        navigate("/run-audit");
+      } else {
+        setCurrentAudit(data?.recentAudits[0]);
+        if (data?.recentAudits?.some((audit) => audit.status === "running")) {
+          setAuditStatus("running");
+        }
+      }
     }
   }, [data]);
 

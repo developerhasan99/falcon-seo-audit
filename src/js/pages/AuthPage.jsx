@@ -16,7 +16,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  
+
   const loginMutation = useLogin();
   const registerMutation = useRegister();
 
@@ -32,7 +32,6 @@ const AuthPage = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       if (isLogin) {
         await loginMutation.mutateAsync({

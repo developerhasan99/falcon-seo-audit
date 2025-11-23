@@ -1,6 +1,6 @@
 import FalconButton from "./falcon-button";
 
-function DefaultStatus({ runAudit }) {
+function DefaultStatus({ runAudit, isInitiating }) {
   return (
     <>
       <img
@@ -19,7 +19,11 @@ function DefaultStatus({ runAudit }) {
         </p>
       </div>
       <div className="flex gap-4 justify-center">
-        <FalconButton runAudit={runAudit} text="Run Audit" />
+        <FalconButton
+          runAudit={runAudit}
+          text="Run Audit"
+          isInitiating={isInitiating}
+        />
       </div>
     </>
   );

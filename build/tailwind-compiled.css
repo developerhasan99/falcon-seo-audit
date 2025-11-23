@@ -1407,6 +1407,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .uppercase{
   text-transform: uppercase;
 }
+.falcon-seo-audit .capitalize{
+  text-transform: capitalize;
+}
 .falcon-seo-audit .italic{
   font-style: italic;
 }

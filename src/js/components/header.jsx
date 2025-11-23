@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { useUser, useLogout } from "@/hooks/useAuth";
 import { useState, useRef, useEffect } from "react";
+import { useStore } from "@/store/index";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,6 +89,8 @@ const UserMenu = () => {
 };
 
 const Header = () => {
+  const auditStatus = useStore((state) => state.auditStatus);
+
   return (
     <header className="sticky top-8 z-50 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-48 w-full bg-white border-b border-gray-200 text-sm py-2.5 lg:ps-65">
       <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
@@ -127,13 +130,17 @@ const Header = () => {
             </div>
           </div>
           <div className="inline-flex items-center gap-4">
-            <Link
-              to="/run-audit"
-              className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none"
-            >
-              <PlusIcon className="shrink-0 size-4" />
-              New Audit
-            </Link>
+            {auditStatus ? (
+              <button>{auditStatus}</button>
+            ) : (
+              <Link
+                to="/run-audit"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-150 disabled:opacity-50 disabled:pointer-events-none"
+              >
+                <PlusIcon className="shrink-0 size-4" />
+                New Audit
+              </Link>
+            )}
             <UserMenu />
           </div>
         </div>

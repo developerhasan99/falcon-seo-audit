@@ -13,24 +13,11 @@ import { useQuery } from "@tanstack/react-query";
 function RunAudit() {
   const auditStatus = useStore((state) => state.auditStatus);
   const setAuditStatus = useStore((state) => state.setAuditStatus);
+  const [isInitiating, setIsInitiating] = useState(false);
   const { isLoading, data, error } = useAudit();
 
-  const { data: justCompletedData } = useQuery({
-    queryKey: ["just-completed-urls", data?.recentAudits?.[0]?.id],
-    queryFn: () =>
-      axios
-        .get("/audit/just-completed-urls", {
-          params: {
-            audit_id: data?.recentAudits?.[0]?.id,
-          },
-        })
-        .then((res) => res.data),
-    enabled: auditStatus === "running",
-    staleTime: 3 * 1000,
-    refetchInterval: 5000,
-  });
-
   const runAudit = async () => {
+    setIsInitiating(true);
     const response = await axios.get("/audit/initiate", {
       params: {
         domain: new URL(falcon_seo_obj.site_url).hostname,
@@ -41,24 +28,8 @@ function RunAudit() {
     } else {
       setAuditStatus("default");
     }
+    setIsInitiating(false);
   };
-
-  useEffect(() => {
-    if (auditStatus === "running") {
-      axios
-        .get("/audit/just-completed-urls", {
-          params: {
-            audit_id: data?.recentAudits?.[0]?.id,
-          },
-        })
-        .then((res) => {
-          if (res.data?.success) {
-            setJustCompleted(res.data?.data);
-            // setAuditStatus("completed");
-          }
-        });
-    }
-  }, [auditStatus]);
 
   return (
     <>
@@ -68,7 +39,9 @@ function RunAudit() {
       ) : (
         <Card>
           <div className="flex flex-col items-center gap-8 my-12">
-            {auditStatus === "default" && <DefaultStatus runAudit={runAudit} />}
+            {auditStatus === "default" && (
+              <DefaultStatus runAudit={runAudit} isInitiating={isInitiating} />
+            )}
 
             {auditStatus === "initiating" && (
               <FalconLoader loadingText="Initiating audit..." />
@@ -82,9 +55,7 @@ function RunAudit() {
               <CompletedStatus runAudit={runAudit} />
             )}
 
-            {justCompletedData?.data?.length > 0 && (
-              <Progress justCompleted={justCompletedData?.data} />
-            )}
+            {false && <Progress justCompleted={justCompletedData?.data} />}
           </div>
         </Card>
       )}
