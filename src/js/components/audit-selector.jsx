@@ -42,11 +42,15 @@ const AuditSelector = ({ recentAudits }) => {
             ref={selectorRef}
             className="absolute top-[calc(100%+8px)] left-0 w-full bg-white rounded-md shadow-lg z-50 border border-gray-200"
           >
-            {recentAudits.map((audit) => (
+            {recentAudits.map((audit, index) => (
               <button
                 key={audit.id}
                 onClick={() => setCurrentAudit(audit)}
-                className="w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100"
+                className={twMerge(
+                  "w-full text-left px-4 py-2 text-sm flex items-center justify-between text-gray-700 hover:bg-gray-100",
+                  index < recentAudits.length - 1 &&
+                    "border-b border-solid border-gray-100"
+                )}
               >
                 <div>
                   <p className="font-semibold mb-1">
@@ -60,6 +64,8 @@ const AuditSelector = ({ recentAudits }) => {
                           ? "bg-green-50 text-green-600"
                           : audit.status === "failed"
                           ? "bg-red-50 text-red-600"
+                          : audit.status === "paused"
+                          ? "bg-sky-50 text-sky-600"
                           : "bg-yellow-50 text-yellow-600"
                       )}
                     >

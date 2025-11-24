@@ -8,7 +8,6 @@ import Progress from "./progress";
 import axios from "../../utils/axios";
 import { useStore } from "../../store/index";
 import { useAudit } from "../../hooks/useAudit";
-import { useQuery } from "@tanstack/react-query";
 
 function RunAudit() {
   const auditStatus = useStore((state) => state.auditStatus);
@@ -17,18 +16,19 @@ function RunAudit() {
   const { isLoading, data, error } = useAudit();
 
   const runAudit = async () => {
-    setIsInitiating(true);
-    const response = await axios.get("/audit/initiate", {
-      params: {
-        domain: new URL(falcon_seo_obj.site_url).hostname,
-      },
-    });
-    if (response.data?.success) {
+    try {
+      setIsInitiating(true);
+      await axios.get("/audit/initiate", {
+        params: {
+          domain: new URL(falcon_seo_obj.site_url).hostname,
+        },
+      });
       setAuditStatus("running");
-    } else {
-      setAuditStatus("default");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsInitiating(false);
     }
-    setIsInitiating(false);
   };
 
   return (
@@ -47,15 +47,14 @@ function RunAudit() {
               <FalconLoader loadingText="Initiating audit..." />
             )}
 
-            {auditStatus === "running" && (
-              <FalconLoader loadingText="Running audit..." />
-            )}
+            {auditStatus === "running" && <Progress auditId={data.id} />}
 
             {auditStatus === "completed" && (
-              <CompletedStatus runAudit={runAudit} />
+              <CompletedStatus
+                runAudit={runAudit}
+                isInitiating={isInitiating}
+              />
             )}
-
-            {false && <Progress justCompleted={justCompletedData?.data} />}
           </div>
         </Card>
       )}

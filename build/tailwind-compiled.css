@@ -1233,6 +1233,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
+.falcon-seo-audit .bg-sky-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+}
 .falcon-seo-audit .fill-green-500{
   fill: #22c55e;
 }
@@ -1527,6 +1531,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .falcon-seo-audit .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity));
+}
+.falcon-seo-audit .text-sky-600{
+  --tw-text-opacity: 1;
+  color: rgb(2 132 199 / var(--tw-text-opacity));
 }
 .falcon-seo-audit .underline{
   text-decoration-line: underline;
